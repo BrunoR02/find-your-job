@@ -5,12 +5,19 @@
 
 .link{
   padding: 20px;
-  color: rgb(37, 139, 139);
+  color: var(--main-blue);
   font-weight: 700;
   cursor: pointer;
 }
-
 .link:hover{
-  border-bottom: 3px solid rgb(37, 139, 139);
   background-color: #eeeeee99;
+}
+
+.active{
+  color: #eee;
+  background-color: var(--main-blue)
+}
+
+.active:hover{
+  background-color: var(--main-blue);
 }

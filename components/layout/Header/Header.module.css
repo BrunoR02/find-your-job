@@ -9,5 +9,6 @@
 .title{
   padding: 20px;  
   font-size: 1.5em;
-  color: rgb(89, 89, 89);
+  color: var(--light-gray);
+  cursor: pointer;
 }

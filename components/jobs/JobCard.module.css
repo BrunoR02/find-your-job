@@ -1,0 +1,58 @@
+.card{
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 3px;
+  border: 1px solid #555;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.active{
+  border-left: 4px solid rgb(37, 139, 139);
+}
+
+.active .createdAt{
+  color: #11a2a2;
+}
+
+.title{
+  margin: 0;
+  color: var(--black);
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.details{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  color:var(--light-gray);
+}
+
+.location{
+  font-weight: 600;
+}
+
+.description{
+  display: block;
+  margin: 0;
+  color: var(--black);
+  width: 100%;
+  max-height: 85px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.createdAt{
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-align: right;
+}

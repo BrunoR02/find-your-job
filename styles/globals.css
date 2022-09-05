@@ -32,3 +32,9 @@ li{
 ul{
   padding: 0;
 }
+
+:root {
+  --main-blue: rgb(37, 139, 139);
+  --black: #222;
+  --light-gray: #555;
+}
