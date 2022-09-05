@@ -1,0 +1,168 @@
+.container{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 25px;
+  max-width: 60%;
+  height: 92vh;
+  border-radius: 3px;
+  border: 1px solid #555;
+  background-color: white;
+  transition: 1s ease;
+}
+
+.topBar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+}
+
+.title {
+  margin: 0;
+  color: #222;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.closeMobile{
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  background-size: cover;
+}
+
+.actions{
+  display: flex;
+}
+
+.applyButton, .saveButton{
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--main-blue);
+  border: 1px solid var(--main-blue);
+  border-radius: 3px;
+} 
+
+.saveButton{
+  color: var(--main-blue);
+  background-color: white;
+}
+
+.applyButton::before, .saveButton::before{
+  content: "";
+  display: table;
+  margin-right: 10px;
+  background-size: cover;
+}
+
+.applyButton::before{
+  width: 10px;
+  height: 10px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/7268/7268615.png");
+  filter: invert(100%);
+}
+
+.applyButton:hover{
+  background-color: #1f7979;
+}
+
+.saveButton::before{
+  width: 20px;
+  height: 20px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/1077/1077035.png");
+  filter: invert(43%) sepia(100%) saturate(295%) hue-rotate(131deg) brightness(88%) contrast(95%);
+}
+
+.saveButton:hover{
+  color: var(--white);
+  background-color: var(--main-blue);
+}
+
+.saveButton:hover::before{
+  filter: invert(100%);
+}
+
+
+.info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 15px 15px;
+  box-shadow: 0 10px 5px var(--white);
+}
+
+.companyName{
+  display: block;
+  margin: 0;
+  font-size: 1.1em;
+  color: var(--light-gray);  
+}
+
+.location{
+  color: var(--black);
+  display: flex;
+}
+
+.location::before{
+  content: "";
+  display: table;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/3179/3179068.png");
+  background-size: cover;
+}
+
+.description{
+  margin: 15px;
+}
+
+.subtitle{
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.text{
+  color: var(--black);
+  width: 100%;
+}
+
+@media (max-width: 790px){
+  .topBar{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .actions{
+    margin: 15px 0 0 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    position: fixed;
+    top: 0;
+    max-width: 100%;
+    margin-right: 0;
+    z-index: 4;
+  }
+  .closeMobile{
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png");
+    background-size: cover;
+  }
+}

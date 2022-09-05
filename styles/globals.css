@@ -33,8 +33,13 @@ ul{
   padding: 0;
 }
 
+button{
+  cursor: pointer;
+}
+
 :root {
   --main-blue: #258b8b;
+  --white: #eee;
   --black: #222;
   --light-gray: #555;
 }

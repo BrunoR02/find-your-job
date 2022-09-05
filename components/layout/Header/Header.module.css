@@ -2,13 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 25px;
   padding:  0 20px;
   box-shadow: 5px 0 5px #aaa;
 }
 
 .title{
-  padding: 20px;  
+  padding: 10px;  
   font-size: 1.5em;
   color: var(--light-gray);
   cursor: pointer;
+}
+
+.title:hover{
+  color: #999;
 }
