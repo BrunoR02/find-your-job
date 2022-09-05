@@ -9,10 +9,7 @@ export default function JobCard({addClass,activeHandler}:PropsType){
   return (
     <li onClick={activeHandler} className={styles.card + " " + addClass}>
       <h4 className={styles.title}>Front End Developer</h4>
-      <section className={styles.details}>
-        <span className={styles.companyName}>Amazon</span>
-        <span className={styles.location}>Remote</span>
-      </section>
+      <span className={styles.companyName}>Amazon</span>
       <p className={styles.description}>Lorem Ipsum is simply dummy text of the 
       printing and typesetting industry. Lorem Ipsum has been the industry's standard 
       dummy text ever since the 1500s, when an unknown printer took a galley of type and 
@@ -20,7 +17,7 @@ export default function JobCard({addClass,activeHandler}:PropsType){
       but also the leap into electronic typesetting, remaining essentially unchanged. It was 
       popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
       and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-      <span className={styles.createdAt}>2 days ago.</span>
+      <span className={styles.location}>Remote</span>
     </li>
   )
 }

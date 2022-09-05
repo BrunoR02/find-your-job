@@ -8,14 +8,16 @@
   cursor: pointer;
   text-overflow: ellipsis;
   overflow: hidden;
+  transition: border 0.2s ease;
 }
 
 .active{
-  border-left: 4px solid rgb(37, 139, 139);
+  border-left: 4px solid var(--main-blue);
 }
 
-.active .createdAt{
-  color: #11a2a2;
+.active .location{
+  color: var(--main-blue);
+  filter: invert(43%) sepia(100%) saturate(295%) hue-rotate(131deg) brightness(88%) contrast(95%);
 }
 
 .title{
@@ -25,15 +27,28 @@
   font-weight: 600;
 }
 
-.details{
-  display: flex;
-  justify-content: space-between;
+.companyName{
+  display: block;
   margin: 10px 0;
-  color:var(--light-gray);
 }
 
 .location{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 0.9em;
   font-weight: 600;
+  color: var(--black);
+}
+
+.location::before{
+  content: "";
+  display: table;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/3179/3179068.png");
+  background-size: cover;
 }
 
 .description{
@@ -46,13 +61,4 @@
   overflow-wrap: break-word;
   text-overflow: ellipsis;
   white-space: normal;
-}
-
-.createdAt{
-  display: block;
-  width: 100%;
-  margin-top: 15px;
-  font-size: 0.9em;
-  font-weight: 600;
-  text-align: right;
 }

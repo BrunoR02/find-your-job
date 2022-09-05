@@ -8,6 +8,7 @@
   color: var(--main-blue);
   font-weight: 700;
   cursor: pointer;
+  border-radius: 3px;
 }
 .link:hover{
   background-color: #eeeeee99;

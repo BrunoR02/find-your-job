@@ -34,7 +34,7 @@ ul{
 }
 
 :root {
-  --main-blue: rgb(37, 139, 139);
+  --main-blue: #258b8b;
   --black: #222;
   --light-gray: #555;
 }
