@@ -1,15 +1,15 @@
 import styles from "./TagList.module.css"
 
-export default function TagList(){
+type PropsType = {
+  list: {name: string}[]
+}
+
+export default function TagList({list}: PropsType){
   return (
     <ul className={styles.list}>
-      <li className={styles.item}>React</li>
-      <li className={styles.item}>Node</li>
-      <li className={styles.item}>GraphQL</li>
-      <li className={styles.item}>React Native</li>
-      <li className={styles.item}>MySQL</li>
-      <li className={styles.item}>DevOps</li>
-      <li className={styles.item}>MongoDB</li>
+      {list.map(({name}:{name:string})=>{
+        return <li key={name} className={styles.item}>{name}</li>
+      })}
     </ul>
   )
 }

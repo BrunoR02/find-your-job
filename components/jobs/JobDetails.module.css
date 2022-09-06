@@ -2,12 +2,13 @@
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 25px;
-  max-width: 60%;
+  width: 60%;
   height: 92vh;
   border-radius: 3px;
   border: 1px solid #555;
   background-color: white;
   transition: 1s ease;
+  overflow-y: scroll;
 }
 
 .topBar{
@@ -123,6 +124,7 @@
 
 .description{
   margin: 15px;
+  white-space: pre-wrap;
 }
 
 .subtitle{

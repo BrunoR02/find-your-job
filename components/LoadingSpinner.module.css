@@ -1,0 +1,27 @@
+.loading{
+    position: absolute;
+    z-index: 1056;
+    top: 50%;
+    left: 50%;
+}
+
+.loading::after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+  border: 10px solid transparent;
+  border-radius: 50%;
+  border-top-color: black;
+  animation: loading 1s linear infinite;
+}
+    
+@keyframes loading {
+  to{
+      transform: rotate(1turn)
+  }
+}
