@@ -17,3 +17,21 @@ export const GET_JOB_LIST = gql`
     }
   }
 `
+
+export const GET_FAVORITE_JOBS = gql`
+  query($ids: [ID!]){
+    commitments{
+      title
+      jobs(where: {isPublished: true,id_in:$ids}){
+        id
+        title
+        tags{
+          name
+        }
+        description
+        locationNames
+        company{name}
+      }
+    }
+  }
+`

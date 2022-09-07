@@ -6,3 +6,35 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.title{
+  width: 100%;
+  margin: 0 auto 20px auto;
+  font-size: 2em;
+  text-align: center;
+  color: var(--main-blue);
+}
+
+.errorMessage{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+  color: #a70000;
+  border: 1px solid #a70000;
+  border-radius: 10px;
+}
+
+.alertMessage{
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  padding: 10px;
+  transform: translate(-50%,-50%);
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+}

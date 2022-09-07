@@ -78,8 +78,7 @@
 .saveButton::before{
   width: 20px;
   height: 20px;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/1077/1077035.png");
-  filter: invert(43%) sepia(100%) saturate(295%) hue-rotate(131deg) brightness(88%) contrast(95%);
+  background-image: url("../../public/empty-heart.png");
 }
 
 .saveButton:hover{
@@ -88,7 +87,11 @@
 }
 
 .saveButton:hover::before{
-  filter: invert(100%);
+  filter: grayscale(100%) brightness(0%) invert(100%);
+}
+
+.saveActive::before{
+  background-image: url("../../public/filled-heart.png");
 }
 
 

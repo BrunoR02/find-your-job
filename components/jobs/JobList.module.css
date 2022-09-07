@@ -1,8 +1,22 @@
 .list{
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   width: 30%;
   margin: 0 25px 25px 0;
+}
+
+.loadMore{
+  align-self: center;
+  padding: 10px 30px;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--main-blue);
+  border: none;
+  border-radius: 3px;
+}
+
+.loadMore:hover{
+  background-color: #1f7979;
 }
 
 @media (max-width: 650px) {
