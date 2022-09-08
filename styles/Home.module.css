@@ -7,12 +7,27 @@
   margin: 0 auto;
 }
 
-.title{
+.savedTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 0 auto 20px auto;
+  padding: 0;
   font-size: 2em;
-  text-align: center;
   color: var(--main-blue);
+  cursor: default;
+}
+
+.savedTitle::before{
+  align-self: center;
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background-image: url("../public/filled-heart.png");
+  background-size: cover;
 }
 
 .errorMessage{

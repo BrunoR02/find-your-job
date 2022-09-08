@@ -14,7 +14,6 @@ const FavoriteContext = createContext<ContextType>({
 
 export function FavoriteContextProvider({children}:{children:React.ReactNode}){
   const [favorites,setFavorites] = useState<string[]>([])
-  console.log()
 
   const addFavorite = useCallback((id:string)=>{
     setFavorites(prevList=>[...prevList,id])

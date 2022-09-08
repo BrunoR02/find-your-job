@@ -32,7 +32,7 @@ export default function SavedJobsPage(){
 
   return (
     <>
-      <h3 className={styles.title}>Saved Jobs</h3>
+      <h3 className={styles.savedTitle}>Saved Jobs</h3>
       <div className={styles.container}>
       {favorites.length === 0 && <div className={styles.alertMessage}>You don't have any favorites yet. Add one.</div>}
       {data &&<JobList list={jobList} 
