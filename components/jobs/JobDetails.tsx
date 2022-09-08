@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from "react"
-import { Job } from "../../helpers/typeDefs"
+import { JobType } from "../../helpers/typeDefs"
 import FavoriteContext from "../../src/store/FavoriteContext"
-import LoadingSpinner from "../LoadingSpinner"
 import styles from "./JobDetails.module.css"
 import TagList from "./TagList"
 
 type PropsType = {
-  data: Job,
+  data: JobType,
   closeMobileHandler: () => void,
 }
 
 export default function JobDetails({data,closeMobileHandler}: PropsType){
   const [jobInfo,setJobInfo] = useState(data)
   const {favorites,addFavorite,removeFavorite} = useContext(FavoriteContext)
-  const [saved,setSaved] = useState(jobInfo && favorites.some(favId=>favId===jobInfo.id))
+  const [saved,setSaved] = useState<boolean>(jobInfo && favorites.some(favId=>favId===jobInfo.id))
 
   let alreadySaved = jobInfo && favorites.some(favId=>favId===jobInfo.id)
 

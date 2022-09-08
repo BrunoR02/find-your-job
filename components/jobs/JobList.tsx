@@ -1,10 +1,10 @@
 import JobCard from "./JobCard";
 import styles from "./JobList.module.css"
 import jobCardStyles from "./JobCard.module.css"
-import { Job } from "../../helpers/typeDefs";
+import { JobType } from "../../helpers/typeDefs";
 
 type PropsType = {
-  list: Job[],
+  list: JobType[],
   activeId: string | null,
   activeHandler: (activeId:string) => void,
   loadMoreHandler?: ()=>void,
@@ -18,10 +18,10 @@ export default function JobList({list,activeId,activeHandler,loadMoreHandler,pag
 
   return (
     <ul className={styles.list}>
-      {list.map((job:Job)=>{
+      {list.map((job:JobType)=>{
         return <JobCard key={job.id} data={job} activeHandler={()=>activeHandler(job.id)} addClass={activeId===job.id ?jobCardStyles.active: ""}/>
       })}
-      {(list.length !==0) && !showLoadMore && loading && <button className={styles.loadMore}>Loading...</button>}
+      {(list.length >= 10) && !showLoadMore && loading && <button className={styles.loadMore}>Loading...</button>}
       {showLoadMore && <button onClick={loadMoreHandler} className={styles.loadMore}>Load More</button>}
     </ul>
   )

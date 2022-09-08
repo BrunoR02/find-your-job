@@ -1,11 +1,15 @@
-import { ServerError, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import JobDetails from "../components/jobs/JobDetails";
 import JobList from "../components/jobs/JobList";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { Job } from "../helpers/typeDefs";
+import ApolloErrorMessage from "../components/messages/ApolloErrorMessage";
+import NotFoundMessage from "../components/messages/NotFoundMessage";
+
+import { JobType } from "../helpers/typeDefs";
 import { GET_FAVORITE_JOBS } from "../src/queries/jobs";
 import FavoriteContext from "../src/store/FavoriteContext";
+
 import styles from "../styles/Home.module.css"
 
 export default function SavedJobsPage(){
@@ -23,19 +27,17 @@ export default function SavedJobsPage(){
 
   let jobList = data ? data.commitments[0].jobs : []
 
-  if(error) return (<div className={styles.errorMessage}>Error to Fetch (GRAPHQL): {
-    error.networkError && JSON.stringify((error.networkError as ServerError).result?.errors[0].message) || 
-    error.message && JSON.stringify(error.message)}
-  </div>)
+  if(error) return <ApolloErrorMessage error={error}/>
 
   return (
     <>
       <h3 className={styles.savedTitle}>Saved Jobs</h3>
       
       {loading && <LoadingSpinner/>}
+      
+      {favorites.length === 0 && <NotFoundMessage message="You don't have any favorites yet."/>}
 
       {!loading && <div className={styles.container}>
-        {favorites.length === 0 && <div className={styles.alertMessage}>You don't have any favorites yet.</div>}
 
         {data && (<JobList list={jobList} 
         activeId={activeId} 
@@ -43,7 +45,7 @@ export default function SavedJobsPage(){
         />)}
 
         {activeId && (<JobDetails 
-        data={data && jobList.find((job:Job)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}/>)}
+        data={data && jobList.find((job:JobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}/>)}
       </div>}
     </>
     

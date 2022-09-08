@@ -1,54 +1,65 @@
 import { ServerError, useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import FilterMenu from '../components/filters/FilterMenu'
 import JobDetails from '../components/jobs/JobDetails'
 import JobList from '../components/jobs/JobList'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { Job } from '../helpers/typeDefs'
+import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
+import NotFoundMessage from '../components/messages/NotFoundMessage'
+import { FiltersType, JobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST } from '../src/queries/jobs'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [pagination,setPagination] = useState(1)
+  const [filters,setFilters] = useState({search:""})
+  //Activate when any of the filters is updated to allow refetching, controlling the calls to the GraphQL API.
+  const [hasFiltersUpdated, setHasFiltersUpdated] = useState(false)
+  const {data,loading,error,refetch,networkStatus} = useQuery(GET_JOB_LIST,{variables:{limit:10*pagination,searchTitle:filters.search},fetchPolicy:"network-only",notifyOnNetworkStatusChange:true})
+  //Retrieved Job Data that came from GraphQL Jobs API
+  let jobsData = data && data.commitments[0].jobs || []
 
-  const {data,loading,error,refetch} = useQuery(GET_JOB_LIST,{variables:{limit:10*pagination}})
   //Save active job id to turn it active, displaying the Job Details component and additional styles
   const [activeId,setActiveId] = useState<string | null>(null)
-  const [jobList, setJobList] = useState<Job[]>([])
+  //State to save the retrieved Jobs list that came from Graphql Jobs API.
+  const [jobList, setJobList] = useState<JobType[]>([])
 
   useEffect(()=>{
     if(data){
-      if(pagination > 1){
-        refetch({limit:10*pagination})
-      }
       //Save Job list from API
-      setJobList(data && data.commitments[0].jobs)
-      if(pagination === 1){
-        setActiveId(data.commitments[0].jobs[0].id)
+      setJobList(data && jobsData)
+      if(pagination === 1 && jobsData.length !== 0){
+        setActiveId(jobsData[0].id)
       }
     }
-  },[pagination,data])
-  
-  if(error) return <div className={styles.errorMessage}>Error to Fetch (GRAPHQL): {
-    error.networkError && JSON.stringify((error.networkError as ServerError).result?.errors[0].message) || 
-    error.message && JSON.stringify(error.message)
-  }</div>
+  },[pagination,data,filters])
+
+  //Show error on fetching Job List
+  if(error) return <ApolloErrorMessage error={error}/>
 
   return (
-    <div className={styles.container}>
-      {loading && (jobList.length === 0) && <LoadingSpinner/>}
-      <JobList list={jobList} 
-        activeId={activeId} 
-        activeHandler={(activeId:string)=>setActiveId(activeId)}
-        loadMoreHandler={()=>{setPagination(state=>state+1)}}
-        pagination={pagination}
-        loading={loading}
-      />
-      {activeId && <JobDetails 
-        data={data && jobList.find((job:Job)=>job.id===activeId)}
-        closeMobileHandler={()=>setActiveId(null)}
-      />}
-    </div>
+    <>
+      <FilterMenu setFilters={(filtersParams:FiltersType)=>{setFilters(filtersParams);setHasFiltersUpdated(true)}}/>
+      
+      {loading && <LoadingSpinner/>}
+      {!loading && (jobsData.length === 0) && <NotFoundMessage message="Found no jobs with that title. Try again."/>}
+
+      {(jobList.length > 0) && <div className={styles.container}>
+        <JobList list={jobList} 
+          activeId={activeId} 
+          activeHandler={(activeId:string)=>setActiveId(activeId)}
+          loadMoreHandler={()=>{setPagination(state=>state+1)}}
+          pagination={pagination}
+          loading={loading}
+        />
+        {activeId && <JobDetails 
+          data={data && jobList.find((job:JobType)=>job.id===activeId)}
+          closeMobileHandler={()=>setActiveId(null)}
+        />}
+      </div>}
+    </>
   )
 }
 

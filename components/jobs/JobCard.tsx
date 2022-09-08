@@ -1,9 +1,9 @@
-import { Job } from "../../helpers/typeDefs"
+import { JobType } from "../../helpers/typeDefs"
 import styles from "./JobCard.module.css"
 
 type PropsType = {
-  data: Job
-  addClass:string,
+  data: JobType,
+  addClass: string,
   activeHandler: ()=>void,
 }
 

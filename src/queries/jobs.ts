@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const GET_JOB_LIST = gql`
-  query($limit: Int){
+  query($limit: Int,$searchTitle: String){
     commitments{
       title
-      jobs(first: $limit,where: {isPublished: true}){
+      jobs(first: $limit,where: {isPublished: true,title_contains:$searchTitle}){
         id
         title
         tags{

@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0 auto 20px auto;
+  margin: 15px auto 15px auto;
   padding: 0;
   font-size: 2em;
   color: var(--main-blue);
@@ -28,29 +28,4 @@
   margin-right: 10px;
   background-image: url("../public/filled-heart.png");
   background-size: cover;
-}
-
-.errorMessage{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  font-size: 1.5em;
-  font-weight: 600;
-  text-align: center;
-  color: #a70000;
-  border: 1px solid #a70000;
-  border-radius: 10px;
-}
-
-.alertMessage{
-  position: absolute;
-  top: 200%;
-  left: 50%;
-  padding: 10px;
-  transform: translate(-50%,-50%);
-  font-size: 1.5em;
-  font-weight: 600;
-  text-align: center;
-  color: var(--main-blue);
 }
