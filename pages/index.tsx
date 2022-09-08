@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import JobDetails from '../components/jobs/JobDetails'
 import JobList from '../components/jobs/JobList'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { Job } from '../helpers/typeDefs'
 import { GET_JOB_LIST } from '../src/queries/jobs'
 import styles from '../styles/Home.module.css'
@@ -35,6 +36,7 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
+      {loading && (jobList.length === 0) && <LoadingSpinner/>}
       <JobList list={jobList} 
         activeId={activeId} 
         activeHandler={(activeId:string)=>setActiveId(activeId)}

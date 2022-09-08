@@ -8,6 +8,7 @@
 .loadMore{
   align-self: center;
   padding: 10px 30px;
+  margin-bottom: 25px;
   font-weight: 600;
   color: var(--white);
   background-color: var(--main-blue);

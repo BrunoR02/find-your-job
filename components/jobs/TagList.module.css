@@ -14,7 +14,7 @@
   border: 1px solid var(--main-blue);
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .item:hover{

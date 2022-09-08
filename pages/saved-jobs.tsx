@@ -21,27 +21,30 @@ export default function SavedJobsPage(){
     } 
   },[data])
 
-  let jobList = data ? data.commitments[0].jobs : [] 
+  let jobList = data ? data.commitments[0].jobs : []
 
-  if(loading) return <LoadingSpinner/>
-
-  if(error) return <div className={styles.errorMessage}>Error to Fetch (GRAPHQL): {
+  if(error) return (<div className={styles.errorMessage}>Error to Fetch (GRAPHQL): {
     error.networkError && JSON.stringify((error.networkError as ServerError).result?.errors[0].message) || 
-    error.message && JSON.stringify(error.message)
-  }</div>
+    error.message && JSON.stringify(error.message)}
+  </div>)
 
   return (
     <>
       <h3 className={styles.savedTitle}>Saved Jobs</h3>
-      <div className={styles.container}>
-      {favorites.length === 0 && <div className={styles.alertMessage}>You don't have any favorites yet. Add one.</div>}
-      {data &&<JobList list={jobList} 
-      activeId={activeId} 
-      activeHandler={(activeId:string)=>setActiveId(activeId)}
-      />}
-      {activeId && <JobDetails 
-      data={data && jobList.find((job:Job)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}/>}
-    </div>
+      
+      {loading && <LoadingSpinner/>}
+
+      {!loading && <div className={styles.container}>
+        {favorites.length === 0 && <div className={styles.alertMessage}>You don't have any favorites yet.</div>}
+
+        {data && (<JobList list={jobList} 
+        activeId={activeId} 
+        activeHandler={(activeId:string)=>setActiveId(activeId)}
+        />)}
+
+        {activeId && (<JobDetails 
+        data={data && jobList.find((job:Job)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}/>)}
+      </div>}
     </>
     
   )

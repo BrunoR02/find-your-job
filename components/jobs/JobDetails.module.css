@@ -14,11 +14,12 @@
 .topBar{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin: 15px;
 }
 
 .title {
+  width: 50%;
   margin: 0;
   color: #222;
   font-size: 1.5em;
@@ -50,6 +51,7 @@
   background-color: var(--main-blue);
   border: 1px solid var(--main-blue);
   border-radius: 3px;
+  transition: background-color 0.3s ease;
 } 
 
 .saveButton{
@@ -72,7 +74,7 @@
 }
 
 .applyButton:hover{
-  background-color: #1f7979;
+  background-color: #1f6f6f;
 }
 
 .saveButton::before{
