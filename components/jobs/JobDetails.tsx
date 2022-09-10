@@ -10,7 +10,7 @@ type PropsType = {
 }
 
 export default function JobDetails({data,closeMobileHandler}: PropsType){
-  const [jobInfo,setJobInfo] = useState(data)
+  const [jobInfo,setJobInfo] = useState<JobType>(data)
   const {favorites,addFavorite,removeFavorite} = useContext(FavoriteContext)
   const [saved,setSaved] = useState<boolean>(jobInfo && favorites.some(favId=>favId===jobInfo.id))
 
@@ -35,6 +35,10 @@ export default function JobDetails({data,closeMobileHandler}: PropsType){
     }
   },[data])
 
+  //Make a readable location and workplace with the data got from GraphQL Jobs API
+  let location; 
+  if(data) location = data.cities[0] && (data.cities[0].name + ((data.countries.length !== 0) && ", " + data.countries[0].isoCode.toUpperCase() || "") + ((data.remotes[0]) ? " (On-site)" : " (Remote)" ))
+
   return (
     <div className={styles.container}>
 
@@ -50,7 +54,7 @@ export default function JobDetails({data,closeMobileHandler}: PropsType){
         <TagList list={jobInfo.tags}/>
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company.name}</span>
-          <span className={styles.location}>{jobInfo.locationNames ? jobInfo.locationNames : "Remote"}</span>
+          <span className={styles.location}>{location}</span>
         </section>
         <section className={styles.description}>
           <h4 className={styles.subtitle}>Job Description</h4>

@@ -1,5 +1,6 @@
 .menu{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   margin: 15px 0;
 }

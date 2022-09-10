@@ -1,12 +1,15 @@
 export type JobType = {
-  description: string,
   id: string,
+  title: string,
+  description: string,
   tags: {name:string}[],
   company: {name: string},
-  locationNames: string,
-  title: string,
+  cities: {name:string}[],
+  countries: {isoCode:string}[],
+  remotes: {type:string}[],
 }
 
 export type FiltersType = {
   search: string,
+  workplaces: string[],
 }

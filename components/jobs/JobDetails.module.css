@@ -115,14 +115,14 @@
 .location{
   color: var(--black);
   display: flex;
+  align-items: center;
 }
 
 .location::before{
   content: "";
   display: table;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  width: 15px;
+  height: 15px;
   background-image: url("https://cdn-icons-png.flaticon.com/512/3179/3179068.png");
   background-size: cover;
 }

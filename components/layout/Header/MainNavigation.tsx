@@ -23,13 +23,11 @@ export default function MainNavigation(){
   },[favorites,oldFavorites])
 
   return (
-    <nav>
-      <ul className={styles.navigation}>
-        <Link href="/saved-jobs"><li className={styles.link + " " + (router.asPath ==="/saved-jobs" && styles.active)}>Saved Jobs <span className={styles.favCounter + " " + (hasListChanged && styles.addFavoriteAnimation)}>{favorites.length}</span></li></Link>
-        <Link href="/login"><li className={styles.link + " " + (router.asPath ==="/login" && styles.active)}>Login</li></Link>
-        <Link href="/register"><li className={styles.link + " " + (router.asPath ==="/register" && styles.active)}>Register</li></Link>
-        <Link href="/about"><li className={styles.link + " " + (router.asPath ==="/about" && styles.active)}>About</li></Link>
-      </ul>
-    </nav>
+    <ul className={styles.navigation}>
+      <Link href="/saved-jobs"><li className={styles.link + " " + (router.asPath ==="/saved-jobs" && styles.active)}>Saved Jobs <span className={styles.favCounter + " " + (hasListChanged && styles.addFavoriteAnimation)}>{favorites.length}</span></li></Link>
+      <Link href="/login"><li className={styles.link + " " + (router.asPath ==="/login" && styles.active)}>Login</li></Link>
+      <Link href="/register"><li className={styles.link + " " + (router.asPath ==="/register" && styles.active)}>Register</li></Link>
+      <Link href="/about"><li className={styles.link + " " + (router.asPath ==="/about" && styles.active)}>About</li></Link>
+    </ul>
   )
 }
