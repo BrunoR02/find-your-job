@@ -35,7 +35,7 @@ export default function SavedJobsPage(){
       
       {loading && <LoadingSpinner/>}
       
-      {favorites.length === 0 && <NotFoundMessage message="You don't have any favorites yet."/>}
+      {!loading && jobList.length===0 && <NotFoundMessage message="You don't have any favorites yet."/>}
 
       {!loading && <div className={styles.container}>
 

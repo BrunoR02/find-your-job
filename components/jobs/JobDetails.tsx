@@ -8,7 +8,7 @@ import TagList from "./TagList"
 
 type PropsType = {
   data: JobType,
-  loading: boolean,
+  loading?: boolean,
   closeMobileHandler: () => void,
 }
 
@@ -52,7 +52,7 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
             <button onClick={saveHandler} className={styles.saveButton + " " + (saved && styles.saveActive)}>{!saved ? "Save" : "Saved"}</button>
           </div>
         </section>
-        <TagList list={jobInfo.tags} loading={loading}/>
+        <TagList list={jobInfo.tags}/>
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company.name}</span>
           <span className={styles.location}>{

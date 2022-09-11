@@ -4,9 +4,10 @@
   top: 25px;
   width: 60%;
   height: 92vh;
-  border-radius: 3px;
-  border: 1px solid #555;
+  margin-bottom: 25px;
   background-color: white;
+  border: 1px solid #555;
+  border-radius: 3px;
   transition: 1s ease;
   overflow-y: scroll;
 }

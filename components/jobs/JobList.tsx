@@ -12,7 +12,7 @@ type PropsType = {
   loadMoreHandler?: ()=>void,
   pagination?: number,
   loading?: boolean,
-  loadingPlaceholder: boolean,
+  loadingPlaceholder?: boolean,
 }
 
 export default function JobList({list,activeId,activeHandler,loadMoreHandler,pagination,loading,loadingPlaceholder}:PropsType){

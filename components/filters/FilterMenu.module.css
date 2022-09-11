@@ -2,5 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15px 0;
+  max-width: 1000px;
+  margin: 15px auto;
 }
