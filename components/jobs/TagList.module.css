@@ -9,7 +9,7 @@
 }
 
 .item{
-  margin: 0px 0 10px 10px;
+  margin: 0 0 10px 10px;
   padding: 5px 10px;
   border: 1px solid var(--main-blue);
   border-radius: 15px;

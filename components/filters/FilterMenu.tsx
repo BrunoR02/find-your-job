@@ -18,7 +18,20 @@ export default function FilterMenu({setFilters}:{setFilters:(filterParams:Filter
   return (
     <div className={styles.menu}>
       <SearchFilter Search={(value:string)=>{setFilterParams(state=>({...state,search:value}));setHasChanged(true)}}/>
-      <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>({...state,workplaces:list}));setHasChanged(true)}}/>
+      <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>{
+        //Compare if the workplace list has really changed to refetch again, if not, it 
+        //doesnt refetch at all, avoiding doing it unnecessarily.
+        let isEqual:boolean = true;
+
+        if(list.length !== 0){
+          for(let i=0;i<list.length;i++){
+            isEqual = isEqual && filterParams.workplaces.some(item=>item===list[i])
+          }
+        }
+        if(!isEqual || filterParams.workplaces.length > list.length) {setHasChanged(true)}
+        
+        return {...state,workplaces:list}
+      })}}/>
     </div>
   )
 }

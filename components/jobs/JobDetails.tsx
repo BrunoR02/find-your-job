@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
 import FavoriteContext from "../../src/store/FavoriteContext"
+import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
+import LoaderPlaceholder from "../layout/LoaderPlaceholder/LoaderPlaceholder"
 import styles from "./JobDetails.module.css"
 import TagList from "./TagList"
 
 type PropsType = {
   data: JobType,
+  loading: boolean,
   closeMobileHandler: () => void,
 }
 
-export default function JobDetails({data,closeMobileHandler}: PropsType){
+export default function JobDetails({data,closeMobileHandler,loading}: PropsType){
   const [jobInfo,setJobInfo] = useState<JobType>(data)
   const {favorites,addFavorite,removeFavorite} = useContext(FavoriteContext)
   const [saved,setSaved] = useState<boolean>(jobInfo && favorites.some(favId=>favId===jobInfo.id))
@@ -35,33 +38,35 @@ export default function JobDetails({data,closeMobileHandler}: PropsType){
     }
   },[data])
 
-  //Make a readable location and workplace with the data got from GraphQL Jobs API
-  let location; 
-  if(data) location = data.cities[0] && (data.cities[0].name + ((data.countries.length !== 0) && ", " + data.countries[0].isoCode.toUpperCase() || "") + ((data.remotes[0]) ? " (On-site)" : " (Remote)" ))
-
   return (
-    <div className={styles.container}>
-
-      {jobInfo && <>
+    <>
+      {loading && <JobDetailsPlaceholder/>}
+      <div className={styles.container}>
+      {jobInfo && !loading && <>
         <section className={styles.topBar}>
           <h2 className={styles.title}>{jobInfo.title}</h2>
+
           <button onClick={closeMobileHandler} className={styles.closeMobile}></button>
           <div className={styles.actions}>
             <button className={styles.applyButton}>Apply Now</button>
             <button onClick={saveHandler} className={styles.saveButton + " " + (saved && styles.saveActive)}>{!saved ? "Save" : "Saved"}</button>
           </div>
         </section>
-        <TagList list={jobInfo.tags}/>
+        <TagList list={jobInfo.tags} loading={loading}/>
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company.name}</span>
-          <span className={styles.location}>{location}</span>
+          <span className={styles.location}>{
+            jobInfo.cities[0] && (jobInfo.cities[0].name + ((jobInfo.countries.length !== 0) && ", " + 
+            jobInfo.countries[0].isoCode.toUpperCase() || "") + ((jobInfo.remotes[0]) ? " (On-site)" : " (Remote)" ))}
+          </span>
         </section>
         <section className={styles.description}>
           <h4 className={styles.subtitle}>Job Description</h4>
           <p className={styles.text}>{jobInfo.description}</p>
         </section>
       </>}
-      
     </div>
+    </>
+    
   )
 }

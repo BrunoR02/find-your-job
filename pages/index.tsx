@@ -43,24 +43,22 @@ const Home: NextPage = () => {
     if(data){
       //Save Job list from API
       setJobList(jobsData)
-      if(pagination === 1 && jobsData.length !== 0){
+      console.log(jobsData.length !==0 && !jobsData.some((job:JobType)=>job.id===activeId))
+      if(pagination === 1 && jobsData.length !==0 && !jobsData.some((job:JobType)=>job.id===activeId)){
         setActiveId(jobsData[0].id)
-      }
-      //Update pagination when filtered Jobs Data become less than its necessary
-      //for the current pagination. Example: If it have 15 jobs to show and pagination is 
-      //on 4 (30-40), then it updates back to the right one for the current list, that is 2(10-20)
-      if(jobsData.length === 0){
-        setPagination(1)
       }
     }
   },[pagination,data,jobsData,filters])  
 
   useEffect(()=>{
+    //Reset Pagination when any filter is applied to the list.
     if(hasFiltersUpdated){
       setPagination(1)
-      setHasFiltersUpdated(false)
+      if(!loading){
+        setHasFiltersUpdated(false)
+      }
     }
-  },[hasFiltersUpdated])
+  },[hasFiltersUpdated,loading])
 
   //Show error on fetching Job List
   if(error) return <ApolloErrorMessage error={error}/>
@@ -79,10 +77,12 @@ const Home: NextPage = () => {
           loadMoreHandler={()=>{setPagination(state=>state+1)}}
           pagination={pagination}
           loading={loading}
+          loadingPlaceholder={hasFiltersUpdated}
         />
         {activeId && <JobDetails 
           data={data && jobList.find((job:JobType)=>job.id===activeId)}
           closeMobileHandler={()=>setActiveId(null)}
+          loading={hasFiltersUpdated}
         />}
       </div>}
     </>
