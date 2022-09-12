@@ -12,6 +12,7 @@
   font-size: 1.5em;
   color: var(--light-gray);
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .title:hover{

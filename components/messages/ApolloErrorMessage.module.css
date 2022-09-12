@@ -7,7 +7,7 @@
   font-size: 1.5em;
   font-weight: 600;
   text-align: center;
-  color: #a70000;
-  border: 1px solid #a70000;
+  color: var(--red-error);
+  border: 1px solid var(--red-error);
   border-radius: 10px;
 }

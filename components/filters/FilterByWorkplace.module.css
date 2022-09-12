@@ -16,7 +16,7 @@
 }
 
 .showButton:active{
-  background-color: #1f6f6f;
+  background-color: var(--dark-blue);
 }
 
 .showButton:active{
@@ -104,5 +104,5 @@
 
 .resultsButton:active{
   color: white;
-  background-color: #1f6f6f;
+  background-color: var(--dark-blue);
 }

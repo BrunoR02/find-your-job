@@ -29,7 +29,7 @@
 }
 
 .button:active{
-  background-color: #1f6f6f;
+  background-color: var(--dark-blue);
 }
 
 .searchIcon{

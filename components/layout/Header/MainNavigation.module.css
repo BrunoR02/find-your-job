@@ -51,19 +51,20 @@
 .link{
   display: flex;
   align-items: center;
-  padding: 15px 20px;
-  color: var(--main-blue);
+  padding: 10px 20px;
   font-weight: 700;
+  color: var(--main-blue);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .link:hover{
-  background-color: #eeeeee99;
+  transform: translate3d(0px,5px,0px);
+  color: var(--dark-blue);
 }
 
 .active{
-  box-shadow: inset 0 -3px 0 var(--main-blue)
+  box-shadow: inset 0 -3px 0 var(--main-blue);
 }
 
 @keyframes newFavorite{

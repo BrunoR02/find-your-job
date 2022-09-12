@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import FilterMenu from '../components/filters/FilterMenu'
 import JobDetails from '../components/jobs/JobDetails'
@@ -43,7 +44,6 @@ const Home: NextPage = () => {
     if(data){
       //Save Job list from API
       setJobList(jobsData)
-      console.log(jobsData.length !==0 && !jobsData.some((job:JobType)=>job.id===activeId))
       if(pagination === 1 && jobsData.length !==0 && !jobsData.some((job:JobType)=>job.id===activeId)){
         setActiveId(jobsData[0].id)
       }
@@ -65,6 +65,10 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Home - Search Jobs</title>
+        <meta name="description" content="Search your dream Job on Find Your Job"/>
+      </Head>
       <FilterMenu setFilters={(filtersParams:FiltersType)=>{setFilters(filtersParams);setHasFiltersUpdated(true)}}/>
       
       {loading && <LoadingSpinner/>}

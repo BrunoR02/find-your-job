@@ -1,16 +1,18 @@
 import { useQuery } from "@apollo/client";
+import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
-import JobDetails from "../components/jobs/JobDetails";
-import JobList from "../components/jobs/JobList";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ApolloErrorMessage from "../components/messages/ApolloErrorMessage";
-import NotFoundMessage from "../components/messages/NotFoundMessage";
+import PageTitle from "../../components/contents/PageTitle";
+import JobDetails from "../../components/jobs/JobDetails";
+import JobList from "../../components/jobs/JobList";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ApolloErrorMessage from "../../components/messages/ApolloErrorMessage";
+import NotFoundMessage from "../../components/messages/NotFoundMessage";
 
-import { JobType } from "../helpers/typeDefs";
-import { GET_FAVORITE_JOBS } from "../src/queries/jobs";
-import FavoriteContext from "../src/store/FavoriteContext";
+import { JobType } from "../../helpers/typeDefs";
+import { GET_FAVORITE_JOBS } from "../../src/queries/jobs";
+import FavoriteContext from "../../src/store/FavoriteContext";
 
-import styles from "../styles/Home.module.css"
+import styles from "../../styles/Home.module.css"
 
 export default function SavedJobsPage(){
   const [activeId,setActiveId] = useState<string | null>(null)
@@ -31,7 +33,11 @@ export default function SavedJobsPage(){
 
   return (
     <>
-      <h3 className={styles.savedTitle}>Saved Jobs</h3>
+      <Head>
+        <title>Saved Jobs</title>
+        <meta name="description" content="List of Saved Jobs by the user"/>
+      </Head>
+      <PageTitle title="Saved Jobs" extraClass={styles.savedTitle}/>
       
       {loading && <LoadingSpinner/>}
       
