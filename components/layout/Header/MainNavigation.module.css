@@ -59,8 +59,12 @@
 }
 
 .link:hover{
-  transform: translate3d(0px,5px,0px);
+  transform: translate3d(0px,-5px,0px);
   color: var(--dark-blue);
+}
+
+.link:active{
+  background-color: #eee;
 }
 
 .active{

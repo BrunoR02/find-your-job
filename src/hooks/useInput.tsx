@@ -19,11 +19,20 @@ export default function useInput(type:string, form = "register"){
             
             setIsValid(errorMessage === null)
         } else if(inputType === "email"){
-            let testValidation = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(enteredValue))
+            if(formType === "register"){
+                let testValidation = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(enteredValue))
             
-            if(!testValidation){
-                errorMessage = "Please enter a valid email. \n For example: xxx@xx.xx"
+                if(!testValidation){
+                    errorMessage = "Please enter a valid email. \n For example: xxx@xx.xx"
+                }
+            } else if(formType === "login"){
+                let testValidation = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(enteredValue))
+            
+                if(!testValidation){
+                    errorMessage = "Please enter a valid email."
+                }
             }
+            
             setIsValid(errorMessage === null)
         } else if (inputType==="password"){
             if(formType === "register"){

@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import styles from "./Form.module.css"
+import styles from "../Form.module.css"
 
 type InputType ={
   value: string
@@ -19,9 +19,10 @@ type PropsType = {
   extraErrorMessage?: string | null
   placeholder: string
   isConfirmation?: boolean
+  required?: boolean
 }
 
-export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation}:PropsType){
+export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required}:PropsType){
 
   let invalid:boolean = !!extraErrorMessage || input.isInvalid
 
@@ -31,7 +32,7 @@ export default function SingleInput({input,label,type = "text",extraErrorMessage
 
   return (
     <div className={styles.formControl}>
-      <label className={styles.label + " " + (invalid && styles.error)}>{label}
+      <label className={styles.label + " " + (invalid && styles.error)}>{label} <span className={styles.required}>{required && "*"}</span>
         <input placeholder={placeholder}
         className={styles.input + " " + (invalid && styles.errorInput)}
         type={type}

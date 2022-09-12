@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react"
 import useInput from "../../src/hooks/useInput"
 import styles from "./Form.module.css"
-import SingleInput from "./SingleInput"
+import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
   const nameInput = useInput("name")
@@ -30,10 +30,10 @@ export default function RegisterForm(){
 
   return (
     <form noValidate className={styles.form} onSubmit={submitHandler}>
-      <SingleInput input={nameInput} label="Name" placeholder="Insert your full name"/>
-      <SingleInput input={emailInput} label="Email" placeholder="xxx@xx.xx"/>
-      <SingleInput input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
-      <SingleInput input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 
+      <SingleInput required input={nameInput} label="Name" placeholder="Insert your full name"/>
+      <SingleInput required input={emailInput} label="Email" placeholder="Insert your email"/>
+      <SingleInput required input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
+      <SingleInput required input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 
       extraErrorMessage={errorMatch!} isConfirmation/>
       <button disabled={!formIsValid} className={styles.button}>Register</button>
     </form>

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import PageTitle from "../components/contents/PageTitle";
+import MainTitle from "../components/contents/MainTitle";
 import RegisterForm from "../components/forms/RegisterForm";
 
 export default function RegisterPage(){
@@ -9,7 +9,7 @@ export default function RegisterPage(){
         <title>Register your account</title>
         <meta name="description" content="Register You Account on Find Your Job"/>
       </Head>
-      <PageTitle title="Register your account"/>
+      <MainTitle title="Register your account"/>
       <RegisterForm/>
     </>
   )

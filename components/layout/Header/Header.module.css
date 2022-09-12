@@ -16,5 +16,5 @@
 }
 
 .title:hover{
-  color: #999;
+  color: var(--main-blue);
 }

@@ -5,6 +5,7 @@
   margin: 0 auto;
   padding: 20px;
   border: 1px solid var(--black);
+  animation: slide 1s ease 1 forwards;
 }
 
 .formControl{
@@ -37,6 +38,11 @@
   color: var(--main-blue);
 }
 
+.required{
+  font-size: 1em;
+  color: #a70000;
+}
+
 .button{
   margin-top: 25px;
   padding: 15px 0px;
@@ -46,7 +52,7 @@
   color: var(--white);
   border: none;
   border-radius: 10px;
-  transition: 0.5s ease;
+  transition: 0.1s ease;
 }
 
 .button:active{
@@ -79,4 +85,15 @@
   text-align: left;
   color: var(--red-error);
   white-space: pre-line;
+}
+
+@keyframes slide{
+    0%{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
 }

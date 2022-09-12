@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
-import PageTitle from "../../components/contents/PageTitle";
+import MainTitle from "../../components/contents/MainTitle";
 import JobDetails from "../../components/jobs/JobDetails";
 import JobList from "../../components/jobs/JobList";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -37,7 +37,7 @@ export default function SavedJobsPage(){
         <title>Saved Jobs</title>
         <meta name="description" content="List of Saved Jobs by the user"/>
       </Head>
-      <PageTitle title="Saved Jobs" extraClass={styles.savedTitle}/>
+      <MainTitle title="Saved Jobs" extraClass={styles.savedTitle}/>
       
       {loading && <LoadingSpinner/>}
       
