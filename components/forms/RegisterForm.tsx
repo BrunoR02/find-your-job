@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react"
+import userClient from "../../config/UsersClient"
 import useInput from "../../src/hooks/useInput"
+import { REGISTER_USER } from "../../src/queries/users"
 import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
@@ -9,7 +11,7 @@ export default function RegisterForm(){
   const passwordInput = useInput("password")
   const password2Input = useInput("password")
 
-  function submitHandler(e:FormEvent<HTMLFormElement>){
+  async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
 
     const user = {
@@ -17,7 +19,11 @@ export default function RegisterForm(){
       email: emailInput.value,
       password: passwordInput.value
     }
-    console.log(user)
+
+    let data;
+    await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}}}).then(response=>data=response).catch((error)=>{console.log(error)})
+    
+    console.log(data)
   }
 
   let errorMatch:string | null = null;
