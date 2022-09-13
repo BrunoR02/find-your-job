@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import FavoriteContext from "../../../src/store/FavoriteContext"
+import FavoriteContext from "../../../src/stores/FavoriteContext"
 import styles from "./MainNavigation.module.css"
 
 export default function MainNavigation(){

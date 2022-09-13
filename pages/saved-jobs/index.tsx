@@ -10,7 +10,7 @@ import NotFoundMessage from "../../components/messages/NotFoundMessage";
 
 import { JobType } from "../../helpers/typeDefs";
 import { GET_FAVORITE_JOBS } from "../../src/queries/jobs";
-import FavoriteContext from "../../src/store/FavoriteContext";
+import FavoriteContext from "../../src/stores/FavoriteContext";
 
 import styles from "../../styles/Home.module.css"
 

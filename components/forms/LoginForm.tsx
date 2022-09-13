@@ -20,6 +20,8 @@ export default function RegisterForm(){
     const {data,errors} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
     
     console.log(data)
+
+    console.log(errors)
   }
 
   let formIsValid = emailInput.isValid && passwordInput.isValid

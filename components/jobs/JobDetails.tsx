@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
-import FavoriteContext from "../../src/store/FavoriteContext"
+import FavoriteContext from "../../src/stores/FavoriteContext"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
-import LoaderPlaceholder from "../layout/LoaderPlaceholder/LoaderPlaceholder"
 import styles from "./JobDetails.module.css"
 import TagList from "./TagList"
 

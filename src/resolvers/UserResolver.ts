@@ -1,4 +1,6 @@
-import { Arg, Args, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import {loginUser, registerUser} from "../../config/db"
+import crypto from "crypto"
 
 //User Type
 
@@ -49,7 +51,7 @@ export class LoginUserInput{
 //Payloads
 
 @ObjectType()
-export class RegisterPayload{
+export class ResponsePayload{
 
   @Field()
   error!: boolean
@@ -61,14 +63,20 @@ export class RegisterPayload{
 @ObjectType()
 export class LoginPayload{
 
-  @Field()
-  token!: string
+  @Field({nullable: true})
+  token?: string
+
+  @Field({nullable: true})
+  name?: string
+
+  @Field(()=>ID,{nullable: true})
+  id?: string
+
+  @Field({nullable: true})
+  email?: string
 
   @Field()
-  name!: string
-
-  @Field()
-  email!: string
+  response!: ResponsePayload
 }
 
 //Main Resolver
@@ -78,7 +86,7 @@ export default class UserResolver{
 
   @Query(()=>User)
   getUsers(){
-    console.log("ata")
+    console.log("dummy query")
     return {
       id: "2",
       name: "Bruno",
@@ -88,21 +96,37 @@ export default class UserResolver{
     }
   }
 
-  @Mutation(RegisterUserInput=>RegisterPayload)
-  register(@Arg("input") input:RegisterUserInput){
-    console.log(input)
+  @Mutation(()=>ResponsePayload)
+  async register(@Arg("input") input:RegisterUserInput){
+    const id = crypto.randomUUID()
+
+    const {error,message} = await registerUser({...input,id})
+
     return {
-      error: false,
-      message: "Created User!"
+      error,
+      message
     }
   }
 
-  @Mutation(LoginUserInput=>LoginPayload)
-  login(@Arg("input") input: LoginUserInput){
+  @Mutation(()=>LoginPayload)
+  async login(@Arg("input") input: LoginUserInput){
+
+    const {data,error,message} = await loginUser({...input})
+
+    if(error){
+      return {
+        response: {error,message}
+      }
+    }
+
+    const {id,name,email} = data[0]
+
     return {
-      name: "Bruno",
-      email: "kkk@kkk.com",
-      token: "123"
+      token: "123",
+      id,
+      name,
+      email,
+      response: {message,error}
     }
   }
 }
