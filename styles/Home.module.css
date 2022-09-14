@@ -17,3 +17,15 @@
   background-image: url("../public/filled-heart.png");
   background-size: cover;
 }
+
+.redirectText{
+  width: 100%;  
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.redirectLink{
+  color: var(--main-blue);
+  cursor: pointer;
+}
