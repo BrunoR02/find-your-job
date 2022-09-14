@@ -119,13 +119,9 @@ export default class UserResolver{
       }
     }
 
-    const {id,name,email} = data[0]
-
     return {
       token: "123",
-      id,
-      name,
-      email,
+      ...data,
       response: {message,error}
     }
   }
