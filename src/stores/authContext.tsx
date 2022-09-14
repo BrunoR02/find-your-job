@@ -27,7 +27,7 @@ function CalculateRemainingTime(expirationTime:string){
     const actualDate = new Date().getTime()
 
     const duration = expirationDate - actualDate
-    console.log(duration)
+    
     return duration
 }
 

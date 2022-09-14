@@ -37,7 +37,7 @@ export default function Alert(){
     return(
         <div className={`${styles.alert} ${alertTypeClass} ${classAnimate}`}>
             <button onClick={()=>{dispatch(actions.closeAlert())}} className={styles.alertClose}></button>
-            <p className={styles.alertMessage}>{message || "oxe"}</p>
+            <p className={styles.alertMessage}>{message}</p>
         </div>
     )
 }
