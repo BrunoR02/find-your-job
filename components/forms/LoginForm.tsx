@@ -1,13 +1,19 @@
+import { useRouter } from "next/router"
 import { FormEvent} from "react"
+import { useDispatch } from "react-redux"
 import userClient from "../../config/UsersClient"
 import useInput from "../../src/hooks/useInput"
 import { LOGIN_USER } from "../../src/queries/users"
+import { actions } from "../../src/stores/alert-store"
 import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
   const emailInput = useInput("email", "login")
   const passwordInput = useInput("password","login")
+
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -17,11 +23,22 @@ export default function RegisterForm(){
       password: passwordInput.value
     }
 
-    const {data,errors} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
+    const {data} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
     
     console.log(data)
 
-    console.log(errors)
+    const {response,token} = data.login
+
+    //Send the right
+    const alertType = response.error ? "error" : "success"
+    const alertMessage:string = response.message
+
+    if(!response.error){
+      router.push("/")
+      console.log(token)
+    }
+    
+    dispatch(actions.createAlert({type:alertType,message:alertMessage}))
   }
 
   let formIsValid = emailInput.isValid && passwordInput.isValid
