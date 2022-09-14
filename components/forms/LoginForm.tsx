@@ -1,10 +1,11 @@
 import { useRouter } from "next/router"
-import { FormEvent} from "react"
+import { FormEvent, useContext} from "react"
 import { useDispatch } from "react-redux"
 import userClient from "../../config/UsersClient"
 import useInput from "../../src/hooks/useInput"
 import { LOGIN_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
+import AuthContext from "../../src/stores/authContext"
 import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
@@ -14,6 +15,8 @@ export default function RegisterForm(){
 
   const dispatch = useDispatch()
   const router = useRouter()
+  
+  const {login} = useContext(AuthContext)
 
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -35,7 +38,7 @@ export default function RegisterForm(){
 
     if(!response.error){
       router.push("/")
-      console.log(token)
+      login(token)
     }
     
     dispatch(actions.createAlert({type:alertType,message:alertMessage}))

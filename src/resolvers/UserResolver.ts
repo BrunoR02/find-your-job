@@ -1,8 +1,7 @@
 import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import {loginUser, registerUser} from "../../config/db"
 import crypto from "crypto"
-// @ts-ignore
-import jwt from "jsonwebtoken"
+import {sign} from "jsonwebtoken"
 
 //User Type
 
@@ -117,12 +116,12 @@ export default class UserResolver{
         response: {error,message}
       }
     }
-
-    const token = jwt.sign(
+    //Sign Token with user info
+    const token = sign(
       {user_id:data.id, email:input.email},
-      process.env.JWT_SECRET,
+      process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string,
       {
-        expiresIn: "2h"
+        expiresIn: "10s"
       }
     )
 
