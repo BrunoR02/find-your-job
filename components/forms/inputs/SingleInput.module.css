@@ -1,0 +1,56 @@
+.formControl{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.input{
+  width: 100%;
+  margin: 10px 0 25px 0;
+  padding: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border: 2px solid var(--main-blue);
+  transition: box-shadow 0.4s ease;
+}
+
+.input:focus{
+  box-shadow: 0 0 10px var(--main-blue);
+  outline: none;
+}
+
+.label{
+  text-align: left;
+  font-size: 0.8em;
+  color: var(--main-blue);
+}
+
+.required{
+  font-size: 1em;
+  color: #a70000;
+}
+
+.error{
+  color: var(--red-error); 
+}
+
+.errorInput{
+  border-color: var(--red-error) !important;
+}
+
+.errorInput:focus{
+  box-shadow: 0 0 10px var(--red-error);
+  outline: none;
+}
+
+.errorMessage{
+  display: block;
+  transform: translateY(-20px);
+  font-size: 0.8em;
+  text-align: left;
+  color: var(--red-error);
+  white-space: pre-line;
+}

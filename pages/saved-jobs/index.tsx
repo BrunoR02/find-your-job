@@ -34,7 +34,7 @@ export default function SavedJobsPage(){
 
   //Check if user has permission to see the page.
   useEffect(()=>{
-    if(isLogged){
+    if(!isLogged){
       router.push("/")
     }
   },[isLogged])

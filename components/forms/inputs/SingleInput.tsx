@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import styles from "../Form.module.css"
+import styles from "./SingleInput.module.css"
 
 type InputType ={
   value: string
