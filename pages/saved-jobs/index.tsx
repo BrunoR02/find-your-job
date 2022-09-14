@@ -36,7 +36,7 @@ export default function SavedJobsPage(){
   useEffect(()=>{
     if(!isLogged){
       router.push("/")
-    }
+    } 
   },[isLogged])
 
 
