@@ -26,16 +26,18 @@ export default function RegisterForm(){
       password: passwordInput.value
     }
 
-    let data: any;
-    await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}}}).then(response=>data=response.data.register).catch((error)=>{console.log(error)})
+
+    const {data} = await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}}})
     
     console.log(data)
 
-    //Send the right
-    const alertType = data.error ? "error" : "success"
-    const alertMessage:string = data.message
+    const response = data.register
 
-    if(!data.error){
+    //Send the right
+    const alertType = response.error ? "error" : "success"
+    const alertMessage:string = response.message
+
+    if(!response.error){
       router.push("/")
     }
     
