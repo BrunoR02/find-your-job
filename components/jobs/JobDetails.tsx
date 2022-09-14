@@ -1,5 +1,9 @@
+import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { JobType } from "../../helpers/typeDefs"
+import { actions } from "../../src/stores/alert-store"
+import AuthContext from "../../src/stores/authContext"
 import FavoriteContext from "../../src/stores/FavoriteContext"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
@@ -16,6 +20,11 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
   const {favorites,addFavorite,removeFavorite} = useContext(FavoriteContext)
   const [saved,setSaved] = useState<boolean>(jobInfo && favorites.some(favId=>favId===jobInfo.id))
 
+  const {isLogged} = useContext(AuthContext)
+
+  const router = useRouter()
+  const dispatch = useDispatch()
+
   let alreadySaved = jobInfo && favorites.some(favId=>favId===jobInfo.id)
 
   useEffect(()=>{
@@ -23,11 +32,16 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
   },[alreadySaved])
 
   function saveHandler(){
-    setSaved(state=>!state)
-    if(!saved){
-      addFavorite(data.id)
+    if(isLogged){
+      setSaved(state=>!state)
+      if(!saved){
+        addFavorite(data.id)
+      } else {
+        removeFavorite(data.id)
+      }
     } else {
-      removeFavorite(data.id)
+      dispatch(actions.createAlert({type:"warning",message:"Log in first to be able to save jobs."}))
+      router.push("login")
     }
   }
 
