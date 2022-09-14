@@ -16,7 +16,6 @@ export const LOGIN_USER = gql`
       id
       name
       token
-      email
       response{
         error
         message

@@ -53,5 +53,5 @@ export async function loginUser({email,password}){
 
   const {id,name} = accountData[0][0]
 
-  return {data: {id,name,email}, error: false, message: "Logged in!"}
+  return {data: {id,name}, error: false, message: "Logged in!"}
 }

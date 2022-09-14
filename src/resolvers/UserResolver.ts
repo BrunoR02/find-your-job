@@ -1,6 +1,8 @@
 import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import {loginUser, registerUser} from "../../config/db"
 import crypto from "crypto"
+// @ts-ignore
+import jwt from "jsonwebtoken"
 
 //User Type
 
@@ -72,9 +74,6 @@ export class LoginPayload{
   @Field(()=>ID,{nullable: true})
   id?: string
 
-  @Field({nullable: true})
-  email?: string
-
   @Field()
   response!: ResponsePayload
 }
@@ -119,8 +118,16 @@ export default class UserResolver{
       }
     }
 
+    const token = jwt.sign(
+      {user_id:data.id, email:input.email},
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2h"
+      }
+    )
+
     return {
-      token: "123",
+      token,
       ...data,
       response: {message,error}
     }
