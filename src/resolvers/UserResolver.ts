@@ -121,7 +121,7 @@ export default class UserResolver{
       {user_id:data.id, email:input.email},
       process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string,
       {
-        expiresIn: "10s"
+        expiresIn: "2h"
       }
     )
 

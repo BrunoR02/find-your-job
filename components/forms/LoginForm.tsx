@@ -37,7 +37,6 @@ export default function RegisterForm(){
     const alertMessage:string = response.message
 
     if(!response.error){
-      router.push("/")
       login(token)
     }
     

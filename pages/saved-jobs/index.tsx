@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import MainTitle from "../../components/contents/MainTitle";
 import JobDetails from "../../components/jobs/JobDetails";
@@ -10,6 +11,7 @@ import NotFoundMessage from "../../components/messages/NotFoundMessage";
 
 import { JobType } from "../../helpers/typeDefs";
 import { GET_FAVORITE_JOBS } from "../../src/queries/jobs";
+import AuthContext from "../../src/stores/authContext";
 import FavoriteContext from "../../src/stores/FavoriteContext";
 
 import styles from "../../styles/Home.module.css"
@@ -17,6 +19,9 @@ import styles from "../../styles/Home.module.css"
 export default function SavedJobsPage(){
   const [activeId,setActiveId] = useState<string | null>(null)
 
+  const router = useRouter()
+
+  const {isLogged} = useContext(AuthContext)
   const {favorites} = useContext(FavoriteContext)
 
   const {data,loading,error} = useQuery(GET_FAVORITE_JOBS,{variables:{ids:favorites}})
@@ -26,6 +31,14 @@ export default function SavedJobsPage(){
       setActiveId(favorites[0])
     } 
   },[data])
+
+  //Check if user has permission to see the page.
+  useEffect(()=>{
+    if(isLogged){
+      router.push("/")
+    }
+  },[isLogged])
+
 
   let jobList = data ? data.commitments[0].jobs : []
 
