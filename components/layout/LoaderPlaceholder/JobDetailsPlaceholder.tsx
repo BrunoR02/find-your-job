@@ -10,10 +10,6 @@ export default function JobDetailsPlaceholder(){
         <LoaderPlaceholder extraStyles={{width:"50%",height: "35px"}}/>
 
         <button className={styles.closeMobile}></button>
-        <div className={styles.actions}>
-          <button className={styles.applyButton}>Apply Now</button>
-          <button className={styles.saveButton}>Save</button>
-        </div>
       </section>
       <TagListPlaceholder/>
       <section className={styles.info}>

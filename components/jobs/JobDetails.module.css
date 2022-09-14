@@ -42,7 +42,7 @@
   display: flex;
 }
 
-.applyButton, .saveButton{
+.button{
   display: flex;
   align-items: center;
   margin-left: 15px;
@@ -55,48 +55,23 @@
   transition: background-color 0.3s ease;
 } 
 
-.saveButton{
-  color: var(--main-blue);
-  background-color: white;
-}
-
-.applyButton::before, .saveButton::before{
+.button::before{
   content: "";
   display: table;
   margin-right: 10px;
   background-size: cover;
 }
 
-.applyButton::before{
+.button::before{
   width: 10px;
   height: 10px;
   background-image: url("https://cdn-icons-png.flaticon.com/512/7268/7268615.png");
   filter: invert(100%);
 }
 
-.applyButton:hover{
+.button:hover{
   background-color: var(--dark-blue);
 }
-
-.saveButton::before{
-  width: 20px;
-  height: 20px;
-  background-image: url("../../public/empty-heart.png");
-}
-
-.saveButton:hover{
-  color: var(--white);
-  background-color: var(--main-blue);
-}
-
-.saveButton:hover::before{
-  filter: grayscale(100%) brightness(0%) invert(100%);
-}
-
-.saveActive::before{
-  background-image: url("../../public/filled-heart.png");
-}
-
 
 .info{
   display: flex;
