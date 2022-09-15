@@ -5,7 +5,8 @@ import userClient from "../../config/UsersClient"
 import useInput from "../../src/hooks/useInput"
 import { LOGIN_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
-import AuthContext from "../../src/stores/authContext"
+import AuthContext, { AuthContextType } from "../../src/stores/authContext"
+import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext"
 import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
@@ -16,7 +17,8 @@ export default function RegisterForm(){
   const dispatch = useDispatch()
   const router = useRouter()
   
-  const {login} = useContext(AuthContext)
+  const {login} = useContext(AuthContext) as AuthContextType
+  const {retrieveFavorites} = useContext(FavoriteContext) as FavoriteContextType
 
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -38,6 +40,7 @@ export default function RegisterForm(){
 
     if(!response.error){
       login(token)
+      retrieveFavorites(token)
     }
     
     dispatch(actions.createAlert({type:alertType,message:alertMessage}))

@@ -23,3 +23,20 @@ export const LOGIN_USER = gql`
     }
   }
 `
+
+export const UPDATE_SAVED_JOBS = gql`
+  mutation($input: UpdateSavedJobsInput!){
+    updateSavedJobs(input: $input){
+      error
+      message
+    }
+  }
+`
+
+export const GET_SAVED_JOBS = gql`
+  mutation($token: String!){
+    getSavedJobs(token: $token){
+      savedJobs
+    }
+  }
+`

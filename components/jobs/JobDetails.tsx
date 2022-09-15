@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
-import FavoriteContext from "../../src/stores/FavoriteContext"
+import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
 import SaveButton from "./SaveButton"
@@ -13,9 +13,9 @@ type PropsType = {
 }
 
 export default function JobDetails({data,closeMobileHandler,loading}: PropsType){
-  const [jobInfo,setJobInfo] = useState<JobType>(data)
+  const [jobInfo,setJobInfo] = useState<JobType | null>(null)
 
-  const {favorites} = useContext(FavoriteContext)
+  const {favorites} = useContext(FavoriteContext) as FavoriteContextType
 
   useEffect(()=>{
     if(data){
@@ -36,7 +36,7 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
 
           <div className={styles.actions}>
             <button className={styles.button}>Apply Now</button>
-            <SaveButton jobId={data.id} isAlreadySaved={jobInfo && favorites.some(favId=>favId===jobInfo.id)}/>
+            <SaveButton jobId={jobInfo.id} />
           </div>
         </section>
 

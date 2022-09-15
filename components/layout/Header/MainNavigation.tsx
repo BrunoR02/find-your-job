@@ -4,13 +4,13 @@ import { useContext, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { actions } from "../../../src/stores/alert-store"
 import AuthContext from "../../../src/stores/authContext"
-import FavoriteContext from "../../../src/stores/FavoriteContext"
+import FavoriteContext, { FavoriteContextType } from "../../../src/stores/FavoriteContext"
 import styles from "./MainNavigation.module.css"
 
 export default function MainNavigation(){
   const [oldFavorites,setOldFavorites] = useState<string[]>([])
 
-  const {favorites} = useContext(FavoriteContext)
+  const {favorites} = useContext(FavoriteContext) as FavoriteContextType
   const {logout,isLogged,autoLogout,ResetAuto} = useContext(AuthContext)
 
   const dispatch = useDispatch()

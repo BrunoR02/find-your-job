@@ -3,23 +3,16 @@ import {JwtPayload, verify} from "jsonwebtoken"
 
 let expireTimeout: ReturnType<typeof setTimeout>;
 
-type ContextType = {
+export type AuthContextType = {
     token: string | null
     isLogged: boolean
     autoLogout: boolean
     ResetAuto: ()=>void
-    login:(token:string)=>void,
-    logout: ()=>void,
+    login:(token:string)=>void
+    logout: ()=>void
 }
 
-const AuthContext = createContext<ContextType>({
-    token: "",
-    isLogged: false,
-    autoLogout: false,
-    ResetAuto: ()=>{},
-    login: (token:string)=>{},
-    logout: ()=>{},
-})
+const AuthContext = createContext<AuthContextType | null>(null)
 
 
 function CalculateRemainingTime(expirationTime:string){

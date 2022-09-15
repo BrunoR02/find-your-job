@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import MainTitle from "../components/contents/MainTitle";
 import RegisterForm from "../components/forms/RegisterForm";
-import AuthContext from "../src/stores/authContext";
+import AuthContext, { AuthContextType } from "../src/stores/authContext";
 
 import styles from "../styles/Home.module.css"
 
 export default function RegisterPage(){
   const router = useRouter()
 
-  const {isLogged} = useContext(AuthContext)
+  const {isLogged} = useContext(AuthContext) as AuthContextType
 
   //Check if user has permission to see the page.
   useEffect(()=>{

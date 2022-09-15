@@ -11,36 +11,37 @@ import NotFoundMessage from "../../components/messages/NotFoundMessage";
 
 import { JobType } from "../../helpers/typeDefs";
 import { GET_FAVORITE_JOBS } from "../../src/queries/jobs";
-import AuthContext from "../../src/stores/authContext";
-import FavoriteContext from "../../src/stores/FavoriteContext";
+import AuthContext, { AuthContextType } from "../../src/stores/authContext";
+import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext";
 
 import styles from "../../styles/Home.module.css"
 
 export default function SavedJobsPage(){
   const [activeId,setActiveId] = useState<string | null>(null)
+  const [jobList,setJobList] = useState<JobType[]>([])
 
   const router = useRouter()
 
-  const {isLogged} = useContext(AuthContext)
-  const {favorites} = useContext(FavoriteContext)
+  const {isLogged} = useContext(AuthContext) as AuthContextType
+  const {favorites,isLoading} = useContext(FavoriteContext) as FavoriteContextType
 
   const {data,loading,error} = useQuery(GET_FAVORITE_JOBS,{variables:{ids:favorites}})
 
+  let jobData = data ? data.commitments[0].jobs : []
+
   useEffect(()=>{
     if(data){
+      setJobList(jobData)
       setActiveId(favorites[0])
     } 
-  },[data])
+  },[data,jobData])
 
   //Check if user has permission to see the page.
   useEffect(()=>{
-    if(!isLogged){
-      router.push("/")
-    } 
+    if(!localStorage.getItem("token")){
+      router.replace("/")
+    }
   },[isLogged])
-
-
-  let jobList = data ? data.commitments[0].jobs : []
 
   if(error) return <ApolloErrorMessage error={error}/>
 
@@ -51,20 +52,22 @@ export default function SavedJobsPage(){
         <meta name="description" content="List of Saved Jobs by the user"/>
       </Head>
       <MainTitle title="Saved Jobs" extraClass={styles.savedTitle}/>
-      
+
       {loading && <LoadingSpinner/>}
-      
-      {!loading && jobList.length===0 && <NotFoundMessage message="You don't have any favorites yet."/>}
+      {!loading && (jobList.length===0) && <NotFoundMessage message="You don't have any favorites yet."/>}
 
-      {!loading && <div className={styles.container}>
+      {(jobList.length > 0) && <div className={styles.container}>
 
-        {data && (<JobList list={jobList} 
-        activeId={activeId} 
-        activeHandler={(activeId:string)=>setActiveId(activeId)}
-        />)}
+        <JobList list={jobList} 
+          activeId={activeId} 
+          activeHandler={(activeId:string)=>setActiveId(activeId)}
+          loadingPlaceholder={loading || isLoading}
+        />
 
-        {activeId && (<JobDetails 
-        data={data && jobList.find((job:JobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}/>)}
+        {activeId && <JobDetails 
+          data={data && jobList.find((job:JobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}
+          loading={loading || isLoading}
+        />}
       </div>}
     </>
     

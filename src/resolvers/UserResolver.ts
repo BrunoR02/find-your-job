@@ -1,7 +1,7 @@
 import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import {loginUser, registerUser} from "../../config/db"
+import {getSavedJobs, loginUser, registerUser, updateSavedJobs} from "../../config/db"
 import crypto from "crypto"
-import {sign} from "jsonwebtoken"
+import {JwtPayload, sign, verify} from "jsonwebtoken"
 
 //User Type
 
@@ -49,6 +49,16 @@ export class LoginUserInput{
   password!: string
 }
 
+@InputType()
+export class UpdateSavedJobsInput{
+
+  @Field()
+  token!: string
+
+  @Field(()=>[String])
+  savedJobs!: string[]
+}
+
 //Payloads
 
 @ObjectType()
@@ -59,6 +69,13 @@ export class ResponsePayload{
 
   @Field()
   message!: string
+}
+
+@ObjectType()
+export class SavedJobsPayload{
+
+  @Field(()=>[String])
+  savedJobs!: string[]
 }
 
 @ObjectType()
@@ -130,5 +147,27 @@ export default class UserResolver{
       ...data,
       response: {message,error}
     }
+  }
+
+  @Mutation(()=>ResponsePayload)
+  async updateSavedJobs(@Arg("input") input: UpdateSavedJobsInput){
+
+    //Get email from token to insert data on the right place on MySQL Database.
+    const {email} = verify(input.token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
+    
+    const {error,message} = await updateSavedJobs(input.savedJobs,email)
+
+    return {error,message}
+  }
+
+  @Mutation(()=>SavedJobsPayload)
+  async getSavedJobs(@Arg("token") token: string){
+
+    //Get email from token to retrieve the right data from MySQL Database.
+    const {email} = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
+    
+    const savedJobs = await getSavedJobs(email)
+
+    return {savedJobs}
   }
 }

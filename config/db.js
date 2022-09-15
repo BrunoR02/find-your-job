@@ -55,3 +55,35 @@ export async function loginUser({email,password}){
 
   return {data: {id,name}, error: false, message: "Logged in!"}
 }
+
+export async function updateSavedJobs(savedJobs,email){
+  const conn = await connect()
+
+  const savedJobsJSON = JSON.stringify(savedJobs)
+
+  let responseMessage;
+  let error = "";
+
+  await conn.query("UPDATE users SET savedJobs=? WHERE email=?",[savedJobsJSON,email]).catch(err=>error=err.message)
+
+  responseMessage = "Job saved successfuly"
+  
+  let hasError = error !== ""
+
+  if(hasError){
+    responseMessage = error
+  }
+
+  return {error:hasError,message:responseMessage}
+}
+
+export async function getSavedJobs(email){
+  const conn = await connect()
+
+  const data = await conn.query("SELECT savedJobs FROM users WHERE email=?",[email])
+
+  const savedJobs = data[0][0].savedJobs
+
+
+  return savedJobs
+}

@@ -1,44 +1,46 @@
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import { ContextType, useContext, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { actions } from "../../src/stores/alert-store"
-import AuthContext from "../../src/stores/authContext"
-import FavoriteContext from "../../src/stores/FavoriteContext"
+import AuthContext, { AuthContextType } from "../../src/stores/authContext"
+import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext"
+import LoadingSpinner from "../LoadingSpinner"
 import styles from "./SaveButton.module.css"
 
 type PropsType = {
   jobId: string
-  isAlreadySaved: boolean
 }
 
-export default function SaveButton({jobId,isAlreadySaved}:PropsType){
-  const {addFavorite,removeFavorite} = useContext(FavoriteContext)
-  const {isLogged} = useContext(AuthContext)
+export default function SaveButton({jobId}:PropsType){
+  const {favorites,isLoading,addFavorite,removeFavorite} = useContext(FavoriteContext) as FavoriteContextType
+  const {isLogged,token} = useContext(AuthContext) as AuthContextType
 
-  const [saved,setSaved] = useState<boolean>(isAlreadySaved)
+  const [saved,setSaved] = useState<boolean>(favorites.some(favId=>favId===jobId))
 
   const router = useRouter()
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    setSaved(isAlreadySaved)
-  },[isAlreadySaved])
+    setSaved(favorites.some(favId=>favId===jobId))
+  },[jobId])
 
-  function saveHandler(){
+  async function saveHandler(){
     if(isLogged){
-      setSaved(state=>!state)
       if(!saved){
-        addFavorite(jobId)
+        addFavorite(jobId,token as string)
       } else {
-        removeFavorite(jobId)
+        removeFavorite(jobId,token as string)
       }
+      if(!isLoading) setSaved(state=>!state)
     } else {
       dispatch(actions.createAlert({type:"warning",message:"Log in first to be able to save jobs."}))
       router.push("login")
     }
   }
-
   return (
-    <button onClick={saveHandler} className={styles.saveButton + " " + (saved && styles.saveActive)}>{!saved ? "Save" : "Saved"}</button>
+    <>
+      {isLoading && <LoadingSpinner/>}
+      <button onClick={saveHandler} className={styles.saveButton + " " + (saved && styles.saveActive)}>{!saved ? "Save" : "Saved"}</button>
+    </>
   )
 }
