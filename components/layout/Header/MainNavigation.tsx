@@ -35,7 +35,6 @@ export default function MainNavigation(){
     setLoading(true)
     setTimeout(()=>{
       dispatch(actions.createAlert({type:"success",message:"You are now logged out."}))
-      console.log("ata")
       setLoading(false)
     },1500)
   }

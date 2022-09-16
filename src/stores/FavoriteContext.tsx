@@ -51,7 +51,6 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
   },[])
 
   useEffect(()=>{
-    console.log("ata")
     if(listWasUpdated){
       async function updateList(){
         await updateSavedJobs()

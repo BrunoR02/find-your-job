@@ -1,7 +1,7 @@
 import {createConnection} from "mysql2/promise"
 import bcrypt from "bcryptjs"
 
-async function connect(){
+export async function connect(){
   if(global.connection && global.connection.state !== "disconnected"){
     return global.connection
   }

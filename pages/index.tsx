@@ -8,6 +8,7 @@ import JobList from '../components/jobs/JobList'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
 import NotFoundMessage from '../components/messages/NotFoundMessage'
+import { connect } from '../config/db'
 import { FiltersType, JobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST, GET_JOB_LIST_ONSITE, GET_JOB_LIST_REMOTE } from '../src/queries/jobs'
 import styles from '../styles/Home.module.css'
@@ -92,6 +93,16 @@ const Home: NextPage = () => {
       </div>}
     </>
   )
+}
+
+export async function getStaticProps(){
+
+  //Create initial connection with MySQL avoiding delay on first real request.
+  await connect()
+  
+  return {
+    props: {}
+  }
 }
 
 export default Home
