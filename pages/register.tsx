@@ -18,7 +18,7 @@ export default function RegisterPage(){
     if(isLogged){
       router.push("/")
     }
-  },[isLogged])
+  },[isLogged,router])
 
   return (
     <>

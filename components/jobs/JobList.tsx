@@ -16,20 +16,20 @@ type PropsType = {
 }
 
 export default function JobList({list,activeId,activeHandler,loadMoreHandler,pagination,loading,loadingPlaceholder}:PropsType){
-  const [lastList,setLastList] = useState(list.map(job=>job.id))
+  const [oldList,setOldList] = useState(list.map(job=>job.id))
 
   //Make placeholder smooth changing the size depending on the length of list
   useEffect(()=>{
-    if(list.length !== lastList.length){
-      setLastList(list.map(job=>job.id))
+    if(list.length !== oldList.length){
+      setOldList(list.map(job=>job.id))
     }
-  },[list])
+  },[list,oldList])
 
   const showLoadMore = !!pagination && list.length >= 10 * pagination
 
   return (
     <ul className={styles.list}>
-      {loadingPlaceholder && lastList.map(item=>
+      {loadingPlaceholder && oldList.map(item=>
         <JobCardPlaceholder key={item}/>
         )}
       {!loadingPlaceholder && list.map((job:JobType)=>{

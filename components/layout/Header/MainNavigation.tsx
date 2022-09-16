@@ -28,7 +28,7 @@ export default function MainNavigation(){
         setOldFavorites(favorites)
       },1500)
     }
-  },[favorites,oldFavorites])
+  },[favorites,oldFavorites,hasListChanged])
   
   function logoutHandler(){
     logout()
@@ -45,7 +45,7 @@ export default function MainNavigation(){
       dispatch(actions.createAlert({type:"warning",message:"Session expired. Login back again."}))
       ResetAuto()
     }
-  },[autoLogout])
+  },[autoLogout,dispatch,ResetAuto])
 
   return (
     <ul className={styles.navigation}>

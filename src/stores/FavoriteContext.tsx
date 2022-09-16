@@ -1,4 +1,3 @@
-import { ServerError } from "@apollo/client";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import userClient from "../../config/UsersClient";
 import { GET_SAVED_JOBS, UPDATE_SAVED_JOBS } from "../queries/users";
@@ -19,13 +18,13 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
   const [currentToken,setCurrentToken] = useState<string | null>()
   const [listWasUpdated,setListWasUpdated] = useState(false)
 
-  async function updateSavedJobs(){
+  const updateSavedJobs = useCallback(async ()=>{
     setLoading(true)
 
     await userClient.mutate({mutation: UPDATE_SAVED_JOBS,variables:{input:{token:currentToken,savedJobs:favorites}}})
   
     setLoading(false)
-  }
+  },[favorites,currentToken])
 
   const addFavorite = useCallback((id:string)=>{
     setFavorites(prevList=>[...prevList,id])
@@ -46,11 +45,13 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
     setFavorites(savedJobs)
   }
 
+  //Get token from localStorage
   useEffect(()=>{
     setCurrentToken(localStorage.getItem("token"))
   },[])
 
   useEffect(()=>{
+    console.log("ata")
     if(listWasUpdated){
       async function updateList(){
         await updateSavedJobs()
@@ -58,7 +59,7 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
       }
       updateList()
     }
-  },[favorites,listWasUpdated])
+  },[listWasUpdated,updateSavedJobs])
 
   useEffect(()=>{
     if(currentToken){

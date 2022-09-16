@@ -20,9 +20,11 @@ export default function SaveButton({jobId}:PropsType){
   const router = useRouter()
   const dispatch = useDispatch()
 
+  const isAlreadySaved = favorites.some(favId=>favId===jobId)
+
   useEffect(()=>{
-    setSaved(favorites.some(favId=>favId===jobId))
-  },[jobId])
+    setSaved(isAlreadySaved)
+  },[jobId,isAlreadySaved])
 
   async function saveHandler(){
     if(isLogged){

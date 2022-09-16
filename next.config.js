@@ -8,6 +8,9 @@ const nextConfig = {
     }
     config.experiments.topLevelAwait = true
     return config
+  },
+  images:{
+    domains:["cdn-icons-png.flaticon.com"]
   }
 }
 

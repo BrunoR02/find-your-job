@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { FiltersType } from "../../helpers/typeDefs";
 import FilterByWorkplace from "./FilterByWorkplace";
 
-export default function FilterMenu({setFilters}:{setFilters:(filterParams:FiltersType)=>void}){
+type PropsType = {
+  setFilters:(filterParams:FiltersType)=>void
+}
+
+export default function FilterMenu({setFilters}:PropsType){
   const [hasChanged,setHasChanged] = useState(false)
   const [filterParams,setFilterParams] = useState<FiltersType>({search: "",workplaces: []})
 
@@ -13,7 +17,7 @@ export default function FilterMenu({setFilters}:{setFilters:(filterParams:Filter
       setFilters(filterParams)
       setHasChanged(false)
     }
-  },[filterParams])
+  },[filterParams,hasChanged,setFilters])
 
   return (
     <div className={styles.menu}>

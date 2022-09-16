@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import FilterMenu from '../components/filters/FilterMenu'
 import JobDetails from '../components/jobs/JobDetails'
 import JobList from '../components/jobs/JobList'
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 
   const {data,loading,error} = useQuery(query,{variables:{limit:10*pagination,searchTitle:filters.search},fetchPolicy:"network-only",notifyOnNetworkStatusChange:true})
   //Retrieved Job Data that came from GraphQL Jobs API
-  let jobsData = data && data.commitments[0].jobs || []
+  const jobData = useMemo(()=>data && data.commitments[0].jobs || [],[data])
 
   //Save active job id to turn it active, displaying the Job Details component and additional styles
   const [activeId,setActiveId] = useState<string | null>(null)
@@ -41,14 +41,15 @@ const Home: NextPage = () => {
   const [jobList, setJobList] = useState<JobType[]>([])
 
   useEffect(()=>{
-    if(data){
+    if(data && jobData.length !==jobList.length){
       //Save Job list from API
-      setJobList(jobsData)
-      if(pagination === 1 && jobsData.length !==0 && !jobsData.some((job:JobType)=>job.id===activeId)){
-        setActiveId(jobsData[0].id)
+      setJobList(jobData)
+      //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
+      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId)){
+        setActiveId(jobData[0].id)
       }
     }
-  },[pagination,data,jobsData,filters])  
+  },[pagination,data,jobData,jobList,activeId])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.
@@ -72,7 +73,7 @@ const Home: NextPage = () => {
       <FilterMenu setFilters={(filtersParams:FiltersType)=>{setFilters(filtersParams);setHasFiltersUpdated(true)}}/>
       
       {loading && <LoadingSpinner/>}
-      {!loading && (jobsData.length === 0) && <NotFoundMessage message="Found no jobs with that title."/>}
+      {!loading && (jobData.length === 0) && <NotFoundMessage message="Found no jobs with that title."/>}
 
       {(jobList.length > 0) && <div className={styles.container}>
         <JobList list={jobList} 

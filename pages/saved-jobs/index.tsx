@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import MainTitle from "../../components/contents/MainTitle";
 import JobDetails from "../../components/jobs/JobDetails";
 import JobList from "../../components/jobs/JobList";
@@ -27,21 +27,21 @@ export default function SavedJobsPage(){
 
   const {data,loading,error} = useQuery(GET_FAVORITE_JOBS,{variables:{ids:favorites}})
 
-  let jobData = data ? data.commitments[0].jobs : []
+  const jobData = useMemo(()=>data ? data.commitments[0].jobs : [],[data])
 
   useEffect(()=>{
-    if(data){
+    if(data && jobData.length !== jobList.length){
       setJobList(jobData)
       setActiveId(favorites[0])
     } 
-  },[data,jobData])
+  },[data,jobData,jobList,favorites])
 
   //Check if user has permission to see the page.
   useEffect(()=>{
     if(!localStorage.getItem("token")){
       router.replace("/")
     }
-  },[isLogged])
+  },[isLogged,router])
 
   if(error) return <ApolloErrorMessage error={error}/>
 
