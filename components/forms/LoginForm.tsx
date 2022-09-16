@@ -29,8 +29,6 @@ export default function RegisterForm(){
     }
 
     const {data} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
-    
-    console.log(data)
 
     const {response,token} = data.login
 

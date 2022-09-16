@@ -84,12 +84,6 @@ export class LoginPayload{
   @Field({nullable: true})
   token?: string
 
-  @Field({nullable: true})
-  name?: string
-
-  @Field(()=>ID,{nullable: true})
-  id?: string
-
   @Field()
   response!: ResponsePayload
 }
@@ -106,7 +100,7 @@ export default class UserResolver{
       id: "2",
       name: "Bruno",
       email: "kkk@kkk.com",
-      password: "bora la",
+      password: "dadadada",
       token: "123"
     }
   }
@@ -133,6 +127,7 @@ export default class UserResolver{
         response: {error,message}
       }
     }
+
     //Sign Token with user info
     const token = sign(
       {user_id:data.id, email:input.email},

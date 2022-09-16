@@ -28,8 +28,6 @@ export default function RegisterForm(){
 
 
     const {data} = await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}}})
-    
-    console.log(data)
 
     const response = data.register
 

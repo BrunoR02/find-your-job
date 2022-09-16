@@ -37,7 +37,7 @@ export async function registerUser({id,name,email,password}){
 export async function loginUser({email,password}){
   const conn = await connect()
 
-  const accountData = await conn.query("SELECT id,name,password FROM users WHERE email=?",[email])
+  const accountData = await conn.query("SELECT id,password FROM users WHERE email=?",[email])
 
   if(accountData[0].length === 0){
     return {data: {}, error: true, message:"Email is not registered yet. Register it first."}
@@ -51,9 +51,9 @@ export async function loginUser({email,password}){
     return {data: {}, error:true, message:"Incorrect password. Try again."}
   }
 
-  const {id,name} = accountData[0][0]
+  const {id} = accountData[0][0]
 
-  return {data: {id,name}, error: false, message: "Logged in!"}
+  return {data: {id}, error: false, message: "Logged in!"}
 }
 
 export async function updateSavedJobs(savedJobs,email){
