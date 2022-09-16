@@ -3,15 +3,17 @@ import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { actions } from "../../../src/stores/alert-store"
-import AuthContext from "../../../src/stores/authContext"
+import AuthContext, { AuthContextType } from "../../../src/stores/authContext"
 import FavoriteContext, { FavoriteContextType } from "../../../src/stores/FavoriteContext"
+import LoadingSpinner from "../../LoadingSpinner"
 import styles from "./MainNavigation.module.css"
 
 export default function MainNavigation(){
   const [oldFavorites,setOldFavorites] = useState<string[]>([])
+  const [loading,setLoading] = useState(false)
 
   const {favorites} = useContext(FavoriteContext) as FavoriteContextType
-  const {logout,isLogged,autoLogout,ResetAuto} = useContext(AuthContext)
+  const {logout,isLogged,autoLogout,ResetAuto} = useContext(AuthContext) as AuthContextType
 
   const dispatch = useDispatch()
   const router = useRouter()
@@ -30,7 +32,12 @@ export default function MainNavigation(){
   
   function logoutHandler(){
     logout()
-    dispatch(actions.createAlert({type:"success",message:"You are now logged out."}))
+    setLoading(true)
+    setTimeout(()=>{
+      dispatch(actions.createAlert({type:"success",message:"You are now logged out."}))
+      console.log("ata")
+      setLoading(false)
+    },1500)
   }
 
   useEffect(()=>{
@@ -42,6 +49,7 @@ export default function MainNavigation(){
 
   return (
     <ul className={styles.navigation}>
+      {loading && <LoadingSpinner/>}
       {isLogged && <Link href="/saved-jobs">
         <li className={styles.link + " " + (router.asPath ==="/saved-jobs" && styles.active)}>Saved Jobs 
           <span className={styles.favCounter + " " + (hasListChanged && styles.addFavoriteAnimation)}>{favorites.length}</span>
