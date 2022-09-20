@@ -38,3 +38,12 @@ export const GET_SAVED_JOBS = gql`
     }
   }
 `
+
+export const CHANGE_PROFILE_PICTURE = gql`
+  mutation($input: ChangeProfilePictureInput!){
+    changeProfilePicture(input:$input){
+      error
+      message
+    }
+  }
+`

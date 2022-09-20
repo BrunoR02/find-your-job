@@ -1,7 +1,6 @@
-import { useRouter } from "next/router"
 import { FormEvent, useContext} from "react"
 import { useDispatch } from "react-redux"
-import userClient from "../../config/UsersClient"
+import userClient from "../../config/ApolloClients/UsersClient"
 import useInput from "../../src/hooks/useInput"
 import { LOGIN_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
@@ -15,7 +14,6 @@ export default function RegisterForm(){
   const passwordInput = useInput("password","login")
 
   const dispatch = useDispatch()
-  const router = useRouter()
   
   const {login} = useContext(AuthContext) as AuthContextType
   const {retrieveFavorites} = useContext(FavoriteContext) as FavoriteContextType

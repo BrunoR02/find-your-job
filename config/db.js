@@ -22,7 +22,7 @@ export async function registerUser({id,name,email,password}){
   let responseMessage;
   let error = "";
 
-  await conn.query("INSERT INTO users VALUES (?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs]).catch(err=>error=err.message)
+  await conn.query("INSERT INTO users (id,name,email,password,savedJobs) VALUES (?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs]).catch(err=>error=err.message)
 
   responseMessage = "User was registered successfully!"
   let hasError = error !== ""
@@ -86,4 +86,24 @@ export async function getSavedJobs(email){
 
 
   return savedJobs
+}
+
+export async function changeProfilePicture({url,email}){
+  const conn = await connect()
+
+  let responseMessage;
+  let error="";
+
+  await conn.query("UPDATE users SET profileUrl=? WHERE email=?",[url,email]).catch(err=>error=err.message)
+
+  responseMessage = "Profile picture updated!"
+  const hasError = error !== ""
+
+  if(hasError){
+    responseMessage = error
+  }
+
+  return {
+    error: hasError, message: responseMessage
+  }
 }

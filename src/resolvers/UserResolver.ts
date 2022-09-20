@@ -1,12 +1,12 @@
 import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import {getSavedJobs, loginUser, registerUser, updateSavedJobs} from "../../config/db"
+import {changeProfilePicture, getSavedJobs, loginUser, registerUser, updateSavedJobs} from "../../config/db"
 import crypto from "crypto"
 import {JwtPayload, sign, verify} from "jsonwebtoken"
 
 //User Type
 
 @ObjectType()
-export class User{
+class User{
 
   @Field(()=>ID)
   id!: string
@@ -27,7 +27,7 @@ export class User{
 //Inputs
 
 @InputType()
-export class RegisterUserInput{
+class RegisterUserInput{
 
   @Field()
   name!: string
@@ -40,7 +40,7 @@ export class RegisterUserInput{
 }
 
 @InputType()
-export class LoginUserInput{
+class LoginUserInput{
 
   @Field()
   email!: string
@@ -50,7 +50,7 @@ export class LoginUserInput{
 }
 
 @InputType()
-export class UpdateSavedJobsInput{
+class UpdateSavedJobsInput{
 
   @Field()
   token!: string
@@ -59,10 +59,20 @@ export class UpdateSavedJobsInput{
   savedJobs!: string[]
 }
 
+@InputType()
+class ChangeProfilePictureInput{
+
+  @Field()
+  url!: string
+
+  @Field()
+  email!: string
+}
+
 //Payloads
 
 @ObjectType()
-export class ResponsePayload{
+class ResponsePayload{
 
   @Field()
   error!: boolean
@@ -72,14 +82,14 @@ export class ResponsePayload{
 }
 
 @ObjectType()
-export class SavedJobsPayload{
+class SavedJobsPayload{
 
   @Field(()=>[String])
   savedJobs!: string[]
 }
 
 @ObjectType()
-export class LoginPayload{
+class LoginPayload{
 
   @Field({nullable: true})
   token?: string
@@ -164,5 +174,13 @@ export default class UserResolver{
     const savedJobs = await getSavedJobs(email)
 
     return {savedJobs}
+  }
+
+  @Mutation(()=>ResponsePayload)
+  async changeProfilePicture(@Arg("input") input: ChangeProfilePictureInput){
+
+    const {error,message} = await changeProfilePicture({...input})
+    
+    return {error,message}
   }
 }

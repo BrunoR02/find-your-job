@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import userClient from "../../config/UsersClient";
+import userClient from "../../config/ApolloClients/UsersClient";
 import { GET_SAVED_JOBS, UPDATE_SAVED_JOBS } from "../queries/users";
 
 export type FavoriteContextType = {

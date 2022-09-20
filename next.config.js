@@ -1,3 +1,4 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,7 +11,7 @@ const nextConfig = {
     return config
   },
   images:{
-    domains:["cdn-icons-png.flaticon.com"]
+    domains:["cdn-icons-png.flaticon.com","find-your-job-files.s3.sa-east-1.amazonaws.com"],
   }
 }
 

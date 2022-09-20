@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/layout/Layout'
 import { ApolloProvider } from '@apollo/client'
-import client from "../config/GraphQLJobsClient"
+import client from "../config/ApolloClients/GraphQLJobsClient"
 import { FavoriteContextProvider } from '../src/stores/FavoriteContext'
 import { AuthContextProvider} from "../src/stores/authContext"
 import {Provider} from "react-redux"
