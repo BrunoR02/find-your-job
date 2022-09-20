@@ -37,6 +37,9 @@ class RegisterUserInput{
 
   @Field()
   password!: string
+
+  @Field()
+  location!: string
 }
 
 @InputType()

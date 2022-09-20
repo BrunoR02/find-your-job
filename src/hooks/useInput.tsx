@@ -15,7 +15,13 @@ export default function useInput(type:string, form = "register"){
         if(inputType==="name"){
             let testValidation = !(!(/^[A-Z a-z]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 2)
             
-            if(!testValidation){errorMessage = "Please enter a valid name. \n For example: Carl Johnson"}
+            if(!testValidation){errorMessage = "Please enter a valid name. \n For example: Robert Johnson"}
+            
+            setIsValid(errorMessage === null)
+        } else if(inputType==="text"){
+            let testValidation = !(!(/^[A-Z a-z,]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 2)
+            
+            if(!testValidation){errorMessage = "Please enter a valid value."}
             
             setIsValid(errorMessage === null)
         } else if(inputType === "email"){

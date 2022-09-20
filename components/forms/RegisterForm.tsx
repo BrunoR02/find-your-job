@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { useDispatch } from "react-redux"
 import userClient from "../../config/ApolloClients/UsersClient"
+import capitalizeFirstLetters from "../../helpers/capitalizeFirstLetters"
 import useInput from "../../src/hooks/useInput" 
 import { CHANGE_PROFILE_PICTURE, REGISTER_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
@@ -12,6 +13,7 @@ import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
   const nameInput = useInput("name")
+  const locationInput = useInput("text")
   const emailInput = useInput("email")
   const passwordInput = useInput("password")
   const password2Input = useInput("password")
@@ -27,11 +29,13 @@ export default function RegisterForm(){
     setLoading(true)
 
     const user = {
-      name: nameInput.value,
+      name: capitalizeFirstLetters(nameInput.value),
+      location: capitalizeFirstLetters(locationInput.value),
       email: emailInput.value,
-      password: passwordInput.value
+      password: passwordInput.value,
     }
 
+    //Convert raw bits to Megabytes to validate uploaded image
     const imageSize = (imageFile!.size / 1024) / 1024
 
     if(imageSize > 4){
@@ -89,6 +93,7 @@ export default function RegisterForm(){
       <form noValidate className={styles.form} onSubmit={submitHandler}>
         <ImageInput required setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required input={nameInput} label="Name" placeholder="Insert your full name"/>
+        <SingleInput required input={locationInput} label="Location" placeholder="Insert your location"/>
         <SingleInput required input={emailInput} label="Email" placeholder="Insert your email"/>
         <SingleInput required input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
         <SingleInput required input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 

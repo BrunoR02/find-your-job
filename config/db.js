@@ -12,7 +12,7 @@ export async function connect(){
   return connection
 }
 
-export async function registerUser({id,name,email,password}){
+export async function registerUser({id,name,email,password,location}){
   const conn = await connect()
 
   const savedJobs = JSON.stringify([])
@@ -22,13 +22,15 @@ export async function registerUser({id,name,email,password}){
   let responseMessage;
   let error = "";
 
-  await conn.query("INSERT INTO users (id,name,email,password,savedJobs) VALUES (?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs]).catch(err=>error=err.message)
+  await conn.query("INSERT INTO users (id,name,email,password,savedJobs,locationName) VALUES (?,?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs,location]).catch(err=>error=err.message)
 
   responseMessage = "User was registered successfully!"
   let hasError = error !== ""
 
   if(hasError && error.includes("email")){
     responseMessage = "This email already exists! Try another."
+  } else if(hasError){
+    responseMessage = error
   }
 
   return {error: hasError, message: responseMessage}

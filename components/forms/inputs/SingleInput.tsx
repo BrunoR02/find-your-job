@@ -25,7 +25,7 @@ type PropsType = {
 export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required}:PropsType){
 
   let invalid:boolean = !!extraErrorMessage || input.isInvalid
-
+  
   if(isConfirmation){
     invalid = !!(extraErrorMessage || input.value.length < 7) && input.wasTouched
   }
