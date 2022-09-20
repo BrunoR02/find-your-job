@@ -18,10 +18,16 @@ export default function useInput(type:string, form = "register"){
             if(!testValidation){errorMessage = "Please enter a valid name. \n For example: Robert Johnson"}
             
             setIsValid(errorMessage === null)
-        } else if(inputType==="text"){
-            let testValidation = !(!(/^[A-Z a-z,]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 2)
+        } else if(inputType==="title"){
+            let testValidation = !(!(/^[A-Z a-z]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 4)
             
-            if(!testValidation){errorMessage = "Please enter a valid value."}
+            if(!testValidation){errorMessage = "Please enter a valid title. \n For example: Frontend Developer"}
+            
+            setIsValid(errorMessage === null)
+        } else if(inputType==="location"){
+            let testValidation = !(!(/^[A-Z a-z,]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 4)
+            
+            if(!testValidation){errorMessage = "Please enter a valid location. \n For example: Austin, Texas"}
             
             setIsValid(errorMessage === null)
         } else if(inputType === "email"){

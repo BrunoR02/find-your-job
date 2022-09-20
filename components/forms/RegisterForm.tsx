@@ -13,7 +13,8 @@ import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
   const nameInput = useInput("name")
-  const locationInput = useInput("text")
+  const titleInput = useInput("title")
+  const locationInput = useInput("location")
   const emailInput = useInput("email")
   const passwordInput = useInput("password")
   const password2Input = useInput("password")
@@ -30,6 +31,7 @@ export default function RegisterForm(){
 
     const user = {
       name: capitalizeFirstLetters(nameInput.value),
+      title: capitalizeFirstLetters(titleInput.value),
       location: capitalizeFirstLetters(locationInput.value),
       email: emailInput.value,
       password: passwordInput.value,
@@ -85,7 +87,7 @@ export default function RegisterForm(){
     errorMatch = "Both passwords must be equals"
   }
 
-  let formIsValid = imageFile && nameInput.isValid && emailInput.isValid && passwordInput.isValid && password2Input.isValid && !errorMatch!
+  let formIsValid = imageFile && nameInput.isValid && titleInput.isValid && locationInput.isValid && emailInput.isValid && passwordInput.isValid && password2Input.isValid && !errorMatch!
 
   return (
     <>
@@ -93,6 +95,7 @@ export default function RegisterForm(){
       <form noValidate className={styles.form} onSubmit={submitHandler}>
         <ImageInput required setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required input={nameInput} label="Name" placeholder="Insert your full name"/>
+        <SingleInput required input={titleInput} label="Title" placeholder="Insert your job title"/>
         <SingleInput required input={locationInput} label="Location" placeholder="Insert your location"/>
         <SingleInput required input={emailInput} label="Email" placeholder="Insert your email"/>
         <SingleInput required input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>

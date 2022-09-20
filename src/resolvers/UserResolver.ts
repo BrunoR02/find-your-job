@@ -40,6 +40,9 @@ class RegisterUserInput{
 
   @Field()
   location!: string
+
+  @Field()
+  title!: string
 }
 
 @InputType()

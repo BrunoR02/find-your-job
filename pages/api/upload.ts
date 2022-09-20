@@ -1,7 +1,7 @@
 import multer from "multer"
 import { NextApiRequest, NextApiResponse } from "next"
 import createRouter from "next-connect"
-import {PutObjectCommand, S3Client} from "@aws-sdk/client-s3"
+import {PutObjectCommand, PutObjectCommandInput, S3Client} from "@aws-sdk/client-s3"
 
 const region = "sa-east-1"
 const bucketName = "find-your-job-files"
@@ -30,7 +30,7 @@ handler
   const rawDate = new Date().toLocaleString().replaceAll("/","").replaceAll(" ","").replaceAll(":","")
   const fileName = rawDate + file?.originalname.replaceAll(" ","-")
 
-  const params = {
+  const params:PutObjectCommandInput = {
     Bucket: bucketName,
     Key: fileName,
     Body: file?.buffer,

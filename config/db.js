@@ -12,7 +12,7 @@ export async function connect(){
   return connection
 }
 
-export async function registerUser({id,name,email,password,location}){
+export async function registerUser({id,name,email,password,location,title}){
   const conn = await connect()
 
   const savedJobs = JSON.stringify([])
@@ -22,7 +22,7 @@ export async function registerUser({id,name,email,password,location}){
   let responseMessage;
   let error = "";
 
-  await conn.query("INSERT INTO users (id,name,email,password,savedJobs,locationName) VALUES (?,?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs,location]).catch(err=>error=err.message)
+  await conn.query("INSERT INTO users (id,name,email,password,savedJobs,locationName,jobTitle) VALUES (?,?,?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs,location,title]).catch(err=>error=err.message)
 
   responseMessage = "User was registered successfully!"
   let hasError = error !== ""
@@ -96,7 +96,7 @@ export async function changeProfilePicture({url,email}){
   let responseMessage;
   let error="";
 
-  await conn.query("UPDATE users SET profileUrl=? WHERE email=?",[url,email]).catch(err=>error=err.message)
+  await conn.query("UPDATE users SET profilePicture=? WHERE email=?",[url,email]).catch(err=>error=err.message)
 
   responseMessage = "Profile picture updated!"
   const hasError = error !== ""
