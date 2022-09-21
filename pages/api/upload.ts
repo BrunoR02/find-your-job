@@ -20,9 +20,11 @@ handler
   const rawDate = new Date().toLocaleString().replaceAll("/","").replaceAll(" ","").replaceAll(":","")
   const fileName = rawDate + file?.originalname.replaceAll(" ","-")
 
+  const folder = "profile-pictures/"
+
   const params:PutObjectCommandInput = {
     Bucket: bucketName,
-    Key: "profile-pictures/"+fileName,
+    Key: folder+fileName,
     Body: file?.buffer,
     ContentType: file?.mimetype
   }
@@ -31,7 +33,7 @@ handler
 
   s3.send(command)
 
-  const imageUrl = bucketURL + fileName
+  const imageUrl = bucketURL +folder + fileName
 
   res.json({imageUrl})
 })

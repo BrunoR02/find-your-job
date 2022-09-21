@@ -4,6 +4,7 @@ import { RootState } from "../../../src/stores/alert-store";
 import Alert from "../../helpers/Alert";
 import styles from "./Header.module.css"
 import MainNavigation from "./MainNavigation";
+import ProfileMenu from "./ProfileMenu";
 
 export default function Header(){
 
@@ -12,7 +13,10 @@ export default function Header(){
   return (
     <header className={styles.header}>
       <Link href="/"><h2 className={styles.title}>Find Your Job</h2></Link>
-      <MainNavigation/>
+      <div className={styles.nav}>
+        <MainNavigation/>
+        <ProfileMenu/>
+      </div>
       {alertOn && <Alert/>}
     </header>
   )

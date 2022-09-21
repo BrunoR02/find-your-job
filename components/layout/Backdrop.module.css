@@ -7,3 +7,7 @@
   background-color: #00000044;
   z-index: 2;
 }
+
+.transparent{
+  background-color: transparent;
+}

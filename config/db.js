@@ -55,7 +55,7 @@ export async function loginUser({email,password}){
 
   const {id} = accountData[0][0]
 
-  return {data: {id}, error: false, message: "Logged in!"}
+  return {data:{id}, error: false, message: "Logged in!"}
 }
 
 export async function updateSavedJobs(savedJobs,email){
@@ -79,15 +79,14 @@ export async function updateSavedJobs(savedJobs,email){
   return {error:hasError,message:responseMessage}
 }
 
-export async function getSavedJobs(email){
+export async function getUserData(email){
   const conn = await connect()
 
-  const data = await conn.query("SELECT savedJobs FROM users WHERE email=?",[email])
+  const Data = await conn.query("SELECT savedJobs,name,profilePicture FROM users WHERE email=?",[email])
 
-  const savedJobs = data[0][0].savedJobs
+  const responseData = Data[0][0]
 
-
-  return savedJobs
+  return responseData
 }
 
 export async function changeProfilePicture({url,email}){

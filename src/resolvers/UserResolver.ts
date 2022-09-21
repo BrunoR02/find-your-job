@@ -1,28 +1,7 @@
 import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import {changeProfilePicture, getSavedJobs, loginUser, registerUser, updateSavedJobs} from "../../config/db"
+import {changeProfilePicture, getUserData, loginUser, registerUser, updateSavedJobs} from "../../config/db"
 import crypto from "crypto"
 import {JwtPayload, sign, verify} from "jsonwebtoken"
-
-//User Type
-
-@ObjectType()
-class User{
-
-  @Field(()=>ID)
-  id!: string
-
-  @Field()
-  name!: string
-
-  @Field()
-  email!: string
-
-  @Field()
-  password!: string
-
-  @Field()
-  token!: string
-}
 
 //Inputs
 
@@ -88,10 +67,16 @@ class ResponsePayload{
 }
 
 @ObjectType()
-class SavedJobsPayload{
+class GetUserDataPayload{
 
   @Field(()=>[String])
   savedJobs!: string[]
+
+  @Field()
+  name!: string
+
+  @Field()
+  profilePicture!:string
 }
 
 @ObjectType()
@@ -164,15 +149,15 @@ export default class UserResolver{
     return {error,message}
   }
 
-  @Mutation(()=>SavedJobsPayload)
-  async getSavedJobs(@Arg("token") token: string){
+  @Mutation(()=>GetUserDataPayload)
+  async getUserData(@Arg("token") token: string){
 
     //Get email from token to retrieve the right data from MySQL Database.
     const {email} = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
     
-    const savedJobs = await getSavedJobs(email)
+    const data = await getUserData(email)
 
-    return {savedJobs}
+    return {...data}
   }
 
   @Mutation(()=>ResponsePayload)

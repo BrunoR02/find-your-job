@@ -18,3 +18,7 @@
 .title:hover{
   color: var(--main-blue);
 }
+
+.nav{
+  display: flex;
+}

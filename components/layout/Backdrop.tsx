@@ -1,7 +1,13 @@
 import styles from "./Backdrop.module.css"
 
-export default function Backdrop({onClickHandler}:{onClickHandler:()=>void}){
+type PropsType = {
+  onClickHandler?:()=>void
+  onMouseEnterHandler?:()=>void
+  transparent?: boolean
+}
+
+export default function Backdrop({onClickHandler, onMouseEnterHandler,transparent}:PropsType){
   return (
-    <div onClick={onClickHandler} className={styles.backdrop}></div>
+    <div onClick={onClickHandler} onMouseEnter={onMouseEnterHandler} className={styles.backdrop + " " + (transparent && styles.transparent)}></div>
   )
 }

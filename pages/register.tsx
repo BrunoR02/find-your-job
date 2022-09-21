@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import MainTitle from "../components/contents/MainTitle";
 import RegisterForm from "../components/forms/RegisterForm";
-import AuthContext, { AuthContextType } from "../src/stores/authContext";
+import AuthContext, { AuthContextType } from "../src/stores/AuthContext";
 
 import styles from "../styles/Home.module.css"
 
