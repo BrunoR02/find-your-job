@@ -109,16 +109,9 @@ class LoginPayload{
 @Resolver()
 export default class UserResolver{
 
-  @Query(()=>User)
-  getUsers(){
-    console.log("dummy query")
-    return {
-      id: "2",
-      name: "Bruno",
-      email: "kkk@kkk.com",
-      password: "dadadada",
-      token: "123"
-    }
+  @Query(()=>String)
+  loadClient(){
+    return "Loaded User Client!"
   }
 
   @Mutation(()=>ResponsePayload)

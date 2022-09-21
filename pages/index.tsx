@@ -8,9 +8,11 @@ import JobList from '../components/jobs/JobList'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
 import NotFoundMessage from '../components/messages/NotFoundMessage'
+import userClient from '../config/ApolloClients/UsersClient'
 import { connect } from '../config/db'
 import { FiltersType, JobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST, GET_JOB_LIST_ONSITE, GET_JOB_LIST_REMOTE } from '../src/queries/jobs'
+import { LOAD_CLIENT } from '../src/queries/users'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -97,8 +99,10 @@ const Home: NextPage = () => {
 
 export async function getStaticProps(){
 
-  //Create initial connection with MySQL avoiding delay on first real request.
+  //Create initial connection with MySQL and Apollo Client avoiding delay on first real request.
   await connect()
+  const {data,error} = await userClient.query({query:LOAD_CLIENT})
+  console.log(data.loadClient)
   
   return {
     props: {}

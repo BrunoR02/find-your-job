@@ -22,6 +22,10 @@
   outline: none;
 }
 
+.input:disabled{
+  background-color: #ddd;
+}
+
 .label{
   text-align: left;
   font-size: 0.8em;

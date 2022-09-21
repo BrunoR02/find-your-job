@@ -20,9 +20,10 @@ type PropsType = {
   placeholder: string
   isConfirmation?: boolean
   required?: boolean
+  disabled?: boolean
 }
 
-export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required}:PropsType){
+export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required,disabled}:PropsType){
 
   let invalid:boolean = !!extraErrorMessage || input.isInvalid
   
@@ -33,7 +34,7 @@ export default function SingleInput({input,label,type = "text",extraErrorMessage
   return (
     <div className={styles.formControl}>
       <label className={styles.label + " " + (invalid && styles.error)}>{label} <span className={styles.required}>{required && "*"}</span>
-        <input placeholder={placeholder}
+        <input disabled={disabled} placeholder={placeholder}
         className={styles.input + " " + (invalid && styles.errorInput)}
         type={type}
         value={input.value}

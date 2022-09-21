@@ -40,15 +40,15 @@ export default function RegisterForm(){
     //Convert raw bits to Megabytes to validate uploaded image
     const imageSize = (imageFile!.size / 1024) / 1024
 
-    if(imageSize > 4){
-      dispatch(actions.createAlert({type:"error",message:"Profile picture can't exceed 4MB limit. Send another one."}))
+    if(imageSize > 2){
+      dispatch(actions.createAlert({type:"error",message:"Profile picture can't exceed 2MB limit. Send another one."}))
       setLoading(false)
     } else {
       //Send user data to MySQL database getting back a readable response to the client.
-      const {data} = await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}}})
+      const {data} = await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}},fetchPolicy:"network-only"})
       const response = data.register
   
-      const alertType = response.error ? "error" : "success"
+      const alertType = response.error ? "error" : "success"  
       const alertMessage:string = response.message
 
       if(response.error){
@@ -64,10 +64,10 @@ export default function RegisterForm(){
           body: formData,
         }).catch(err=>console.log(err.message)) as Response
 
-        const data = await res.json()
+        const {imageUrl} = await res.json()
 
         //Use mutation to add created imageUrl from S3 to MySQL Database.
-        const {data:profile_data} = await userClient.mutate({mutation:CHANGE_PROFILE_PICTURE,variables:{input:{url:data.imageUrl,email: user.email}}})
+        const {data:profile_data} = await userClient.mutate({mutation:CHANGE_PROFILE_PICTURE,variables:{input:{url:imageUrl,email: user.email}},fetchPolicy:"network-only"})
         const {error,message} = profile_data.changeProfilePicture
 
         if(error){
@@ -94,12 +94,12 @@ export default function RegisterForm(){
       {loading && <LoadingSpinner/>}
       <form noValidate className={styles.form} onSubmit={submitHandler}>
         <ImageInput required setImageInput={(image:File)=>setImageFile(image)}/>
-        <SingleInput required input={nameInput} label="Name" placeholder="Insert your full name"/>
-        <SingleInput required input={titleInput} label="Title" placeholder="Insert your job title"/>
-        <SingleInput required input={locationInput} label="Location" placeholder="Insert your location"/>
-        <SingleInput required input={emailInput} label="Email" placeholder="Insert your email"/>
-        <SingleInput required input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
-        <SingleInput required input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 
+        <SingleInput required disabled={loading} input={nameInput} label="Name" placeholder="Insert your full name"/>
+        <SingleInput required disabled={loading} input={titleInput} label="Title" placeholder="Insert your job title"/>
+        <SingleInput required disabled={loading} input={locationInput} label="Location" placeholder="Insert your location"/>
+        <SingleInput required disabled={loading} input={emailInput} label="Email" placeholder="Insert your email"/>
+        <SingleInput required disabled={loading} input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
+        <SingleInput required disabled={loading} input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 
         extraErrorMessage={errorMatch!} isConfirmation/>
         <button disabled={!formIsValid} className={styles.button}>Register</button>
       </form>

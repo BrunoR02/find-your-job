@@ -1,5 +1,10 @@
 import { gql } from "@apollo/client";
 
+export const LOAD_CLIENT = gql`
+  query{
+    loadClient
+  }
+`
 
 export const REGISTER_USER = gql`
   mutation($input: RegisterUserInput!){
