@@ -16,7 +16,7 @@
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  background-image: url("../../public/empty-heart.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/empty-heart.png");
   background-size: cover;
 }
 
@@ -30,5 +30,5 @@
 }
 
 .saveActive::before{
-  background-image: url("../../public/filled-heart.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
 }

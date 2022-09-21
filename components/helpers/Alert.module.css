@@ -44,10 +44,10 @@
   right: 20px;
   width: 25px;
   height: 25px;
-  background-image: url("../../public/letra-x.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/close.png");
   background-color: transparent;
   background-size: contain;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   border: none;
 }
 

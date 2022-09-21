@@ -22,7 +22,7 @@ handler
 
   const params:PutObjectCommandInput = {
     Bucket: bucketName,
-    Key: fileName,
+    Key: "profile-pictures/"+fileName,
     Body: file?.buffer,
     ContentType: file?.mimetype
   }

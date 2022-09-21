@@ -65,7 +65,7 @@
 .button::before{
   width: 10px;
   height: 10px;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/7268/7268615.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/external-link.png");
   filter: invert(100%);
 }
 
@@ -99,7 +99,7 @@
   display: table;
   width: 15px;
   height: 15px;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/3179/3179068.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/location.png");
   background-size: cover;
 }
 
@@ -145,7 +145,7 @@
     height: 20px;
     border: none;
     background-color: transparent;
-    background-image: url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png");
+    background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/close.png");
     background-size: cover;
   }
 }
