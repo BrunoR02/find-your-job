@@ -1,4 +1,4 @@
-import { FormEvent, useContext} from "react"
+import { FormEvent, useContext, useState} from "react"
 import { useDispatch } from "react-redux"
 import userClient from "../../config/ApolloClients/UsersClient"
 import useInput from "../../src/hooks/useInput"
@@ -6,12 +6,14 @@ import { LOGIN_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
 import AuthContext, { AuthContextType } from "../../src/stores/authContext"
 import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext"
+import LoadingSpinner from "../LoadingSpinner"
 import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
   const emailInput = useInput("email", "login")
   const passwordInput = useInput("password","login")
+  const [loading,setLoading] = useState(false)
 
   const dispatch = useDispatch()
   
@@ -20,6 +22,8 @@ export default function RegisterForm(){
 
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
+
+    setLoading(true)
 
     const user = {
       email: emailInput.value,
@@ -38,6 +42,7 @@ export default function RegisterForm(){
       login(token)
       retrieveFavorites(token)
     }
+    setLoading(false)
     
     dispatch(actions.createAlert({type:alertType,message:alertMessage}))
   }
@@ -45,10 +50,13 @@ export default function RegisterForm(){
   let formIsValid = emailInput.isValid && passwordInput.isValid
 
   return (
-    <form noValidate className={styles.form} onSubmit={submitHandler}>
-      <SingleInput input={emailInput} label="Email" placeholder="Insert your email"/>
-      <SingleInput input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
-      <button disabled={!formIsValid} className={styles.button}>Login</button>
-    </form>
+    <>
+      {loading && <LoadingSpinner/>}
+      <form noValidate className={styles.form} onSubmit={submitHandler}>
+        <SingleInput disabled={loading} input={emailInput} label="Email" placeholder="Insert your email"/>
+        <SingleInput disabled={loading} input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
+        <button disabled={!formIsValid} className={styles.button}>Login</button>
+      </form>
+    </>
   )
 }

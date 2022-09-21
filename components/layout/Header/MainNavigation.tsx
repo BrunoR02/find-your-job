@@ -53,8 +53,8 @@ export default function MainNavigation(){
         <li className={styles.link + " " + (router.asPath ==="/saved-jobs" && styles.active)}>Saved Jobs 
           <span className={styles.favCounter + " " + (hasListChanged && styles.addFavoriteAnimation)}>{favorites.length}</span>
         </li></Link>}
-      {!isLogged && <Link href="/login"><li className={styles.link + " " + (router.asPath ==="/login" && styles.active)}>Login</li></Link>}
-      {!isLogged && <Link href="/register"><li className={styles.link + " " + (router.asPath ==="/register" && styles.active)}>Register</li></Link>}
+      {!loading && !isLogged && <Link href="/login"><li className={styles.link + " " + (router.asPath ==="/login" && styles.active)}>Login</li></Link>}
+      {!loading && !isLogged && <Link href="/register"><li className={styles.link + " " + (router.asPath ==="/register" && styles.active)}>Register</li></Link>}
       <Link href="/about"><li className={styles.link + " " + (router.asPath ==="/about" && styles.active)}>About</li></Link>
       {isLogged && <button className={styles.logoutButton} onClick={logoutHandler}>Logout</button>}
     </ul>
