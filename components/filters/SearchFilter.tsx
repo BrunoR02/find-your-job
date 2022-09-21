@@ -24,7 +24,7 @@ export default function SearchFilter({Search}:{Search:(value:string)=>void}){
   return (
     <form className={styles.form} onSubmit={submitHandler}>
       <input className={styles.input} type="text" name="title" placeholder="Search by Job Title" ref={titleRef}/>
-      <button className={styles.button}><Image width="30px" height="30px" alt="Search Icon" className={styles.searchIcon} src="https://cdn-icons-png.flaticon.com/512/54/54481.png"></Image></button>
+      <button className={styles.button}><Image width="30px" height="30px" alt="Search Icon" className={styles.searchIcon} src="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/search.png"></Image></button>
     </form>
   )
 }

@@ -29,7 +29,7 @@
   width: 10px;
   height: 10px;
   margin-left: 5px;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/60/60995.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/dropdown.png");
   background-size: contain;
   filter: invert(100%);
 }
@@ -54,7 +54,7 @@
   width: 15px;
   height: 15px;
   border: none;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/1828/1828778.png");
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/close.png");
   background-color: transparent;
   background-size: contain;
   background-repeat: no-repeat;
