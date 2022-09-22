@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../src/stores/alert-store";
@@ -16,14 +17,17 @@ export default function ProfileMenu(){
 
   const {isLogged,logout,autoLogout,ResetAuto} = useContext(AuthContext) as AuthContextType
   const dispatch = useDispatch()
+  const router = useRouter()
   
   function logoutHandler(){
-    logout()
+    const alert = {type: "success",message:"You are now signed out."}
+    sessionStorage.setItem("alert",JSON.stringify(alert))
     setLoading(true)
     setTimeout(()=>{
-      dispatch(actions.createAlert({type:"success",message:"You are now logged out."}))
+      logout()
       setLoading(false)
-    },1500)
+      router.reload()
+    },1000)
   }
 
   useEffect(()=>{
@@ -32,6 +36,14 @@ export default function ProfileMenu(){
       ResetAuto()
     }
   },[autoLogout,dispatch,ResetAuto])
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("alert")){
+      const {type,message} = JSON.parse(sessionStorage.getItem("alert") as string)
+      sessionStorage.removeItem("alert")
+      dispatch(actions.createAlert({type,message}))
+    }
+  },[dispatch])
 
   return (
     <>

@@ -24,7 +24,7 @@ export default function RegisterPage(){
     <>
       <Head>
         <title>Sign up</title>
-        <meta name="description" content="Register You Account on Find Your Job"/>
+        <meta name="description" content="Sign up for you account on Find Your Job"/>
       </Head>
       <MainTitle title="Create your account"/>
       <SignupForm/>

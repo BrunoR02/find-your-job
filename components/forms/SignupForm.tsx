@@ -101,7 +101,7 @@ export default function SignupForm(){
         <SingleInput required disabled={loading} input={passwordInput} label="Password" type="password" placeholder="Insert your password"/>
         <SingleInput required disabled={loading} input={password2Input} label="Confirm Password" type="password" placeholder="Confirm your password" 
         extraErrorMessage={errorMatch!} isConfirmation/>
-        <button disabled={!formIsValid} className={styles.button}>Register</button>
+        <button disabled={!formIsValid} className={styles.button}>Sign up</button>
       </form>
     </>
   )
