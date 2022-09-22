@@ -36,12 +36,13 @@ export const UPDATE_SAVED_JOBS = gql`
   }
 `
 
-export const GET_USER_DATA = gql`
+export const GET_DISPLAY_INFO = gql`
   mutation($token: String!){
-    getUserData(token: $token){
+    getDisplayInfo(token: $token){
       savedJobs
       name
       profilePicture
+      id
     }
   }
 `

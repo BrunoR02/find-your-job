@@ -1,12 +1,13 @@
 import React, { createContext, useCallback, useEffect, useState } from "react"
 import {JwtPayload, verify} from "jsonwebtoken"
-import getUserData, { UserDataType } from "../../helpers/getUserData";
+import getDisplayInfo from "../../helpers/getDisplayInfo";
 
 let expireTimeout: ReturnType<typeof setTimeout>;
 
 type DisplayInfoType = {
     displayName:string
     profilePicture:string
+    id: string | null
 }
 
 export type AuthContextType = {
@@ -35,7 +36,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     const [token,setToken] = useState<string | null>(null)
     const [autoLogout, setAutoLogout] = useState(false)
     const [cacheImage,setCacheImage] = useState<string | null>(null)
-    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
+    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({id: null, displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
     
     const isLogged = !!token 
     
@@ -43,7 +44,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         localStorage.removeItem("token")
         localStorage.removeItem("expirationTime")
         setToken(null)
-        setDisplayInfo({displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
+        setDisplayInfo({id: null,displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
     
         clearTimeout(expireTimeout)
     },[])
@@ -97,7 +98,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     },[])
 
     async function updateDisplayInfo(idToken:string){
-        const {name,profilePicture} = await getUserData(idToken)
+        const {name,profilePicture,id} = await getDisplayInfo(idToken)
 
         //Get first name to display on frontend
         const displayName = name.split(" ")[0]
@@ -105,11 +106,11 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         //Execute only first time when logged in to download profile picture on cache
         if(!token){
             setCacheImage(profilePicture)
-            setDisplayInfo(state=> ({...state,displayName}))
+            setDisplayInfo(state=> ({...state,displayName,id}))
         //If already logged in just set the profile picture url because is already downloaded on cache, 
         //so it will load faster.
         } else {
-            setDisplayInfo({displayName,profilePicture})
+            setDisplayInfo({displayName,profilePicture,id})
         }
     }
 

@@ -79,12 +79,12 @@ export async function updateSavedJobs(savedJobs,email){
   return {error:hasError,message:responseMessage}
 }
 
-export async function getUserData(email){
+export async function getDisplayInfo(email){
   const conn = await connect()
 
-  const Data = await conn.query("SELECT savedJobs,name,profilePicture FROM users WHERE email=?",[email])
+  const data = await conn.query("SELECT savedJobs,name,profilePicture,id FROM users WHERE email=?",[email])
 
-  const responseData = Data[0][0]
+  const responseData = data[0][0]
 
   return responseData
 }
@@ -107,4 +107,24 @@ export async function changeProfilePicture({url,email}){
   return {
     error: hasError, message: responseMessage
   }
+}
+
+export async function getUsersIds(){
+  const conn = await connect()
+
+  const data = await conn.query("SELECT id FROM users WHERE id IS NOT NULL")
+
+  const idList = data[0]
+
+  return idList
+}
+
+export async function getUserProfile(id){
+  const conn = await connect()
+
+  const data = await conn.query("SELECT name,locationName,jobTitle,profilePicture FROM users WHERE id=?",[id])
+
+  const profileData = data[0][0] 
+
+  return profileData
 }

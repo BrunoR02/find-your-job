@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import userClient from "../../config/ApolloClients/UsersClient";
-import getUserData from "../../helpers/getUserData";
+import getDisplayInfo from "../../helpers/getDisplayInfo";
 import { UPDATE_SAVED_JOBS } from "../queries/users";
 
 export type FavoriteContextType = {
@@ -40,7 +40,7 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
   async function retrieveFavorites(token:string){
     setCurrentToken(token)
 
-    const data = await getUserData(token)
+    const data = await getDisplayInfo(token)
 
     setFavorites(data.savedJobs)
   }

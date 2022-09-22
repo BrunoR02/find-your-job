@@ -13,3 +13,10 @@ export type FiltersType = {
   search: string,
   workplaces: string[],
 }
+
+export type ProfileType ={
+  name: string
+  locationName: string
+  jobTitle: string
+  profilePicture: string
+}

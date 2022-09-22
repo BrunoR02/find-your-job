@@ -1,5 +1,5 @@
 import { Arg, Field, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import {changeProfilePicture, getUserData, loginUser, registerUser, updateSavedJobs} from "../../config/db"
+import {changeProfilePicture, getDisplayInfo, loginUser, registerUser, updateSavedJobs} from "../../config/db"
 import crypto from "crypto"
 import {JwtPayload, sign, verify} from "jsonwebtoken"
 
@@ -67,7 +67,7 @@ class ResponsePayload{
 }
 
 @ObjectType()
-class GetUserDataPayload{
+class GetDisplayInfoPayload{
 
   @Field(()=>[String])
   savedJobs!: string[]
@@ -77,6 +77,9 @@ class GetUserDataPayload{
 
   @Field()
   profilePicture!:string
+
+  @Field()
+  id!: string
 }
 
 @ObjectType()
@@ -149,13 +152,13 @@ export default class UserResolver{
     return {error,message}
   }
 
-  @Mutation(()=>GetUserDataPayload)
-  async getUserData(@Arg("token") token: string){
+  @Mutation(()=>GetDisplayInfoPayload)
+  async getDisplayInfo(@Arg("token") token: string){
 
     //Get email from token to retrieve the right data from MySQL Database.
     const {email} = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
     
-    const data = await getUserData(email)
+    const data = await getDisplayInfo(email)
 
     return {...data}
   }
