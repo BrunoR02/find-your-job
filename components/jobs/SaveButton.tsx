@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { ContextType, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { actions } from "../../src/stores/alert-store"
 import AuthContext, { AuthContextType } from "../../src/stores/AuthContext"

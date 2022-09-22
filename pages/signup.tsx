@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import MainTitle from "../components/contents/MainTitle";
-import RegisterForm from "../components/forms/RegisterForm";
+import SignupForm from "../components/forms/SignupForm";
 import AuthContext, { AuthContextType } from "../src/stores/AuthContext";
 
 import styles from "../styles/Home.module.css"
@@ -23,11 +23,11 @@ export default function RegisterPage(){
   return (
     <>
       <Head>
-        <title>Register your account</title>
+        <title>Sign up</title>
         <meta name="description" content="Register You Account on Find Your Job"/>
       </Head>
-      <MainTitle title="Register your account"/>
-      <RegisterForm/>
+      <MainTitle title="Create your account"/>
+      <SignupForm/>
       <section className={styles.redirectText}>Already have an account? <Link href="/login"><span className={styles.redirectLink}>Click here to login</span></Link></section>
     </>
   )

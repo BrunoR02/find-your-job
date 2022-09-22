@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
-import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
 import SaveButton from "./SaveButton"
@@ -14,8 +13,6 @@ type PropsType = {
 
 export default function JobDetails({data,closeMobileHandler,loading}: PropsType){
   const [jobInfo,setJobInfo] = useState<JobType | null>(null)
-
-  const {favorites} = useContext(FavoriteContext) as FavoriteContextType
 
   useEffect(()=>{
     if(data){

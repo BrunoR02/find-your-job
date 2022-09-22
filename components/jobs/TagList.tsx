@@ -1,4 +1,3 @@
-import LoaderPlaceholder from "../layout/LoaderPlaceholder/LoaderPlaceholder"
 import styles from "./TagList.module.css"
 
 type PropsType = {

@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux"
 import userClient from "../../config/ApolloClients/UsersClient"
 import capitalizeFirstLetters from "../../helpers/capitalizeFirstLetters"
 import useInput from "../../src/hooks/useInput" 
-import { CHANGE_PROFILE_PICTURE, REGISTER_USER } from "../../src/queries/users"
+import { CHANGE_PROFILE_PICTURE,SIGNUP_USER } from "../../src/queries/users"
 import { actions } from "../../src/stores/alert-store"
 import LoadingSpinner from "../LoadingSpinner"
 import styles from "./Form.module.css"
 import ImageInput from "./inputs/ImageInput"
 import SingleInput from "./inputs/SingleInput"
 
-export default function RegisterForm(){
+export default function SignupForm(){
   const nameInput = useInput("name")
   const titleInput = useInput("title")
   const locationInput = useInput("location")
@@ -45,8 +45,8 @@ export default function RegisterForm(){
       setLoading(false)
     } else {
       //Send user data to MySQL database getting back a readable response to the client.
-      const {data} = await userClient.mutate({mutation:REGISTER_USER,variables:{input:{...user}},fetchPolicy:"network-only"})
-      const response = data.register
+      const {data} = await userClient.mutate({mutation:SIGNUP_USER,variables:{input:{...user}},fetchPolicy:"network-only"})
+      const response = data.signup
   
       const alertType = response.error ? "error" : "success"  
       const alertMessage:string = response.message

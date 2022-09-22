@@ -6,9 +6,9 @@ export const LOAD_CLIENT = gql`
   }
 `
 
-export const REGISTER_USER = gql`
-  mutation($input: RegisterUserInput!){
-    register(input: $input){
+export const SIGNUP_USER = gql`
+  mutation($input: SignupUserInput!){
+    signup(input: $input){
       error
       message
     }

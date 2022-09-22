@@ -43,7 +43,7 @@ export default function ProfileMenu(){
       <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
         {isLogged && <Link href="/profile"><li className={styles.option}>Profile</li></Link>}
         {!isLogged && <Link href="/login"><li className={styles.option}>Login</li></Link>}
-        {!isLogged && <Link href="/register"><li className={styles.option}>Register</li></Link>}
+        {!isLogged && <Link href="/signup"><li className={styles.option}>Sign up</li></Link>}
         {isLogged && <li className={styles.option} onClick={logoutHandler}>Logout</li>}
       </ul>
     </button>

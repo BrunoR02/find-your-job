@@ -1,4 +1,4 @@
-import { Arg, Field, ID, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { Arg, Field, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import {changeProfilePicture, getUserData, loginUser, registerUser, updateSavedJobs} from "../../config/db"
 import crypto from "crypto"
 import {JwtPayload, sign, verify} from "jsonwebtoken"
@@ -6,7 +6,7 @@ import {JwtPayload, sign, verify} from "jsonwebtoken"
 //Inputs
 
 @InputType()
-class RegisterUserInput{
+class SignupUserInput{
 
   @Field()
   name!: string
@@ -100,7 +100,7 @@ export default class UserResolver{
   }
 
   @Mutation(()=>ResponsePayload)
-  async register(@Arg("input") input:RegisterUserInput){
+  async signup(@Arg("input") input:SignupUserInput){
     const id = crypto.randomUUID()
 
     const {error,message} = await registerUser({...input,id})
