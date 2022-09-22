@@ -7,7 +7,7 @@
 }
 
 .title{
-  margin: 10px;
+  margin: 10px 0 10px 50px;
   padding: 10px;  
   font-size: 1.5em;
   color: var(--light-gray);
@@ -21,4 +21,5 @@
 
 .nav{
   display: flex;
+  align-items: center;
 }

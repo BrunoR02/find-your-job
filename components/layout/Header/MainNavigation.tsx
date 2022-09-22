@@ -27,10 +27,10 @@ export default function MainNavigation(){
   return (
     <ul className={styles.navigation}>
       {isLogged && <Link href="/saved-jobs">
-        <li className={styles.link + " " + (router.asPath ==="/saved-jobs" && styles.active)}>Saved Jobs 
+        <li className={styles.link}>Saved Jobs 
           <span className={styles.favCounter + " " + (hasListChanged && styles.addFavoriteAnimation)}>{favorites.length}</span>
         </li></Link>}
-      <Link href="/about"><li className={styles.link + " " + (router.asPath ==="/about" && styles.active)}>About</li></Link>
+      <Link href="/about"><li className={styles.link}>About</li></Link>
     </ul>
   )
 }
