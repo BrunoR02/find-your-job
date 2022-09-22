@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import AuthContext, { AuthContextType } from "../../../src/stores/AuthContext"
+import AuthContext, { AuthContextType } from "../../../src/stores/authContext"
 import FavoriteContext, { FavoriteContextType } from "../../../src/stores/FavoriteContext"
 import styles from "./MainNavigation.module.css"
 

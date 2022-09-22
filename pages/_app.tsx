@@ -4,7 +4,7 @@ import Layout from '../components/layout/Layout'
 import { ApolloProvider } from '@apollo/client'
 import client from "../config/ApolloClients/GraphQLJobsClient"
 import { FavoriteContextProvider } from '../src/stores/FavoriteContext'
-import { AuthContextProvider} from "../src/stores/AuthContext"
+import { AuthContextProvider} from "../src/stores/authContext"
 import {Provider} from "react-redux"
 import store from '../src/stores/alert-store'
 

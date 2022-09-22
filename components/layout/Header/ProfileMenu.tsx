@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../src/stores/alert-store";
-import AuthContext, { AuthContextType } from "../../../src/stores/AuthContext";
+import AuthContext, { AuthContextType } from "../../../src/stores/authContext";
 import LoadingSpinner from "../../LoadingSpinner";
 import Backdrop from "../Backdrop";
 
