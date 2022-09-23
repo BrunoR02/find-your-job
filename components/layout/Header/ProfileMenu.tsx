@@ -50,7 +50,7 @@ export default function ProfileMenu(){
     {loading && <LoadingSpinner/>}
     {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent></Backdrop>}
     <button className={styles.container} onMouseEnter={()=>setMenuActive(true)}>
-      <div className={styles.picture}><Image src={displayInfo.profilePicture} width="40%" height="40%"/></div>
+      <Image className={styles.picture} src={displayInfo.profilePicture} width="40%" height="40%" />
       <p className={styles.displayName}>{displayInfo.displayName}</p>
       <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
         {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
