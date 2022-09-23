@@ -12,10 +12,12 @@ export default function Header(){
 
   return (
     <header className={styles.header}>
-      <Link href="/"><h2 className={styles.title}>Find Your Job</h2></Link>
-      <div className={styles.nav}>
-        <MainNavigation/>
-        <ProfileMenu/>
+      <div className={styles.container}>
+        <Link href="/"><h2 className={styles.title}>Find Your Job</h2></Link>
+        <div className={styles.nav}>
+          <MainNavigation/>
+          <ProfileMenu/>
+        </div>
       </div>
       {alertOn && <Alert/>}
     </header>

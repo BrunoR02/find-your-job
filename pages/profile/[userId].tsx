@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import BioText from "../../components/profile/BioText";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 import { getUserProfile, getUsersIds } from "../../config/db";
 import { ProfileType } from "../../helpers/typeDefs";
@@ -28,6 +29,7 @@ export default function ProfilePage({profile}:{profile:ProfileType}){
         <meta name="description" content="Profile on Find Your Job"/>
       </Head>
       {profile && <ProfileHeader profile={profile}/>}
+      <BioText/>
     </>
   )
 }
