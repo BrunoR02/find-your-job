@@ -18,6 +18,8 @@
 
 .picture{
   display: block;
+  object-fit: contain;
+  background-color: #fff;
   border: 2px solid var(--main-blue) !important;
   border-radius: 50%;
 }

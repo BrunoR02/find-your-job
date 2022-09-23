@@ -13,7 +13,9 @@
 }
 
 .picture{
-  border: 8px solid #222 !important;
+  object-fit: contain;
+  background-color: #fff;
+  border: 8px solid #eee !important;
   border-radius: 50%;
   transition: border 0.5s ease;
 }
@@ -38,6 +40,7 @@
   font-size: 2em;
   font-weight: 700;
   color: var(--white);
+  cursor: default;
 }
 
 .title{
@@ -46,6 +49,7 @@
   font-weight: 600;
   font-style: italic;
   color: #ddd;
+  cursor: default;
 }
 
 .location{
