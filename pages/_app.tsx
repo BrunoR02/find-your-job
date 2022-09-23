@@ -7,6 +7,7 @@ import { FavoriteContextProvider } from '../src/stores/FavoriteContext'
 import { AuthContextProvider} from "../src/stores/authContext"
 import {Provider} from "react-redux"
 import store from '../src/stores/alert-store'
+import LoadingPage from '../components/LoadingPage'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AuthContextProvider>
           <FavoriteContextProvider>
             <Layout>
+              <LoadingPage/>
               <Component {...pageProps} />
             </Layout>
           </FavoriteContextProvider>
