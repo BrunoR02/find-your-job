@@ -17,11 +17,13 @@
 }
 
 .picture{
-  display: block;
+  display:flex;
+  align-items: center;
   object-fit: contain;
   background-color: #fff;
   border: 2px solid var(--main-blue) !important;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .displayName{
