@@ -44,7 +44,7 @@ const Home: NextPage = () => {
   const [jobList, setJobList] = useState<JobType[]>([])
 
   useEffect(()=>{
-    if(data && jobData.length !==jobList.length){
+    if(data){
       //Save Job list from API
       setJobList(jobData)
       //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
