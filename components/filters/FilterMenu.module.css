@@ -5,3 +5,9 @@
   max-width: 1000px;
   margin: 15px auto;
 }
+
+@media (max-width: 500px){
+  .menu{
+    flex-direction: column;
+  }
+}

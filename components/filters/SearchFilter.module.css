@@ -2,7 +2,7 @@
   width: 30%;
   display: flex;
   justify-content: center;
-  margin-right: 15px;
+  margin: 0 10px;
 }
 
 .input{
@@ -37,4 +37,17 @@
   border: none;
   background-color: transparent;
   filter: invert(100%);
+}
+
+@media (max-width: 750px){
+  .form{
+    width: 40%;
+  }
+}
+
+@media (max-width: 500px){
+  .form{
+    width: 70%;
+    margin-bottom: 10px;
+  }
 }
