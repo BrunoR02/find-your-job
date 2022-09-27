@@ -31,7 +31,7 @@ export default function ProfileHeader({profile}:PropsType){
       {loading && <LoadingSpinner/>}
       <div className={styles.background}>
         <section className={styles.container}>
-          <Image className={styles.picture} src={picture.url} alt="profile-picture" width="300px" height="300px"/>
+          <Image priority className={styles.picture} src={picture.url} alt="profile-picture" width="300px" height="300px"/>
           <div className={styles.info}>
             <h3 className={styles.name}>{profile.name}</h3>
             <h5 className={styles.title}>{profile.jobTitle}</h5>

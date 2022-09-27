@@ -41,7 +41,7 @@ export default function ProfileMenu(){
       ResetAuto()
     }
   },[autoLogout,dispatch,ResetAuto])
-  
+
   const url = picture.url
 
   //Load picture again if changed.
@@ -54,9 +54,9 @@ export default function ProfileMenu(){
   return (
     <>
     {loading && <LoadingSpinner/>}
-    {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent></Backdrop>}
+    {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent/>}
     <button className={styles.container} onMouseEnter={()=>setMenuActive(true)}>
-      <Image className={styles.picture} src={picture.url} alt="profile-picture" width="40%" height="40%" />
+      <Image priority className={styles.picture} src={picture.url} alt="profile-picture" width="40%" height="40%" />
       <p className={styles.displayName}>{displayInfo.displayName}</p>
       <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
         {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
@@ -65,7 +65,7 @@ export default function ProfileMenu(){
         {isLogged && <li className={styles.option} onClick={logoutHandler}>Logout</li>}
       </ul>
       {!picture.loaded && <div className={styles.loadPicture}>
-        <Image 
+        <Image
           onLoad={()=>{setPicture({loaded: true, url:displayInfo.profilePicture});setLoading(false)}} 
           src={displayInfo.profilePicture} 
           alt="load-picture" 

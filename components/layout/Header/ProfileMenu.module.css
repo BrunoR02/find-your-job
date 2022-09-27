@@ -8,7 +8,7 @@
   border: none;
   background-color: transparent;
   transition: background-color 0.3s ease;
-  z-index: 2;
+  z-index: 3;
 }
 
 .container:hover{
@@ -23,6 +23,7 @@
   border: 2px solid var(--main-blue) !important;
   border-radius: 50%;
   overflow: hidden;
+  z-index: -1;
 }
 
 .displayName{
@@ -52,6 +53,7 @@
   box-shadow: 0px 0px 5px #aaa;
   transform: translateY(60px);
   transition: visibility 1s, opacity 0.3s ease;
+  z-index: 3;
 }
 
 .menuActive{

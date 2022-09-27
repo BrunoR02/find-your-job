@@ -10,7 +10,7 @@ export default function EditProfileButton({profile}:{profile:ProfileType}){
   return (
     <>
       {showModal && <EditProfileModal closeModal={()=>setShowModal(false)} profile={profile}/>}
-      {showModal && <Backdrop onClickHandler={()=>setShowModal(false)}/>}
+      {showModal && <Backdrop onClickHandler={()=>setShowModal(false)} zIndex={5}/>}
       <button className={styles.button} onClick={()=>setShowModal(true)}>Edit Profile</button>
     </>
   )
