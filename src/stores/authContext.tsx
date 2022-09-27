@@ -80,12 +80,12 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     useEffect(()=>{
         setToken(localStorage.getItem("token"))
         if(isLogged){
-            updateDisplayInfo(localStorage.getItem("token") as string)
             const durationTime = CalculateRemainingTime(localStorage.getItem("expirationTime")!)
             if(durationTime < 6000){
                 setAutoLogout(true)
                 logout()
             } else {
+                updateDisplayInfo(localStorage.getItem("token") as string)
                 expireTimeout = setTimeout(()=>{
                     setAutoLogout(true)
                     logout()
