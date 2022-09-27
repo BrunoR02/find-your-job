@@ -93,3 +93,9 @@
     transform: translate(-50%,-200%)
   }
 }
+
+@media (max-width: 1024px){
+  .link:hover{
+    transform: translate3d(0,0,0);
+  }
+}

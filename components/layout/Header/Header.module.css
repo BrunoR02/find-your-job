@@ -29,3 +29,22 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 1024px){
+  .title:hover{
+    color: var(--light-gray);
+  }
+  .title:active{
+    color: var(--main-blue);
+  }
+}
+
+@media (max-width: 500px){
+  .container{
+    flex-direction: column;
+  }
+  .title{
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}

@@ -61,7 +61,6 @@
   animation: in 0.5s ease forwards;
 }
 
-
 .option{
   width: 100px;
   padding: 10px 20px;
@@ -81,5 +80,11 @@
   }
   100%{
     opacity: 1;
+  }
+}
+
+@media (max-width: 1024px){
+  .container:hover{
+    background-color: transparent;
   }
 }
