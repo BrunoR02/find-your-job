@@ -18,7 +18,7 @@ export default function ProfilePage({profile}:{profile:ProfileType}){
       router.push("/")
       dispatch(actions.createAlert({type:"error",message:"This profile does not exists."}))
     }
-  },[profile])
+  },[profile,router,dispatch])
 
   const profileTitle = "Profile - " + (profile ? profile.name : "")
 

@@ -21,7 +21,7 @@ export default function ImageInput({initialImage,caption,setImageInput,required}
 
   return (
     <div className={styles.formControl}>
-      <Image className={styles.image} priority src={profileImage} layout="fixed" width="100%" height="100%"/>
+      <Image className={styles.image} priority src={profileImage} alt="profile-picture" layout="fixed" width="100%" height="100%"/>
       <label className={styles.input}> {caption} <span className={styles.required}>{required && "*"}</span>
         <input style={{display:"none"}} accept="image/*" type="file" name="image" onChange={changeHandler}/>
       </label>

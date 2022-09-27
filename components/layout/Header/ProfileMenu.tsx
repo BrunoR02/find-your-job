@@ -41,27 +41,22 @@ export default function ProfileMenu(){
       ResetAuto()
     }
   },[autoLogout,dispatch,ResetAuto])
+  
+  const url = picture.url
 
+  //Load picture again if changed.
   useEffect(()=>{
-    if(sessionStorage.getItem("alert")){
-      const {type,message} = JSON.parse(sessionStorage.getItem("alert") as string)
-      sessionStorage.removeItem("alert")
-      dispatch(actions.createAlert({type,message}))
-    }
-  },[dispatch])
-
-  useEffect(()=>{
-    if(picture.url !== displayInfo.profilePicture){
+    if(url !== displayInfo.profilePicture){
       setPicture(state=>({...state,url:displayInfo.profilePicture}))
     }
-  },[displayInfo])
+  },[url, displayInfo])
 
   return (
     <>
     {loading && <LoadingSpinner/>}
     {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent></Backdrop>}
     <button className={styles.container} onMouseEnter={()=>setMenuActive(true)}>
-      <Image className={styles.picture} src={picture.url} width="40%" height="40%" />
+      <Image className={styles.picture} src={picture.url} alt="profile-picture" width="40%" height="40%" />
       <p className={styles.displayName}>{displayInfo.displayName}</p>
       <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
         {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
@@ -69,7 +64,15 @@ export default function ProfileMenu(){
         {!isLogged && <Link href="/signup"><li className={styles.option}>Sign up</li></Link>}
         {isLogged && <li className={styles.option} onClick={logoutHandler}>Logout</li>}
       </ul>
-      {!picture.loaded && <div className={styles.loadPicture}><Image onLoad={()=>{setPicture({loaded: true, url:displayInfo.profilePicture});setLoading(false)}} src={displayInfo.profilePicture} width="100%" height="100%"/></div>}
+      {!picture.loaded && <div className={styles.loadPicture}>
+        <Image 
+          onLoad={()=>{setPicture({loaded: true, url:displayInfo.profilePicture});setLoading(false)}} 
+          src={displayInfo.profilePicture} 
+          alt="load-picture" 
+          width="100%" 
+          height="100%"/>
+        </div>
+      }
     </button>
     </>
   )

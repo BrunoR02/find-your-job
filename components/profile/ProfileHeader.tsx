@@ -21,7 +21,7 @@ export default function ProfileHeader({profile}:PropsType){
   const url = picture.url
 
   useEffect(()=>{
-    if(profile.profilePicture!==picture.url){
+    if(profile.profilePicture!==url){
       setPicture(state=>({...state,loaded:false}))
     }
   },[url,profile])
@@ -31,14 +31,22 @@ export default function ProfileHeader({profile}:PropsType){
       {loading && <LoadingSpinner/>}
       <div className={styles.background}>
         <section className={styles.container}>
-          <Image className={styles.picture} src={picture.url} width="300px" height="300px"/>
+          <Image className={styles.picture} src={picture.url} alt="profile-picture" width="300px" height="300px"/>
           <div className={styles.info}>
             <h3 className={styles.name}>{profile.name}</h3>
             <h5 className={styles.title}>{profile.jobTitle}</h5>
             <span className={styles.location}>{profile.locationName}</span>
           </div>
         </section>
-        {!picture.loaded && <div className={styles.loadPicture}><Image onLoad={()=>{setPicture({loaded: true, url:profile.profilePicture});setLoading(false)}} src={profile.profilePicture} width="100%" height="100%"/></div>}
+        {!picture.loaded && <div className={styles.loadPicture}>
+          <Image 
+            onLoad={()=>{setPicture({loaded: true, url:profile.profilePicture});setLoading(false)}} 
+            src={profile.profilePicture} 
+            alt="load-picture" 
+            width="100%" 
+            height="100%"/>
+          </div>
+        }
       </div>
     </>
   )

@@ -30,8 +30,8 @@ export default function AboutContent(){
         brunolucas23@gmail.com
         +55 (79) 98818-8543`}
         <div className={styles.links}>
-          <Link href="https://www.linkedin.com/in/bruno-ribeiro02/"><a className={styles.link} target="_blank"><Image src="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/linkedin-icon.png" width="100%" height="100%"/></a></Link>
-          <Link href="https://github.com/BrunoR02/find-your-job"><a className={styles.link} target="_blank"><Image src="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/github-icon.png" width="100%" height="100%"/></a></Link>
+          <Link href="https://www.linkedin.com/in/bruno-ribeiro02/"><a className={styles.link} target="_blank"><Image src="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/linkedin-icon.png" alt="linkedin" width="100%" height="100%"/></a></Link>
+          <Link href="https://github.com/BrunoR02/find-your-job"><a className={styles.link} target="_blank"><Image src="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/github-icon.png" alt="github" width="100%" height="100%"/></a></Link>
         </div>
       </span>
     </section>

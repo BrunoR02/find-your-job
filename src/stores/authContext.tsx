@@ -77,6 +77,26 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         },durationTime)
     }
 
+    const updateDisplayInfo = useCallback(async (idToken:string)=>{
+        const {name,profilePicture,id} = await getDisplayInfo(idToken)
+
+        //Get first name to display on frontend
+        const displayName = name.split(" ")[0]
+
+        if(profilePicture !== displayInfo.profilePicture){
+            setCacheImage(profilePicture)
+            setDisplayInfo(state=> ({...state,displayName,id}))
+        //If already logged in just set the profile picture url because is already downloaded on cache, 
+        //so it will load faster.
+        } else {
+            setDisplayInfo({displayName,profilePicture,id})
+        }
+    },[displayInfo])
+
+    const ResetAuto = useCallback(()=>{
+        setAutoLogout(false)
+    },[])
+
     useEffect(()=>{
         setToken(localStorage.getItem("token"))
         if(isLogged){
@@ -92,27 +112,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
                 }, durationTime)
             }
         }
-    },[isLogged, logout])
-
-    const ResetAuto = useCallback(()=>{
-        setAutoLogout(false)
-    },[])
-
-    async function updateDisplayInfo(idToken:string){
-        const {name,profilePicture,id} = await getDisplayInfo(idToken)
-
-        //Get first name to display on frontend
-        const displayName = name.split(" ")[0]
-
-        if(profilePicture !== displayInfo.profilePicture){
-            setCacheImage(profilePicture)
-            setDisplayInfo(state=> ({...state,displayName,id}))
-        //If already logged in just set the profile picture url because is already downloaded on cache, 
-        //so it will load faster.
-        } else {
-            setDisplayInfo({displayName,profilePicture,id})
-        }
-    }
+    },[isLogged, logout,updateDisplayInfo])
 
     useEffect(()=>{
         if(cacheImage){
