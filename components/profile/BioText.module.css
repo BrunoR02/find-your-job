@@ -1,6 +1,6 @@
 .container{
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 50%;
+  margin-right: 50px;
 }
 
 .title{
@@ -10,7 +10,7 @@
 }
 
 .text{
-  width: 50%;
+  width: 100%;
   font-size: 1.1em;
   font-weight: 400;
   line-height: 1.7;

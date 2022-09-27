@@ -15,6 +15,12 @@ export default function ProfileMenu(){
   const [menuActive,setMenuActive] = useState(false)
   const [loading,setLoading] = useState(false)
 
+  const [picture,setPicture] = useState({
+    //If already logged in, it wont load the image beforehand
+    loaded: (displayInfo.displayName !== "Guest"), 
+    url:displayInfo.profilePicture
+  })
+
   const {isLogged,logout,autoLogout,ResetAuto} = useContext(AuthContext) as AuthContextType
   const dispatch = useDispatch()
   const router = useRouter()
@@ -25,7 +31,6 @@ export default function ProfileMenu(){
     setLoading(true)
     setTimeout(()=>{
       logout()
-      setLoading(false)
       router.reload()
     },1000)
   }
@@ -45,12 +50,18 @@ export default function ProfileMenu(){
     }
   },[dispatch])
 
+  useEffect(()=>{
+    if(picture.url !== displayInfo.profilePicture){
+      setPicture(state=>({...state,url:displayInfo.profilePicture}))
+    }
+  },[displayInfo])
+
   return (
     <>
     {loading && <LoadingSpinner/>}
     {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent></Backdrop>}
     <button className={styles.container} onMouseEnter={()=>setMenuActive(true)}>
-      <Image className={styles.picture} src={displayInfo.profilePicture} width="40%" height="40%" />
+      <Image className={styles.picture} src={picture.url} width="40%" height="40%" />
       <p className={styles.displayName}>{displayInfo.displayName}</p>
       <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
         {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
@@ -58,6 +69,7 @@ export default function ProfileMenu(){
         {!isLogged && <Link href="/signup"><li className={styles.option}>Sign up</li></Link>}
         {isLogged && <li className={styles.option} onClick={logoutHandler}>Logout</li>}
       </ul>
+      {!picture.loaded && <div className={styles.loadPicture}><Image onLoad={()=>{setPicture({loaded: true, url:displayInfo.profilePicture});setLoading(false)}} src={displayInfo.profilePicture} width="100%" height="100%"/></div>}
     </button>
     </>
   )

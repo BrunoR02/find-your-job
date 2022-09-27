@@ -1,96 +1,8 @@
-import { Arg, Field, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import {changeProfilePicture, getDisplayInfo, loginUser, registerUser, updateSavedJobs} from "../../config/db"
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {changeProfilePicture, getDisplayInfo, loginUser, registerUser, updateSavedJobs, updateUserProfile} from "../../config/db"
 import crypto from "crypto"
 import {JwtPayload, sign, verify} from "jsonwebtoken"
-
-//Inputs
-
-@InputType()
-class SignupUserInput{
-
-  @Field()
-  name!: string
-
-  @Field()
-  email!: string
-
-  @Field()
-  password!: string
-
-  @Field()
-  location!: string
-
-  @Field()
-  title!: string
-}
-
-@InputType()
-class LoginUserInput{
-
-  @Field()
-  email!: string
-
-  @Field()
-  password!: string
-}
-
-@InputType()
-class UpdateSavedJobsInput{
-
-  @Field()
-  token!: string
-
-  @Field(()=>[String])
-  savedJobs!: string[]
-}
-
-@InputType()
-class ChangeProfilePictureInput{
-
-  @Field()
-  url!: string
-
-  @Field()
-  email!: string
-}
-
-//Payloads
-
-@ObjectType()
-class ResponsePayload{
-
-  @Field()
-  error!: boolean
-
-  @Field()
-  message!: string
-}
-
-@ObjectType()
-class GetDisplayInfoPayload{
-
-  @Field(()=>[String])
-  savedJobs!: string[]
-
-  @Field()
-  name!: string
-
-  @Field()
-  profilePicture!:string
-
-  @Field()
-  id!: string
-}
-
-@ObjectType()
-class LoginPayload{
-
-  @Field({nullable: true})
-  token?: string
-
-  @Field()
-  response!: ResponsePayload
-}
+import { ChangeProfilePictureInput, GetDisplayInfoPayload, LoginPayload, LoginUserInput, ResponsePayload, SignupUserInput, UpdateSavedJobsInput, UpdateUserProfileInput } from "./UserTypes";
 
 //Main Resolver
 
@@ -168,6 +80,25 @@ export default class UserResolver{
 
     const {error,message} = await changeProfilePicture({...input})
     
+    return {error,message}
+  }
+
+  @Mutation (()=>ResponsePayload)
+  async updateUserProfile(@Arg("input") input: UpdateUserProfileInput){
+
+    const {email} = verify(input.token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
+
+    const data = {
+      name: input.name,
+      location: input.location,
+      title: input.title,
+      profilePicture: input.profilePicture,
+      bio: input.bio,
+      email
+    }
+
+    const {error,message} = await updateUserProfile({...data})
+
     return {error,message}
   }
 }

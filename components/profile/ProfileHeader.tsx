@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileType } from "../../helpers/typeDefs";
 import LoadingSpinner from "../LoadingSpinner";
 
@@ -10,8 +10,21 @@ type PropsType = {
 }
 
 export default function ProfileHeader({profile}:PropsType){
-  const [picture,setPicture] = useState({loaded: false, url:"https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
-  const [loading,setLoading] = useState(true)
+
+  const [picture,setPicture] = useState({
+    //If already logged in, it wont load the image beforehand
+    loaded: false, 
+    url: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"
+  })
+  const [loading,setLoading] = useState(!picture.loaded)
+
+  const url = picture.url
+
+  useEffect(()=>{
+    if(profile.profilePicture!==picture.url){
+      setPicture(state=>({...state,loaded:false}))
+    }
+  },[url,profile])
 
   return (
     <>

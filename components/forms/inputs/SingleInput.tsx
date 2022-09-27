@@ -17,13 +17,14 @@ type PropsType = {
   label: string
   type?: string
   extraErrorMessage?: string | null
-  placeholder: string
+  placeholder?: string
   isConfirmation?: boolean
   required?: boolean
   disabled?: boolean
+  extraStyle?: React.CSSProperties
 }
 
-export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required,disabled}:PropsType){
+export default function SingleInput({input,label,type = "text",extraErrorMessage = null, placeholder, isConfirmation,required,disabled,extraStyle}:PropsType){
 
   let invalid:boolean = !!extraErrorMessage || input.isInvalid
   
@@ -32,7 +33,7 @@ export default function SingleInput({input,label,type = "text",extraErrorMessage
   }
 
   return (
-    <div className={styles.formControl}>
+    <div className={styles.formControl} style={extraStyle}>
       <label className={styles.label + " " + (invalid && styles.error)}>{label} <span className={styles.required}>{required && "*"}</span>
         <input disabled={disabled} placeholder={placeholder}
         className={styles.input + " " + (invalid && styles.errorInput)}

@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useDispatch } from "react-redux";
-import BioText from "../../components/profile/BioText";
+import ProfileBottom from "../../components/profile/ProfileBottom";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 import { getUserProfile, getUsersIds } from "../../config/db";
 import { ProfileType } from "../../helpers/typeDefs";
@@ -20,7 +20,7 @@ export default function ProfilePage({profile}:{profile:ProfileType}){
     }
   },[profile])
 
-  const profileTitle = "Profile - " + (profile && profile.name)
+  const profileTitle = "Profile - " + (profile ? profile.name : "")
 
   return (
     <>
@@ -28,8 +28,10 @@ export default function ProfilePage({profile}:{profile:ProfileType}){
         <title>{profileTitle}</title>
         <meta name="description" content="Profile on Find Your Job"/>
       </Head>
-      {profile && <ProfileHeader profile={profile}/>}
-      <BioText/>
+      {profile && <>
+        <ProfileHeader profile={profile}/>
+        <ProfileBottom profile={profile}/>
+      </>}
     </>
   )
 }

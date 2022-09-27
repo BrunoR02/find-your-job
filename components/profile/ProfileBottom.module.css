@@ -1,0 +1,16 @@
+.container{
+  display: flex;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: in 0.5s ease 1 forwards;
+}
+
+@keyframes in{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}

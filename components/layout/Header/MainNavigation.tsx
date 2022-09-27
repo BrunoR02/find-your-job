@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import AuthContext, { AuthContextType } from "../../../src/stores/authContext"
 import FavoriteContext, { FavoriteContextType } from "../../../src/stores/FavoriteContext"
@@ -10,7 +9,6 @@ export default function MainNavigation(){
 
   const {favorites} = useContext(FavoriteContext) as FavoriteContextType
   const {isLogged} = useContext(AuthContext) as AuthContextType
-  const router = useRouter()
 
   //Check if has added or removed a favorite job(saved job)
   const hasListChanged = favorites.length !== oldFavorites.length

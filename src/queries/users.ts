@@ -55,3 +55,12 @@ export const CHANGE_PROFILE_PICTURE = gql`
     }
   }
 `
+
+export const UPDATE_USER_PROFILE = gql`
+  mutation($input: UpdateUserProfileInput!){
+    updateUserProfile(input:$input){
+      error
+      message
+    }
+  }
+`

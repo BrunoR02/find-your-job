@@ -11,8 +11,8 @@ import styles from "./Form.module.css"
 import SingleInput from "./inputs/SingleInput"
 
 export default function RegisterForm(){
-  const emailInput = useInput("email", "login")
-  const passwordInput = useInput("password","login")
+  const emailInput = useInput({type:"email", form:"login"})
+  const passwordInput = useInput({type:"password",form:"login"})
   const [loading,setLoading] = useState(false)
 
   const dispatch = useDispatch()

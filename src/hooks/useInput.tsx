@@ -1,7 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-export default function useInput(type:string, form = "register"){
-    const [enteredValue, setEnteredValue] = useState<string>("")
+type OptionsType = 
+{
+    type: "name" | "title" | "location" | "email" | "login" | "password" | "novalidate"
+    form?: "register" | "login"
+    initialValue?: string
+}
+
+export default function useInput({type,form="register",initialValue=""}:OptionsType){
+    const [enteredValue, setEnteredValue] = useState<string>(initialValue)
     const [inputIsTouched, setInputIsTouched] = useState(false)
     const [isValid,setIsValid] = useState(false)
     const [error, setError] = useState<string | null>(null)

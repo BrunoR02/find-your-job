@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from "react"
 import {JwtPayload, verify} from "jsonwebtoken"
 import getDisplayInfo from "../../helpers/getDisplayInfo";
+import { profile } from "console";
 
 let expireTimeout: ReturnType<typeof setTimeout>;
 
@@ -103,8 +104,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         //Get first name to display on frontend
         const displayName = name.split(" ")[0]
 
-        //Execute only first time when logged in to download profile picture on cache
-        if(!token){
+        if(profilePicture !== displayInfo.profilePicture){
             setCacheImage(profilePicture)
             setDisplayInfo(state=> ({...state,displayName,id}))
         //If already logged in just set the profile picture url because is already downloaded on cache, 

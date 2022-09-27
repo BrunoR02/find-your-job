@@ -12,12 +12,12 @@ import ImageInput from "./inputs/ImageInput"
 import SingleInput from "./inputs/SingleInput"
 
 export default function SignupForm(){
-  const nameInput = useInput("name")
-  const titleInput = useInput("title")
-  const locationInput = useInput("location")
-  const emailInput = useInput("email")
-  const passwordInput = useInput("password")
-  const password2Input = useInput("password")
+  const nameInput = useInput({type:"name"})
+  const titleInput = useInput({type:"title"})
+  const locationInput = useInput({type:"location"})
+  const emailInput = useInput({type:"email"})
+  const passwordInput = useInput({type:"password"})
+  const password2Input = useInput({type:"password"})
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [loading,setLoading] = useState(false)
 
@@ -54,12 +54,16 @@ export default function SignupForm(){
       if(response.error){
         dispatch(actions.createAlert({type:alertType,message:alertMessage}))
       } else {  
-        
+        const request_payload = {type: "register"}
+        const blob = new Blob([JSON.stringify(request_payload)],{
+          type: "application/json"
+        }) 
         const formData = new FormData()
         formData.append("image",imageFile as File)
+        formData.append("object",JSON.stringify(request_payload))
 
         //Upload image file to AWS S3 storage.
-        const res = await fetch("/api/upload",{
+        const res = await fetch("/api/image/upload",{
           method: "POST",
           body: formData,
         }).catch(err=>console.log(err.message)) as Response
@@ -93,7 +97,7 @@ export default function SignupForm(){
     <>
       {loading && <LoadingSpinner/>}
       <form noValidate className={styles.form} onSubmit={submitHandler}>
-        <ImageInput required setImageInput={(image:File)=>setImageFile(image)}/>
+        <ImageInput required initialImage="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png" caption="Upload your profile picture" setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required disabled={loading} input={nameInput} label="Name" placeholder="Insert your full name"/>
         <SingleInput required disabled={loading} input={titleInput} label="Title" placeholder="Insert your job title"/>
         <SingleInput required disabled={loading} input={locationInput} label="Location" placeholder="Insert your location"/>

@@ -19,8 +19,8 @@ export async function registerUser({id,name,email,password,location,title}){
 
   const encryptedPassword = await bcrypt.hash(password,10)
 
-  let responseMessage;
-  let error = "";
+  let responseMessage
+  let error = ""
 
   await conn.query("INSERT INTO users (id,name,email,password,savedJobs,locationName,jobTitle) VALUES (?,?,?,?,?,?,?)",[id,name,email,encryptedPassword,savedJobs,location,title]).catch(err=>error=err.message)
 
@@ -63,8 +63,8 @@ export async function updateSavedJobs(savedJobs,email){
 
   const savedJobsJSON = JSON.stringify(savedJobs)
 
-  let responseMessage;
-  let error = "";
+  let responseMessage
+  let error = ""
 
   await conn.query("UPDATE users SET savedJobs=? WHERE email=?",[savedJobsJSON,email]).catch(err=>error=err.message)
 
@@ -92,8 +92,8 @@ export async function getDisplayInfo(email){
 export async function changeProfilePicture({url,email}){
   const conn = await connect()
 
-  let responseMessage;
-  let error="";
+  let responseMessage
+  let error=""
 
   await conn.query("UPDATE users SET profilePicture=? WHERE email=?",[url,email]).catch(err=>error=err.message)
 
@@ -122,9 +122,28 @@ export async function getUsersIds(){
 export async function getUserProfile(id){
   const conn = await connect()
 
-  const data = await conn.query("SELECT name,locationName,jobTitle,profilePicture FROM users WHERE id=?",[id])
+  const data = await conn.query("SELECT name,locationName,jobTitle,profilePicture,bio FROM users WHERE id=?",[id])
 
   const profileData = data[0][0] 
 
   return profileData
+}
+
+export async function updateUserProfile({name,location,title,profilePicture,bio,email}){
+  const conn = await connect()
+
+  let responseMessage
+  let error=""
+
+  await conn.query("UPDATE users SET name=?,locationName=?,jobTitle=?,profilePicture=?,bio=? WHERE email=?",[name,location,title,profilePicture,bio,email])
+  .catch(err=>error=err.message)
+
+  responseMessage = "Changes has been saved!"
+  const hasError = error !==""
+
+  if(hasError){
+    responseMessage = error
+  }
+
+  return {error: hasError, message: responseMessage}
 }

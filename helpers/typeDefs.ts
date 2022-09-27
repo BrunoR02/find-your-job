@@ -19,4 +19,5 @@ export type ProfileType ={
   locationName: string
   jobTitle: string
   profilePicture: string
+  bio: string
 }

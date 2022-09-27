@@ -1,5 +1,6 @@
 .header{
-  padding:  0 20px;
+  position: relative;
+  padding: 0 20px;
   box-shadow: 5px 0 5px #aaa;
 }
 

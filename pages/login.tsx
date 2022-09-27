@@ -28,7 +28,7 @@ export default function LoginPage(){
       </Head>
       <MainTitle title="Login"/>
       <LoginForm/>
-      <section className={styles.redirectText}>You do not have an account yet? <Link href="/register"><span className={styles.redirectLink}>Click here to register</span></Link></section>
+      <section className={styles.redirectText}>You do not have an account yet? <Link href="/signup"><span className={styles.redirectLink}>Click here to register</span></Link></section>
     </>
   )
 }
