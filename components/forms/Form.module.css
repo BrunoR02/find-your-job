@@ -30,6 +30,24 @@
   background-color: var(--dark-blue);
 }
 
+@media (max-width: 1024px){
+  .form{
+    width: 40%;
+  }
+}
+
+@media (max-width: 650px){
+  .form{
+    width: 60%;
+  }
+}
+
+@media (max-width: 400px){
+  .form{
+    width: 80%;
+  }
+}
+
 @keyframes slide{
     0%{
         opacity: 0;

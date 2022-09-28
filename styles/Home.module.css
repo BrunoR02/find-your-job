@@ -19,6 +19,9 @@
 }
 
 .redirectText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;  
   margin: 20px 0 50px 0;
   text-align: center;
@@ -26,6 +29,16 @@
 }
 
 .redirectLink{
+  margin-left: 5px;
   color: var(--main-blue);
   cursor: pointer;
+}
+
+@media (max-width: 650px){
+  .redirectText{
+    flex-direction: column
+  }
+  .redirectLink{
+    margin-left: 0;
+  }
 }
