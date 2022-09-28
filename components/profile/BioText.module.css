@@ -1,6 +1,6 @@
 .container{
   width: 50%;
-  margin-right: 50px;
+  margin: 0 50px 50px 0;
 }
 
 .title{
@@ -15,4 +15,14 @@
   font-weight: 400;
   line-height: 1.7;
   color: var(--black);
+}
+
+@media (max-width: 600px){
+  .container{
+    width: 80%;
+  }
+  .text{
+    margin: 0;
+    line-height: 1.3;
+  }
 }
