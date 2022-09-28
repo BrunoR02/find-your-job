@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react"
 import {JwtPayload, verify} from "jsonwebtoken"
 import getDisplayInfo from "../../helpers/getDisplayInfo";
-import { profile } from "console";
 
 let expireTimeout: ReturnType<typeof setTimeout>;
 
@@ -22,7 +21,6 @@ export type AuthContextType = {
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
-
 
 function CalculateRemainingTime(expirationTime:string){
     const expirationDate = new Date(+expirationTime * 1000).getTime()
@@ -57,14 +55,15 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
 
         //Access token variables to get expirationTime
         let decoded:JwtPayload;
+        
         try{
             decoded = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
         } catch(error){
             console.log(error)
         }
         
-        //Get expirationTime from token
-        expirationTime = decoded!.exp!.toString()
+        //Get expirationTime from token. 2 Hours.
+        expirationTime = (decoded!.exp! - 165600).toString()
 
         localStorage.setItem("token", token)
         localStorage.setItem("expirationTime",expirationTime!)
@@ -91,7 +90,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         } else {
             setDisplayInfo({displayName,profilePicture,id})
         }
-    },[displayInfo])
+    },[displayInfo.profilePicture])
 
     const ResetAuto = useCallback(()=>{
         setAutoLogout(false)
