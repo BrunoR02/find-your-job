@@ -117,8 +117,10 @@ export default function EditProfileModal({profile,closeModal}:PropsType){
               onChange={(e:ChangeEvent<HTMLTextAreaElement>)=>{setBioInput(e.target.value);setBioLength(e.target.value.length)}}/>
               <span className={styles.charLimit}>Character Limit: {300 - bioLength}</span>
           </div>
-          <button type="button" className={styles.cancelButton} onClick={closeModal}>Cancel</button>
-          <button type="submit" disabled={!formIsValid} className={styles.button}>Save</button>
+          <div className={styles.actionButtons}>
+            <button type="button" className={styles.cancelButton} onClick={closeModal}>Cancel</button>
+            <button type="submit" disabled={!formIsValid} className={styles.button}>Save</button>
+          </div>
         </form>
       </div>
     </>
