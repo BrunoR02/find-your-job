@@ -9,9 +9,10 @@ import styles from "./SaveButton.module.css"
 
 type PropsType = {
   jobId: string
+  closeDetails: ()=>void
 }
 
-export default function SaveButton({jobId}:PropsType){
+export default function SaveButton({jobId,closeDetails}:PropsType){
   const {favorites,isLoading,addFavorite,removeFavorite} = useContext(FavoriteContext) as FavoriteContextType
   const {isLogged,token} = useContext(AuthContext) as AuthContextType
 
@@ -32,6 +33,7 @@ export default function SaveButton({jobId}:PropsType){
         addFavorite(jobId,token as string)
       } else {
         removeFavorite(jobId,token as string)
+        closeDetails()
       }
       if(!isLoading) setSaved(state=>!state)
     } else {

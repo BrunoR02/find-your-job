@@ -38,6 +38,10 @@ const Home: NextPage = () => {
   //Retrieved Job Data that came from GraphQL Jobs API
   const jobData = useMemo(()=>data && data.commitments[0].jobs || [],[data])
 
+  let isMobile = false
+  if (typeof window !== 'undefined') {
+    isMobile = (window  as Window).innerWidth < 768
+  }
   //Save active job id to turn it active, displaying the Job Details component and additional styles
   const [activeId,setActiveId] = useState<string | null>(null)
   //State to save the retrieved Jobs list that came from Graphql Jobs API.
@@ -48,11 +52,11 @@ const Home: NextPage = () => {
       //Save Job list from API
       setJobList(jobData)
       //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
-      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId) && activeId){
+      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId) && !isMobile){
         setActiveId(jobData[0].id)
       }
     }
-  },[pagination,data,jobData,jobList,activeId])  
+  },[pagination,data,jobData,jobList,activeId,isMobile])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.

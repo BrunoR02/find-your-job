@@ -29,10 +29,17 @@ export default function SavedJobsPage(){
 
   const jobData = useMemo(()=>data ? data.commitments[0].jobs : [],[data])
 
+  let isMobile = false
+  if (typeof window !== 'undefined') {
+    isMobile = (window  as Window).innerWidth < 768
+  }
+
   useEffect(()=>{
     if(data && jobData.length !== jobList.length){
       setJobList(jobData)
-      setActiveId(favorites[0])
+      if(!isMobile){
+        setActiveId(favorites[0])
+      }
     } 
   },[data,jobData,jobList,favorites])
 

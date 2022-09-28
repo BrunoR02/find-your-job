@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
@@ -12,7 +13,13 @@ type PropsType = {
 }
 
 export default function JobDetails({data,closeMobileHandler,loading}: PropsType){
+  const router = useRouter()
   const [jobInfo,setJobInfo] = useState<JobType | null>(null)
+
+  let isMobile = false
+  if (typeof window !== 'undefined') {
+    isMobile = (window  as Window).innerWidth < 768
+  }
 
   useEffect(()=>{
     if(data){
@@ -33,7 +40,10 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
 
           <div className={styles.actions}>
             <button className={styles.button}>Apply Now</button>
-            <SaveButton jobId={jobInfo.id} />
+            <SaveButton jobId={jobInfo.id} closeDetails={
+              //Close Details if it is mobile and is on saved-jobs page, so it can load smoother.
+              isMobile && router.asPath.includes("saved-jobs") ? ()=>closeMobileHandler() : ()=>{}
+              }/>
           </div>
         </section>
 
