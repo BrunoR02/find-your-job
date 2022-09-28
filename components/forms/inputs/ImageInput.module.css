@@ -1,0 +1,37 @@
+.formControl{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto 25px auto;
+}
+
+.image{
+  display: block;
+  border: 1px solid var(--main-blue) !important;
+  border-radius: 50%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.input{
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--main-blue);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.required{
+  color: #a70000;
+}
+
+.input:active{
+  color: white;
+  background-color: var(--dark-blue);
+}

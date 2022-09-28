@@ -1,0 +1,7 @@
+.alertMessage{
+  padding: 10px;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  color: var(--main-blue);
+}

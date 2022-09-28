@@ -1,0 +1,60 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid var(--black);
+  animation: slide 1s ease 1 forwards;
+}
+
+.button{
+  margin-top: 25px;
+  padding: 15px 0px;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: var(--main-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  transition: 0.1s ease;
+}
+
+.button:active{
+  background-color: var(--dark-blue);
+  color: #fff;
+}
+
+.button:disabled{
+  color: #aaa;
+  background-color: var(--dark-blue);
+}
+
+@media (max-width: 1024px){
+  .form{
+    width: 40%;
+  }
+}
+
+@media (max-width: 650px){
+  .form{
+    width: 60%;
+  }
+}
+
+@media (max-width: 400px){
+  .form{
+    width: 80%;
+  }
+}
+
+@keyframes slide{
+    0%{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}

@@ -1,0 +1,147 @@
+.modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  padding: 20px;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #eee;
+  z-index: 10;
+  animation: in 0.3s ease-out 1 forwards;
+}
+
+.closeButton{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/close.png");
+  background-size: cover;
+  border: none;
+}
+
+.form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.formControl{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+}
+
+.label,.textarea{
+  width: 100%;
+}
+
+.label{
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: var(--main-blue);
+}
+
+.textarea{
+  height: 100px;
+  resize: none;
+  padding: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: 2px solid var(--main-blue);
+  transition: box-shadow 0.4s ease;
+}
+
+.textarea:focus{
+  box-shadow: 0 0 10px var(--main-blue);
+  outline: none;
+}
+
+.textarea:disabled{
+  background-color: #ddd;
+}
+
+.charLimit{
+  width: 100%;
+  margin: 5px 0;
+  font-size: 0.7em;
+  text-align: left;
+  color: #777;
+}
+
+.actionButtons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.cancelButton,.button{
+  margin: 20px 10px 0 10px;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--main-blue);
+  border: 2px solid var(--main-blue);
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.cancelButton{
+  color: var(--main-blue);
+  background-color: #fff;
+}
+
+.cancelButton:hover{
+  color: #fff;
+  background-color: var(--main-blue);
+}
+
+.button:hover{
+  color: #fff;
+  background-color: var(--dark-blue);
+  border: 2px solid var(--dark-blue);
+}
+
+.button:disabled{
+  color: #aaa;
+  background-color: var(--dark-blue);
+}
+
+@media (max-width:1024px){
+  .modal{
+    width: 40%;
+  }
+}
+
+@media (max-width:750px){
+  .modal{
+    width: 60%;
+  }
+}
+
+@media (max-width:500px){
+  .modal{
+    width: 80%;
+  }
+}
+
+@keyframes in{
+  0%{
+    margin-top: -500px;
+    opacity: 0;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    margin-top: 0px;
+  }
+}

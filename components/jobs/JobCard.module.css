@@ -1,0 +1,65 @@
+.card{
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 3px;
+  border: 1px solid #555;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: border 0.2s ease;
+}
+
+.active{
+  border-left: 4px solid var(--main-blue);
+}
+
+.active .location{
+  color: var(--main-blue);
+  filter: invert(43%) sepia(100%) saturate(295%) hue-rotate(131deg) brightness(88%) contrast(95%);
+}
+
+.title{
+  margin: 0;
+  color: var(--black);
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.companyName{
+  display: block;
+  margin: 10px 0;
+  color: #555;
+}
+
+.location{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.location::before{
+  content: "";
+  display: table;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/location.png");
+  background-size: cover;
+}
+
+.description{
+  display: block;
+  margin: 0;
+  color: var(--black);
+  width: 100%;
+  max-height: 85px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  white-space: normal;
+}

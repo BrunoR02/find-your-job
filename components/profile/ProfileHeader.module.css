@@ -1,0 +1,125 @@
+.background{
+  width: 100%;
+  background: rgb(37,139,139);
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 20px;
+  animation: in 0.5s ease 1 forwards;
+}
+
+.picture{
+  position: relative;
+  display: block;
+  min-width: 300px;
+  min-height: 300px;
+  margin: 0 20px;
+  background-color: #fff;
+  border: 8px solid #eee !important;
+  border-radius: 50%;
+  transition: border 0.5s ease;
+  overflow: hidden;
+}
+
+.picture img{
+  object-fit: contain;
+}
+
+.loadPicture{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.info{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-left: 50px;
+}
+
+.name{
+  margin: 0;
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--white);
+  cursor: default;
+}
+
+.title{
+  margin: 0;
+  font-size: 1.6em;
+  font-weight: 600;
+  font-style: italic;
+  color: #ddd;
+  cursor: default;
+}
+
+.location{
+  display: flex;
+  align-items: center;
+  font-size: 1.3em;
+  color: var(--black);
+  transition: background-color 0.3s ease;
+  cursor: default;
+}
+
+.location:hover{
+  background-color: #ddd;
+}
+
+.location::before{
+  content: "";
+  display: table;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/location.png");
+  background-size: cover;
+  filter: invert(10%);
+}
+
+@media (max-width:750px){
+  .container{
+    flex-direction: column;
+    padding: 20px 20px;
+  }
+  .info{
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0;
+    text-align: center;
+  }
+  .picture{
+    min-width: 250px;
+    min-height: 250px;
+  }
+  .name{
+    font-size: 1.5em;
+  }
+  .title{
+    font-size: 1.3em;
+  }
+  .location{
+    justify-content: center;
+    margin-top: 5px;
+    font-size:1em;
+  }
+}
+
+
+@keyframes in{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+

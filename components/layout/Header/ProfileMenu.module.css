@@ -1,0 +1,99 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.container:hover{
+  background-color: #eee;
+}
+
+.container:hover .menu{
+  display: block;
+  animation: in 0.5s ease forwards;
+}
+
+.picture{
+  display:flex;
+  align-items: center;
+  object-fit: contain;
+  background-color: #fff;
+  border: 2px solid var(--main-blue) !important;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.picture img{
+  object-fit: contain;
+}
+
+.displayName{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 600;
+  color: var(--main-blue);
+}
+
+.displayName::after{
+  content: "";
+  display: table;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/dropdown.png");
+  background-size: contain;
+  filter: invert(47%) sepia(29%) saturate(958%) hue-rotate(131deg) brightness(90%) contrast(88%);
+}
+
+.menu{
+  position: absolute;
+  display: none;
+  top: 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px #aaa;
+  transform: translateY(60px);
+  transition: visibility 1s, opacity 0.3s ease;
+  z-index: 3;
+}
+
+
+
+.option{
+  width: 100px;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--main-blue);
+  transition: background-color 0.2s ease;
+}
+
+.option:hover{
+  background-color: #eee;
+}
+
+@keyframes in{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px){
+  .container:hover{
+    background-color: transparent;
+  }
+}
+
+@media (max-width:500px){
+  .menu{
+    transform: translateY(120px);
+  }
+}

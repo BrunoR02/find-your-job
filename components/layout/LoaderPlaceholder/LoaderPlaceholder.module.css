@@ -1,0 +1,27 @@
+.loader{
+  position: relative;
+  width: 100%;
+  background-color: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.loaderSwipe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, #eee 10%, #ddd 50%, #eee 90%);
+  animation: loaderSwipeAnimation 1s  cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+  z-index: 5;
+}
+
+@keyframes loaderSwipeAnimation{
+  0%{
+    left: -100%;
+  }
+  100%{
+    left: 100%;
+  }
+}

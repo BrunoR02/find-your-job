@@ -1,0 +1,35 @@
+.saveButton{
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: var(--main-blue);
+  background-color: white;
+  border: 1px solid var(--main-blue);
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton::before{
+  content: "";
+  display: table;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/empty-heart.png");
+  background-size: cover;
+}
+
+.saveButton:hover{
+  color: var(--white);
+  background-color: var(--main-blue);
+}
+
+.saveButton:hover::before{
+  filter: grayscale(100%) brightness(0%) invert(100%);
+}
+
+.saveActive::before{
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
+}

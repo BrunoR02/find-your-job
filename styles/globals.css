@@ -13,6 +13,7 @@ a {
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +24,25 @@ a {
     color: white;
     background: black;
   }
+}
+
+li{
+  list-style: none;
+}
+
+ul{
+  padding: 0;
+}
+
+button{
+  cursor: pointer;
+}
+
+:root {
+  --main-blue: #258b8b;
+  --dark-blue: #1f6f6f;
+  --red-error: #cc0707;
+  --white: #eee;
+  --black: #222;
+  --light-gray: #555;
 }

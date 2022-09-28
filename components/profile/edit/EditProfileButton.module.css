@@ -1,0 +1,37 @@
+.button{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--main-blue);
+  border: none;
+  animation: in 0.5s ease 1 forwards;
+}
+
+.button:hover{
+  color: #fff;
+  background-color: var(--dark-blue);
+}
+
+.button::before{
+  content: "";
+  display: table;
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/edit.png");
+  background-size: cover;
+  filter: invert(90%);
+}
+
+@keyframes in{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
