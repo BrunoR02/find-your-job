@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect} from "react";
@@ -9,7 +9,7 @@ import { getUserProfile, getUsersIds } from "../../config/db";
 import { ProfileType } from "../../helpers/typeDefs";
 import { actions } from "../../src/stores/alert-store";
 
-export default function ProfilePage({profile}:{profile:ProfileType}){
+const ProfilePage:NextPage<{profile:ProfileType}> = ({profile})=>{
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -69,3 +69,5 @@ export const getStaticProps:GetStaticProps = async ({params}) => {
     }
   }
 }
+
+export default ProfilePage

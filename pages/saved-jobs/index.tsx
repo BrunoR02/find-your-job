@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -16,7 +17,7 @@ import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteC
 
 import styles from "../../styles/Home.module.css"
 
-export default function SavedJobsPage(){
+const SavedJobsPage:NextPage = ()=>{
   const [activeId,setActiveId] = useState<string | null>(null)
   const [jobList,setJobList] = useState<JobType[]>([])
 
@@ -80,3 +81,5 @@ export default function SavedJobsPage(){
     
   )
 }
+
+export default SavedJobsPage

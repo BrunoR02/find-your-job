@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,7 +9,7 @@ import AuthContext, { AuthContextType } from "../src/stores/authContext";
 
 import styles from "../styles/Home.module.css"
 
-export default function RegisterPage(){
+const SignupPage:NextPage = ()=>{
   const router = useRouter()
 
   const {isLogged} = useContext(AuthContext) as AuthContextType
@@ -32,3 +33,5 @@ export default function RegisterPage(){
     </>
   )
 }
+
+export default SignupPage
