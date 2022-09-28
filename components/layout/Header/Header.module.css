@@ -15,7 +15,7 @@
 .title{
   margin: 10px 0;
   padding: 10px;  
-  font-size: 1.5em;
+  font-size: 2em;
   color: var(--light-gray);
   cursor: pointer;
   transition: color 0.2s ease;
