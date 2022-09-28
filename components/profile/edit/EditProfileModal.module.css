@@ -76,8 +76,14 @@
   color: #777;
 }
 
+.actionButtons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .cancelButton,.button{
-  width: 25%;
   margin: 20px 10px 0 10px;
   padding: 10px 20px;
   font-weight: bold;
@@ -107,6 +113,24 @@
 .button:disabled{
   color: #aaa;
   background-color: var(--dark-blue);
+}
+
+@media (max-width:1024px){
+  .modal{
+    width: 40%;
+  }
+}
+
+@media (max-width:750px){
+  .modal{
+    width: 60%;
+  }
+}
+
+@media (max-width:500px){
+  .modal{
+    width: 80%;
+  }
 }
 
 @keyframes in{
