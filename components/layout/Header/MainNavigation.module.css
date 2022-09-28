@@ -66,23 +66,6 @@
   background-color: #eee;
 }
 
-.logoutButton{
-  margin-left: 10px;
-  padding: 10px 20px;
-  font-size: 1em;
-  font-weight: 700;
-  color: var(--white);
-  background-color: var(--main-blue);
-  border:none;
-  transition: 0.3s ease;
-}
-
-.logoutButton:hover{
-  transform: translate3d(0px,-5px,0px);
-  color: white;
-  background-color: var(--dark-blue);
-}
-
 @keyframes newFavorite{
   0%{
     opacity: 1;
@@ -97,5 +80,9 @@
 @media (max-width: 1024px){
   .link:hover{
     transform: translate3d(0,0,0);
+    color: var(--main-blue);
+  }
+  .link:active{
+    color: var(--dark-blue);
   }
 }

@@ -6,13 +6,11 @@ import { useDispatch } from "react-redux";
 import { actions } from "../../../src/stores/alert-store";
 import AuthContext, { AuthContextType } from "../../../src/stores/authContext";
 import LoadingSpinner from "../../LoadingSpinner";
-import Backdrop from "../Backdrop";
 
 import styles from "./ProfileMenu.module.css"
 
 export default function ProfileMenu(){
   const {displayInfo} = useContext(AuthContext) as AuthContextType
-  const [menuActive,setMenuActive] = useState(false)
   const [loading,setLoading] = useState(false)
 
   const [picture,setPicture] = useState({
@@ -54,11 +52,10 @@ export default function ProfileMenu(){
   return (
     <>
     {loading && <LoadingSpinner/>}
-    {menuActive && <Backdrop onMouseEnterHandler={()=>setMenuActive(false)} transparent/>}
-    <button className={styles.container} onMouseEnter={()=>setMenuActive(true)}>
-      <Image priority className={styles.picture} src={picture.url} alt="profile-picture" width="40%" height="40%" />
+    <button className={styles.container}>
+      <div className={styles.picture}><Image priority src={picture.url} alt="profile-picture" width="40%" height="40%" /></div>
       <p className={styles.displayName}>{displayInfo.displayName}</p>
-      <ul className={styles.menu + " " + (menuActive && styles.menuActive)}>
+      <ul className={styles.menu + " " + styles.menuActive}>
         {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
         {!isLogged && <Link href="/login"><li className={styles.option}>Login</li></Link>}
         {!isLogged && <Link href="/signup"><li className={styles.option}>Sign up</li></Link>}

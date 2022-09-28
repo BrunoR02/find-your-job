@@ -1,5 +1,4 @@
 .container{
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,11 +7,15 @@
   border: none;
   background-color: transparent;
   transition: background-color 0.3s ease;
-  z-index: 3;
 }
 
 .container:hover{
   background-color: #eee;
+}
+
+.container:hover .menu{
+  display: block;
+  animation: in 0.5s ease forwards;
 }
 
 .picture{
@@ -23,7 +26,10 @@
   border: 2px solid var(--main-blue) !important;
   border-radius: 50%;
   overflow: hidden;
-  z-index: -1;
+}
+
+.picture img{
+  object-fit: contain;
 }
 
 .displayName{
@@ -56,10 +62,7 @@
   z-index: 3;
 }
 
-.menuActive{
-  display: block;
-  animation: in 0.5s ease forwards;
-}
+
 
 .option{
   width: 100px;
@@ -86,5 +89,11 @@
 @media (max-width: 1024px){
   .container:hover{
     background-color: transparent;
+  }
+}
+
+@media (max-width:500px){
+  .menu{
+    transform: translateY(120px);
   }
 }
