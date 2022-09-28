@@ -104,6 +104,7 @@ export async function getStaticProps(){
 
   //Create initial connection with MySQL and Apollo Client avoiding delay on first real request.
   const {data,error} = await userClient.query({query:LOAD_CLIENT})
+  if(error) console.log(JSON.stringify(error))
   console.log(data.loadClient)
   
   return {
