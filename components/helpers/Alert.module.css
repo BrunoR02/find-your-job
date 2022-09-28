@@ -12,7 +12,7 @@
     text-align: left;
     border-radius: 10px;
     border-inline: solid 7px #111;
-    box-shadow: 1px 1px 10px #111;
+    box-shadow: 1px 1px 5px #111;
     transform: translateX(0%);
     animation: alertShow 2s ease-out 1 forwards;
     z-index: 1057;
@@ -53,6 +53,27 @@
 
 .alertFadeout{
   animation: fadeout 2s ease-out 1 forwards
+}
+
+@media (max-width:768px){
+  .alert{
+    width: 70%;
+  }
+}
+
+@media (max-width:768px){
+  .alert{
+    width: 70%;
+  }
+}
+
+@media (max-width:550px){
+  .alert{
+    width: 90%;
+  }
+  .alertMessage{
+    font-size: 0.9em;
+  }
 }
 
 @keyframes alertShow{
