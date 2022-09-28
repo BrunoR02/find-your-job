@@ -48,7 +48,7 @@ const Home: NextPage = () => {
       //Save Job list from API
       setJobList(jobData)
       //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
-      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId)){
+      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId) && activeId){
         setActiveId(jobData[0].id)
       }
     }
