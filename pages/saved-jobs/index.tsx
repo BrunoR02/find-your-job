@@ -41,7 +41,7 @@ export default function SavedJobsPage(){
         setActiveId(favorites[0])
       }
     } 
-  },[data,jobData,jobList,favorites])
+  },[data,jobData,jobList,favorites,isMobile])
 
   //Check if user has permission to see the page.
   useEffect(()=>{
