@@ -1,4 +1,4 @@
-import { ApolloQueryResult, useQuery } from '@apollo/client'
+import { ApolloError, ApolloQueryResult, useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
@@ -103,11 +103,11 @@ const Home: NextPage = () => {
 export async function getStaticProps(){
 
   //Create initial connection with MySQL and Apollo Client avoiding delay on first real request.
-  let data:ApolloQueryResult<{loadClient:string}>;
+  let data:any;
   await userClient.query({query:LOAD_CLIENT,fetchPolicy:"network-only"})
   .then(response=>data=response)
-  .catch(error=>console.log(error.message))
-  console.log(data!.data.loadClient)
+  .catch((error:ApolloError)=>console.log(error.graphQLErrors))
+  console.log(data && data.data.loadClient)
 
   return {
     props: {}
