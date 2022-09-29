@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Website Live: https://find-your-job.vercel.app/
 
-## Getting Started
+## Screenshots
+<div style="display: flex, margin: 20px">
+<img src="https://user-images.githubusercontent.com/52260932/193148565-bcac03a4-9cba-49a7-baa4-3fd244387db2.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/193148414-ef4e9b17-108d-41e2-8b9c-4f65e8ced5ef.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/193150461-cc023822-40b0-442b-b2ce-6ba7a0910b85.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/193148683-27d56b61-6e47-4639-be00-c9d456119784.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/193154238-5b893770-8d21-4940-bc18-43bff488cc38.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/193150275-3af78e52-6c8a-4078-9dfc-67e6d268bd51.png" width="49%">
 
-First, run the development server:
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Descrição 
+#### Projeto de site com o objetivo especial de ajudar as pessoas a encontrar empregos. Possui implementações funcionais e completas, dentre elas:
+•	Integração das vagas com uma API pública de Jobs em GraphQL criando queries com Apollo Client. Juntando a isso um sistema de filtro e pesquisa criado do zero, faz com que o site exiba apenas as informações que sejam relevantes para o usuário particular, auxiliando-o na sua busca de emprego.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+•	Desenvolvi um sistema de autenticação usando TypeGraphQL e Apollo Server validando o usuário com o uso de criptografia JWT, dando a ele segurança no acesso de sua conta como também na edição de dados do mesmo, uma vez armazenados no MySQL hospedado pelo RDS (AWS) e as imagens no S3 (AWS).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+•	Uso do versionamento remoto com Git Flow na implementação de funcionalidades (features) e releases no desenvolvimento, fazendo com que qualquer um possa ver o histórico e entender as mudanças feitas no projeto, facilitando a identificação de cada uma delas.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+•	Desenvolvimento do projeto usando Typescript, auxiliando na construção dos códigos complexos como também na produtividade.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Como rodar e iniciar o projeto:
 
-## Learn More
+<strong>1.</strong> Precisa ter o Node instalado no computador.</br>
+<strong>2.</strong> Fazer o clone do projeto no seu computador pelo git:  </br> 
+&emsp; - Abrir git bash ou terminal com git instalado no computador.  
+&emsp; - Navegar até a pasta onde quer ter o projeto clonado.  
+&emsp; - Rodar comando: git clone https://github.com/BrunoR02/Shirts.git  
+<strong>3.</strong> Entrar na pasta do projeto pelo terminal(cd [pasta]).</br>
+<strong>4.</strong> Rodar no terminal: "npm install" para instalar as dependências.</br>
+<strong>5.</strong> Rodar no terminal: "npm start" para iniciar o projeto no localhost.</br>
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
