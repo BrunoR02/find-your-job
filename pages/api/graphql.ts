@@ -8,7 +8,7 @@ const schema = await buildSchema({
   resolvers: [UserResolver],
 })
 
-const server = new ApolloServer({schema,introspection:true,cache:"bounded",parseOptions:{noLocation:true}})
+const server = new ApolloServer({schema})
 
 export const config = {
   api:{
