@@ -63,3 +63,9 @@
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+@media (max-width:500px){
+  .description{
+    max-height: 91px;
+  }
+}
