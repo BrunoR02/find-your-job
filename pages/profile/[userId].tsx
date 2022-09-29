@@ -67,7 +67,7 @@ export const getStaticProps:GetStaticProps = async ({params}) => {
     props:{
       profile: profile || null
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 
