@@ -30,7 +30,7 @@ export default function RegisterForm(){
       password: passwordInput.value
     }
 
-    const {data} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
+    const {data,errors} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
 
     const {response,token} = data.login
 
