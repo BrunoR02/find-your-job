@@ -3,12 +3,15 @@ import { ApolloServer } from 'apollo-server-micro'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { buildSchema } from 'type-graphql'
 import UserResolver from '../../src/resolvers/UserResolver'
+import Cors from "micro-cors"
+import { RequestHandler } from "next-connect"
 
 const schema = await buildSchema({
   resolvers: [UserResolver],
 })
 
-const server = new ApolloServer({schema})
+const cors = Cors()
+const server = new ApolloServer({schema,introspection:true})
 
 export const config = {
   api:{
@@ -18,10 +21,12 @@ export const config = {
 
 const startServer = server.start()
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   await startServer
-  await server.createHandler({path:"/api/graphql",})(req,res)
+  await server.createHandler({path:"/api/graphql"})(req,res)
 }
+
+export default cors(handler)
