@@ -106,7 +106,7 @@ export async function getStaticProps(){
   let data:any;
   await userClient.query({query:LOAD_CLIENT,fetchPolicy:"network-only"})
   .then(response=>data=response)
-  .catch((error:ApolloError)=>console.log(error.graphQLErrors))
+  .catch((error:ApolloError)=>console.log(JSON.stringify(error)))
   console.log(data && data.data.loadClient)
 
   return {
