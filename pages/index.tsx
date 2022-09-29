@@ -1,4 +1,4 @@
-import { ApolloError, ApolloQueryResult, ServerError, useQuery } from '@apollo/client'
+import { ApolloError, ApolloQueryResult, ServerError, ServerParseError, useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'
@@ -106,7 +106,7 @@ export async function getStaticProps(){
   let data:any;
   await userClient.query({query:LOAD_CLIENT,fetchPolicy:"network-only"})
   .then(response=>data=response)
-  .catch((error:ApolloError)=>console.log(error.networkError && JSON.stringify((error.networkError as ServerError).result?.errors[0].message)))
+  .catch((error:ApolloError)=>console.log(error.networkError && JSON.stringify((error.networkError as ServerParseError))))
   console.log(data && data.data.loadClient)
 
   return {
