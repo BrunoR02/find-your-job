@@ -25,7 +25,6 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if(req.method === "OPTIONS")
   await startServer
   await server.createHandler({path:"/api/graphql"})(req,res)
 }
