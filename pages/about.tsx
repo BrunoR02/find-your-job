@@ -1,8 +1,9 @@
+import { NextPage } from "next";
 import Head from "next/head";
 import AboutContent from "../components/contents/AboutContent";
 import MainTitle from "../components/contents/MainTitle";
 
-export default function about(){
+const About:NextPage = ()=>{
   return (
     <>
       <Head>
@@ -14,3 +15,5 @@ export default function about(){
     </>
   )
 }
+
+export default About

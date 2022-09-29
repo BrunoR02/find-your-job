@@ -23,5 +23,5 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await startServer
-  await server.createHandler({path:"/api/graphql",})(req,res)
+  await server.createHandler({path:"/api/graphql"})(req,res)
 }

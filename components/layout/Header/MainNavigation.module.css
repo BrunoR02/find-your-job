@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-around;
   margin: 0;
+  margin-right: 10px;
 }
 
 .favCounter{
@@ -50,7 +51,7 @@
 .link{
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px;
   font-weight: 700;
   color: var(--main-blue);
   cursor: pointer;

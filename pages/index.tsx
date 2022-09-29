@@ -103,9 +103,9 @@ const Home: NextPage = () => {
 export async function getStaticProps(){
 
   //Create initial connection with MySQL and Apollo Client avoiding delay on first real request.
-  const {data,error} = await userClient.query({query:LOAD_CLIENT})
+  const {data,error} = await userClient.query({query:LOAD_CLIENT,fetchPolicy:"network-only"})
   console.log(data.loadClient)
-  
+
   return {
     props: {}
   }

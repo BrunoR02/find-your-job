@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect} from "react";
@@ -9,7 +9,7 @@ import { getUserProfile, getUsersIds } from "../../config/db";
 import { ProfileType } from "../../helpers/typeDefs";
 import { actions } from "../../src/stores/alert-store";
 
-export default function ProfilePage({profile}:{profile:ProfileType}){
+const ProfilePage:NextPage<{profile:ProfileType}> = ({profile})=>{
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -36,36 +36,17 @@ export default function ProfilePage({profile}:{profile:ProfileType}){
   )
 }
 
-export const getStaticPaths:GetStaticPaths = async () =>{
-
-  const idList = await getUsersIds()
-
-  const params = idList.map((item:any)=>{
-    return {
-      params: {
-        userId: item.id
-      }
-    }
-  })
-
-  return {
-    paths:[
-      ...params
-    ],
-    fallback: "blocking"
-  }
-}
-
-export const getStaticProps:GetStaticProps = async ({params}) => {
+export const getServerSideProps:GetServerSideProps = async (context)=>{
 
   let profile: ProfileType | null = null;
-  if(params?.userId){
-    profile = await getUserProfile(params.userId)
+  if(context.params?.userId){
+    profile = await getUserProfile(context.params.userId)
   }
-
   return {
     props:{
       profile: profile || null
     }
   }
 }
+
+export default ProfilePage
