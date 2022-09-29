@@ -11,7 +11,7 @@ const schema = await buildSchema({
 })
 
 const cors = Cors()
-const server = new ApolloServer({schema,introspection:true})
+const server = new ApolloServer({schema,introspection:true,cache:"bounded",parseOptions:{noLocation:true}})
 
 export const config = {
   api:{
@@ -25,7 +25,6 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if(req.method === "OPTIONS")
   await startServer
   await server.createHandler({path:"/api/graphql"})(req,res)
 }
