@@ -11,7 +11,6 @@ export default class UserResolver{
 
   @Query(()=>String)
   loadClient(){
-    console.log("ata")
     return "Loaded User Client!"
   }
 

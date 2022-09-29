@@ -8,11 +8,12 @@ import { AuthContextProvider} from "../src/stores/authContext"
 import {Provider} from "react-redux"
 import store from '../src/stores/alert-store'
 import LoadingPage from '../components/LoadingPage'
+import userClient from '../config/ApolloClients/UsersClient'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={userClient}>
         <AuthContextProvider>
           <FavoriteContextProvider>
             <Layout>
