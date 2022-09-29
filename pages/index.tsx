@@ -1,4 +1,4 @@
-import { ApolloError, ApolloQueryResult, ServerError, ServerParseError, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useMemo, useState } from 'react'

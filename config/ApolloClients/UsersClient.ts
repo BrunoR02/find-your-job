@@ -8,8 +8,6 @@ if(process.env.NODE_ENV === "development"){
   uri = "https://find-your-job.vercel.app/api/graphql"
 }
 
-console.log(process.env.NODE_ENV)
-
 const userClient = new ApolloClient({
   uri,
   cache: new InMemoryCache()
