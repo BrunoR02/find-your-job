@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect} from "react";
@@ -36,38 +36,16 @@ const ProfilePage:NextPage<{profile:ProfileType}> = ({profile})=>{
   )
 }
 
-export const getStaticPaths:GetStaticPaths = async () =>{
-
-  const idList = await getUsersIds()
-
-  const params = idList.map((item:any)=>{
-    return {
-      params: {
-        userId: item.id
-      }
-    }
-  })
-
-  return {
-    paths:[
-      ...params
-    ],
-    fallback: "blocking"
-  }
-}
-
-export const getStaticProps:GetStaticProps = async ({params}) => {
+export const getServerSideProps:GetServerSideProps = async (context)=>{
 
   let profile: ProfileType | null = null;
-  if(params?.userId){
-    profile = await getUserProfile(params.userId)
+  if(context.params?.userId){
+    profile = await getUserProfile(context.params.userId)
   }
-
   return {
     props:{
       profile: profile || null
-    },
-    revalidate: 1,
+    }
   }
 }
 
