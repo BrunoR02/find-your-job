@@ -1,5 +1,7 @@
 ### Website Live: https://find-your-job.vercel.app/
 
+[Read this in portuguese.](README.pt.md)
+
 ## Screenshots
 <div style="display: flex, margin: 20px">
 <img src="https://user-images.githubusercontent.com/52260932/193148565-bcac03a4-9cba-49a7-baa4-3fd244387db2.png" width="49%">
@@ -11,24 +13,25 @@
 
 </div>
 
-## Descrição 
-#### Projeto de site com o objetivo especial de ajudar as pessoas a encontrar empregos. Possui implementações funcionais e completas, dentre elas:
-•	Integração das vagas com uma API pública de Jobs em GraphQL criando queries com Apollo Client. Juntando a isso um sistema de filtro e pesquisa criado do zero, faz com que o site exiba apenas as informações que sejam relevantes para o usuário particular, auxiliando-o na sua busca de emprego.
+## Description
+#### Website project with the purpose of helping people find their jobs. It has practical features including:
 
-•	Desenvolvi um sistema de autenticação usando TypeGraphQL e Apollo Server validando o usuário com o uso de criptografia JWT, dando a ele segurança no acesso de sua conta como também na edição de dados do mesmo, uma vez armazenados no MySQL hospedado pelo RDS (AWS) e as imagens no S3 (AWS).
+•	Jobs integration via [GraphQL.jobs API](https://graphql.jobs/) creating queries with Apollo Client. Adding to that a search and filter system made from scratch, makes the website display only information that is relevant to the particular user, helping him find the job he wants.
 
-•	Uso do versionamento remoto com Git Flow na implementação de funcionalidades (features) e releases no desenvolvimento, fazendo com que qualquer um possa ver o histórico e entender as mudanças feitas no projeto, facilitando a identificação de cada uma delas.
+•	Developed an auth system using TypeGraphQL and Apollo Server validating the user with JWT, giving him safety accessing his account as well as editing the data related to it, giving that is stored on MySQL hosted on RDS (AWS) and the images on S3 (AWS).
 
-•	Desenvolvimento do projeto usando Typescript, auxiliando na construção dos códigos complexos como também na produtividade.
+•	Usage of version control with Git Flow implementing features and releases on development allowing any person to see the history and understand the changes done on the project making it easier to identify each one.
 
-## Como rodar e iniciar o projeto:
+•	Project development made using Typescript, helping building the complex codes as well as productivity.
 
-<strong>1.</strong> Precisa ter o Node instalado no computador.</br>
-<strong>2.</strong> Fazer o clone do projeto no seu computador pelo git:  </br> 
-&emsp; - Abrir git bash ou terminal com git instalado no computador.  
-&emsp; - Navegar até a pasta onde quer ter o projeto clonado.  
-&emsp; - Rodar comando: git clone https://github.com/BrunoR02/Shirts.git  
-<strong>3.</strong> Entrar na pasta do projeto pelo terminal(cd [pasta]).</br>
-<strong>4.</strong> Rodar no terminal: "npm install" para instalar as dependências.</br>
-<strong>5.</strong> Rodar no terminal: "npm start" para iniciar o projeto no localhost.</br>
+## How to run:
+
+<strong>1.</strong> Need to install Node on your computer.</br>
+<strong>2.</strong> Clone the project with git:</br> 
+&emsp; - Open git bash or the terminal with git installed globally.  
+&emsp; - Browse to the folder that you want to have the project cloned.  
+&emsp; - Run command: git clone https://github.com/BrunoR02/find-your-job.git  
+<strong>3.</strong> Enter project folder in the terminal (cd [folder]).</br>
+<strong>4.</strong> Run: "npm install" to install dependencies.</br>
+<strong>5.</strong> Run: "npm run dev" to initiate the project on http://localhost:3000</br>
 
