@@ -1,8 +1,8 @@
-### Website Live: https://find-your-job.vercel.app/
+### Visualização do site: https://find-your-job.vercel.app/
 
 [Read this in english.](README.md)
 
-## Screenshots
+## Capturas de Tela
 <div style="display: flex, margin: 20px">
 <img src="https://user-images.githubusercontent.com/52260932/193148565-bcac03a4-9cba-49a7-baa4-3fd244387db2.png" width="49%">
 <img src="https://user-images.githubusercontent.com/52260932/193148414-ef4e9b17-108d-41e2-8b9c-4f65e8ced5ef.png" width="49%">
