@@ -31,6 +31,6 @@
 &emsp; - Navegar até a pasta onde quer ter o projeto clonado.  
 &emsp; - Rodar comando: git clone https://github.com/BrunoR02/Shirts.git  
 <strong>3.</strong> Entrar na pasta do projeto pelo terminal(cd [pasta]).</br>
-<strong>4.</strong> Rodar no terminal: "npm install" para instalar as dependências.</br>
-<strong>5.</strong> Rodar no terminal: "npm run dev" para iniciar o projeto no localhost.</br>
+<strong>4.</strong> Rodar: "npm install" para instalar as dependências.</br>
+<strong>5.</strong> Rodar: "npm run dev" para iniciar o projeto no localhost.</br>
 
