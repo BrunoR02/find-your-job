@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { JobType } from "../../helpers/typeDefs"
@@ -39,7 +40,7 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
           <button onClick={closeMobileHandler} className={styles.closeMobile}></button>
 
           <div className={styles.actions}>
-            <button className={styles.button}>Apply Now</button>
+            <Link href={jobInfo.applyUrl}><a target="_blank"><button className={styles.button}>Apply Now</button></a></Link> 
             <SaveButton jobId={jobInfo.id} closeDetails={
               //Close Details if it is mobile and is on saved-jobs page, so it can load smoother.
               isMobile && router.asPath.includes("saved-jobs") ? ()=>closeMobileHandler() : ()=>{}

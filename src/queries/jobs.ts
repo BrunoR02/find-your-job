@@ -13,6 +13,7 @@ export const GET_JOB_LIST = gql`
         countries{isoCode}
         company{name}
         remotes{name} 
+        applyUrl
       }
     }
   }
@@ -31,6 +32,7 @@ export const GET_JOB_LIST_REMOTE = gql`
         countries{isoCode}
         company{name}
         remotes{name} 
+        applyUrl
       }
     }
   }
@@ -48,6 +50,7 @@ export const GET_JOB_LIST_ONSITE = gql`
         countries{isoCode}
         company{name}
         remotes{name} 
+        applyUrl
       }
     }
   }
@@ -66,6 +69,7 @@ export const GET_FAVORITE_JOBS = gql`
         countries{isoCode}
         company{name}
         remotes{name}
+        applyUrl
       }
     }
   }
