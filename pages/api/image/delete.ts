@@ -2,7 +2,7 @@ import { DeleteObjectCommand, DeleteObjectCommandInput } from "@aws-sdk/client-s
 import { NextApiRequest, NextApiResponse } from "next";
 import s3, { bucketName } from "../../../config/s3";
 
-const bucketURL = "https://find-your-job-files.s3.sa-east-1.amazonaws.com/"
+const bucketURL = "https://find-your-job.s3.sa-east-1.amazonaws.com/"
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse){
   if(req.method === "POST"){

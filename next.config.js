@@ -11,7 +11,7 @@ const nextConfig = {
     return config
   },
   images:{
-    domains:["find-your-job-files.s3.sa-east-1.amazonaws.com"],
+    domains:["find-your-job.s3.sa-east-1.amazonaws.com"],
   }
 }
 

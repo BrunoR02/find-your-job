@@ -46,7 +46,7 @@
   width: 10px;
   height: 10px;
   margin-left: 5px;
-  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/dropdown.png");
+  background-image: url("https://find-your-job.s3.sa-east-1.amazonaws.com/icons/dropdown.png");
   background-size: contain;
   filter: invert(47%) sepia(29%) saturate(958%) hue-rotate(131deg) brightness(90%) contrast(88%);
 }

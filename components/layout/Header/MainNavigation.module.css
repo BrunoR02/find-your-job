@@ -24,7 +24,7 @@
   transform: translate(-50%,-50%);
   width: 35px;
   height: 35px;
-  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
+  background-image: url("https://find-your-job.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
   background-size: contain;
   z-index: -1;
 }
@@ -39,7 +39,7 @@
   transform: translate(-50%,-50%);
   width: 35px;
   height: 35px;
-  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
+  background-image: url("https://find-your-job.s3.sa-east-1.amazonaws.com/icons/filled-heart.png");
   background-size: contain;
   z-index: -1;
 }
