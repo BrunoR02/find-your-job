@@ -14,7 +14,7 @@ export default function ProfileHeader({profile}:PropsType){
   const [picture,setPicture] = useState({
     //If already logged in, it wont load the image beforehand
     loaded: false, 
-    url: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"
+    url: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"
   })
   const [loading,setLoading] = useState(!picture.loaded)
 

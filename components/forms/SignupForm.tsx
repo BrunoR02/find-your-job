@@ -97,7 +97,7 @@ export default function SignupForm(){
     <>
       {loading && <LoadingSpinner/>}
       <form noValidate className={styles.form} onSubmit={submitHandler}>
-        <ImageInput required initialImage="https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png" caption="Upload your profile picture" setImageInput={(image:File)=>setImageFile(image)}/>
+        <ImageInput required initialImage="https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.png" caption="Upload your profile picture" setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required disabled={loading} input={nameInput} label="Name" placeholder="Insert your full name"/>
         <SingleInput required disabled={loading} input={titleInput} label="Title" placeholder="Insert your job title"/>
         <SingleInput required disabled={loading} input={locationInput} label="Location" placeholder="Insert your location"/>

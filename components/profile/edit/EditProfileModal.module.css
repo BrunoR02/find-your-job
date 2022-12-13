@@ -19,7 +19,7 @@
   width: 15px;
   height: 15px;
   background-color: transparent;
-  background-image: url("https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/close.png");
+  background-image: url("https://find-your-job.s3.sa-east-1.amazonaws.com/icons/close.png");
   background-size: cover;
   border: none;
 }

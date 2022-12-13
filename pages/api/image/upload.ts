@@ -5,7 +5,7 @@ import {PutObjectCommand, PutObjectCommandInput} from "@aws-sdk/client-s3"
 import s3, { bucketName } from "../../../config/s3"
 import sharp from "sharp"
 
-const bucketURL = "https://find-your-job-files.s3.sa-east-1.amazonaws.com/"
+const bucketURL = "https://find-your-job.s3.sa-east-1.amazonaws.com/"
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })

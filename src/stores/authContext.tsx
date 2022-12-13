@@ -35,7 +35,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     const [token,setToken] = useState<string | null>(null)
     const [autoLogout, setAutoLogout] = useState(false)
     const [cacheImage,setCacheImage] = useState<string | null>(null)
-    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({id: null, displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
+    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({id: null, displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
     
     const isLogged = !!token 
     
@@ -43,7 +43,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         localStorage.removeItem("token")
         localStorage.removeItem("expirationTime")
         setToken(null)
-        setDisplayInfo({id: null,displayName: "Guest",profilePicture: "https://find-your-job-files.s3.sa-east-1.amazonaws.com/icons/guest-profile.png"})
+        setDisplayInfo({id: null,displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
     
         clearTimeout(expireTimeout)
     },[])
