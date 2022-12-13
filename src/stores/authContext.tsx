@@ -15,7 +15,7 @@ export type AuthContextType = {
     isLogged: boolean
     autoLogout: boolean
     ResetAuto: ()=>void
-    login:(token:string)=>void
+    login:(token:string,expirationTime:string)=>void
     logout: ()=>void
     displayInfo: DisplayInfoType
 }
@@ -23,7 +23,7 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null)
 
 function CalculateRemainingTime(expirationTime:string){
-    const expirationDate = new Date(+expirationTime * 1000).getTime()
+    const expirationDate = new Date(+expirationTime).getTime()
     const actualDate = new Date().getTime()
 
     const duration = expirationDate - actualDate
@@ -48,28 +48,28 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         clearTimeout(expireTimeout)
     },[])
 
-    function login(token:string){
-        let expirationTime:string;
+    function login(token:string,expirationTime:string){
+        // let expirationTime:string;
 
         updateDisplayInfo(token)
 
         //Access token variables to get expirationTime
-        let decoded:JwtPayload;
+        // let decoded:JwtPayload;
         
-        try{
-            decoded = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
-        } catch(error){
-            console.log(error)
-        }
+        // try{
+        //     decoded = verify(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string) as JwtPayload
+        // } catch(error){
+        //     console.log(error)
+        // }
         
         //Get expirationTime from token. 2 Hours.
-        expirationTime = (decoded!.exp! - 165600).toString()
+        // expirationTime = (decoded!.exp! - 165600).toString()
 
         localStorage.setItem("token", token)
-        localStorage.setItem("expirationTime",expirationTime!)
+        localStorage.setItem("expirationTime",expirationTime)
         setToken(token)
 
-        const durationTime = CalculateRemainingTime(expirationTime!)
+        const durationTime = CalculateRemainingTime(expirationTime)
         expireTimeout = setTimeout(()=>{
             setAutoLogout(true)
             logout()

@@ -68,8 +68,11 @@ export default function SignupForm(){
 
         const {imageUrl} = await resUploadImage.json()
 
-        const userData = {...user,
-          password:await bcrypt.hash(user.password,10),
+        const userData = {
+          name:user.name,
+          locationName:user.locationName,
+          jobTitle:user.jobTitle,
+          email:user.email,
           profileUrl:imageUrl,
           savedJobs: JSON.stringify([]),
           bio: ""
@@ -90,7 +93,7 @@ export default function SignupForm(){
         } else {
           await resUserData.json().then(res=>console.log("Error posting user data to Firebase:",res.error))
         }
-      } else if(response.status !== 200 && data.error.message.includes("EMAIL")){
+      } else if(data.error.message.includes("EMAIL")){
         dispatch(actions.createAlert({type:"error",message:"This email already exists! Try another."}))
       }
 
