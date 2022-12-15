@@ -16,7 +16,7 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [pagination,setPagination] = useState(1)
-  const [filters,setFilters] = useState<FiltersType>({search:"",workplaces: []})
+  const [filters,setFilters] = useState<FiltersType>({search:"",datePosted:0})
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
   const [loading,setLoading] = useState(false)
 
@@ -56,6 +56,7 @@ const Home: NextPage = () => {
       fetchJobDesc: true,
       jobTitle: search,
       locations: [],
+      postingDateRange: "1d",
       numJobs: 10*pag,
       previousListingHashes: []
     }

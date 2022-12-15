@@ -23,7 +23,7 @@ export type NewJobType = {
 
 export type FiltersType = {
   search: string,
-  workplaces: string[],
+  datePosted: number,
 }
 
 export type ProfileType ={

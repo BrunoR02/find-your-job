@@ -3,6 +3,7 @@ import styles from "./FilterMenu.module.css"
 import { useEffect, useState } from "react";
 import { FiltersType } from "../../helpers/typeDefs";
 import FilterByWorkplace from "./FilterByWorkplace";
+import { FilterByDataPosted } from "./FilterByDatePosted";
 
 type PropsType = {
   setFilters:(filterParams:FiltersType)=>void
@@ -10,7 +11,7 @@ type PropsType = {
 
 export default function FilterMenu({setFilters}:PropsType){
   const [hasChanged,setHasChanged] = useState(false)
-  const [filterParams,setFilterParams] = useState<FiltersType>({search: "",workplaces: []})
+  const [filterParams,setFilterParams] = useState<FiltersType>({search: "",datePosted:0})
 
   useEffect(()=>{
     if(hasChanged){
@@ -22,7 +23,8 @@ export default function FilterMenu({setFilters}:PropsType){
   return (
     <div className={styles.menu}>
       <SearchFilter Search={(value:string)=>{setFilterParams(state=>({...state,search:value}));setHasChanged(true)}}/>
-      <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>{
+      <FilterByDataPosted setDatePosted={(day:number)=>{console.log(day);setFilterParams(state=>({...state,datePosted:day}))}}/>
+      {/* <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>{
         //Compare if the workplace list has really changed to refetch again, if not, it 
         //doesnt refetch at all, avoiding doing it unnecessarily.
         let isEqual:boolean = true;
@@ -35,7 +37,7 @@ export default function FilterMenu({setFilters}:PropsType){
         if(!isEqual || filterParams.workplaces.length > list.length) {setHasChanged(true)}
         
         return {...state,workplaces:list}
-      })}}/>
+      })}}/> */}
     </div>
   )
 }
