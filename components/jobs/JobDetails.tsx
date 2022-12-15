@@ -1,21 +1,21 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { JobType } from "../../helpers/typeDefs"
+import { JobType, NewJobType } from "../../helpers/typeDefs"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
 import SaveButton from "./SaveButton"
 import TagList from "./TagList"
 
 type PropsType = {
-  data: JobType,
+  data: NewJobType | undefined,
   loading?: boolean,
   closeMobileHandler: () => void,
 }
 
 export default function JobDetails({data,closeMobileHandler,loading}: PropsType){
   const router = useRouter()
-  const [jobInfo,setJobInfo] = useState<JobType | null>(null)
+  const [jobInfo,setJobInfo] = useState<NewJobType | null>(null)
 
   let isMobile = false
   if (typeof window !== 'undefined') {
@@ -51,11 +51,11 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
         <TagList list={jobInfo.tags}/>
 
         <section className={styles.info}>
-          <span className={styles.companyName}>{jobInfo.company.name}</span>
+          <span className={styles.companyName}>{jobInfo.company}</span>
           <span className={styles.location}>{
             //Transform location data from API to readable to user.
-            jobInfo.cities[0] && (jobInfo.cities[0].name + ((jobInfo.countries.length !== 0) && ", " + 
-            jobInfo.countries[0].isoCode.toUpperCase() || "") + ((jobInfo.remotes[0]) ? " (On-site)" : " (Remote)" ))}
+            jobInfo.location + (jobInfo.workplace === "on-site") ? " (On-site)" : " (Remote)"
+          }
           </span>
         </section>
         

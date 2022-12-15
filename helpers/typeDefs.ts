@@ -10,6 +10,17 @@ export type JobType = {
   applyUrl:string
 }
 
+export type NewJobType = {
+  id:string
+  title:string
+  description: string
+  tags: {name:string}[],
+  company: string,
+  location: string,
+  workplace: string,
+  applyUrl:string
+}
+
 export type FiltersType = {
   search: string,
   workplaces: string[],

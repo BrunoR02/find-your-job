@@ -9,7 +9,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
 import NotFoundMessage from '../components/messages/NotFoundMessage'
 import userClient from '../config/ApolloClients/UsersClient'
-import { FiltersType, JobType } from '../helpers/typeDefs'
+import { FiltersType, JobType, NewJobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST, GET_JOB_LIST_ONSITE, GET_JOB_LIST_REMOTE } from '../src/queries/jobs'
 import { LOAD_CLIENT } from '../src/queries/users'
 import styles from '../styles/Home.module.css'
@@ -18,6 +18,7 @@ const Home: NextPage = () => {
   const [pagination,setPagination] = useState(1)
   const [filters,setFilters] = useState<FiltersType>({search:"",workplaces: []})
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
+  const [loading,setLoading] = useState(false)
 
   let query = GET_JOB_LIST
 
@@ -33,9 +34,9 @@ const Home: NextPage = () => {
     }
   }
 
-  const {data,loading,error} = useQuery(query,{variables:{limit:10*pagination,searchTitle:filters.search},fetchPolicy:"network-only",notifyOnNetworkStatusChange:true})
+  // const {data,loading,error} = useQuery(query,{variables:{limit:10*pagination,searchTitle:filters.search},fetchPolicy:"network-only",notifyOnNetworkStatusChange:true})
   //Retrieved Job Data that came from GraphQL Jobs API
-  const jobData = useMemo(()=>data && data.commitments[0].jobs || [],[data])
+  // const jobData = useMemo(()=>data && data.commitments[0].jobs || [],[data])
 
   let isMobile = false
   if (typeof window !== 'undefined') {
@@ -44,18 +45,62 @@ const Home: NextPage = () => {
   //Save active job id to turn it active, displaying the Job Details component and additional styles
   const [activeId,setActiveId] = useState<string | null>(null)
   //State to save the retrieved Jobs list that came from Graphql Jobs API.
-  const [jobList, setJobList] = useState<JobType[]>([])
+  const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
+  const [jobList, setJobList] = useState<NewJobType[]>([])
+
+  async function getJobs(){
+    setLoading(true)
+    const requestPayload = {
+      companySkills: true,
+      dismissedListingHashes: [],
+      fetchJobDesc: true,
+      jobTitle: "Developer",
+      locations: [],
+      numJobs: 10,
+      previousListingHashes: []
+    }
+
+    const response = await fetch("https://www.zippia.com/api/jobs",{
+      method:"POST",
+      body:JSON.stringify(requestPayload),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    }) 
+
+    const data = await response.json()
+    
+    if(response.status === 200){
+      const jobList:NewJobType[] = data.jobs.map((job:any)=>({
+        id:job.jobId,
+        title:job.jobTitle,
+        description:job.jobDescription,
+        tags: job.skillsets.map((skill:string)=>({name:skill})),
+        company:job.companyName,
+        location:job.location,
+        workplace:job.jobTags.some((tag:string)=>tag==="remote")?"remote":"on-site",
+        applyUrl:job.OBJurl
+      }))
+  
+      setJobList(jobList)
+    }
+
+    setLoading(false)
+    console.log(data)
+  }
 
   useEffect(()=>{
-    if(data){
-      //Save Job list from API
-      setJobList(jobData)
-      //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
-      if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId) && !isMobile){
-        setActiveId(jobData[0].id)
-      }
-    }
-  },[pagination,data,jobData,jobList,activeId,isMobile])  
+
+    getJobs()
+    // if(data){
+    //   //Save Job list from API
+    //   setJobList(jobData)
+    //   //Reset active Job everytime the list is rerendered and the actual Job showing isnt part of it anymore.
+    //   if(pagination === 1 && jobData.length !==0 && !jobData.some((job:JobType)=>job.id===activeId) && !isMobile){
+    //     setActiveId(jobData[0].id)
+    //   }
+    // }
+  },[])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.
@@ -68,7 +113,7 @@ const Home: NextPage = () => {
   },[hasFiltersUpdated,loading])
 
   //Show error on fetching Job List
-  if(error) return <ApolloErrorMessage error={error}/>
+  // if(error) return <ApolloErrorMessage error={error}/>
 
   return (
     <>
@@ -79,7 +124,7 @@ const Home: NextPage = () => {
       <FilterMenu setFilters={(filtersParams:FiltersType)=>{setFilters(filtersParams);setHasFiltersUpdated(true)}}/>
       
       {loading && <LoadingSpinner/>}
-      {!loading && (jobData.length === 0) && <NotFoundMessage message="Found no jobs with that title."/>}
+      {!loading && (jobList.length === 0) && <NotFoundMessage message="Found no jobs with that title."/>}
 
       {(jobList.length > 0) && <div className={styles.container}>
         <JobList list={jobList} 
@@ -91,7 +136,7 @@ const Home: NextPage = () => {
           loadingPlaceholder={hasFiltersUpdated}
         />
         {activeId && <JobDetails 
-          data={data && jobList.find((job:JobType)=>job.id===activeId)}
+          data={jobList && jobList.find((job:NewJobType)=>job.id===activeId)}
           closeMobileHandler={()=>setActiveId(null)}
           loading={hasFiltersUpdated}
         />}

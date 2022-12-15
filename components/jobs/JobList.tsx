@@ -1,12 +1,12 @@
 import JobCard from "./JobCard";
 import styles from "./JobList.module.css"
 import jobCardStyles from "./JobCard.module.css"
-import { JobType } from "../../helpers/typeDefs";
+import { JobType, NewJobType } from "../../helpers/typeDefs";
 import JobCardPlaceholder from "../layout/LoaderPlaceholder/JobCardPlaceholder";
 import { useEffect, useState } from "react";
 
 type PropsType = {
-  list: JobType[],
+  list: NewJobType[],
   activeId: string | null,
   activeHandler: (activeId:string) => void,
   loadMoreHandler?: ()=>void,
@@ -32,7 +32,7 @@ export default function JobList({list,activeId,activeHandler,loadMoreHandler,pag
       {loadingPlaceholder && oldList.map(item=>
         <JobCardPlaceholder key={item}/>
         )}
-      {!loadingPlaceholder && list.map((job:JobType)=>{
+      {!loadingPlaceholder && list.map((job:NewJobType)=>{
         return <JobCard key={job.id} data={job} activeHandler={()=>activeHandler(job.id)} addClass={activeId===job.id ?jobCardStyles.active: ""}/>
       })}
       {(list.length >= 10) && !showLoadMore && loading && <button className={styles.loadMore}>Loading...</button>}
