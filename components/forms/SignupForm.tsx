@@ -14,6 +14,7 @@ import * as bcrypt from "bcryptjs"
 
 export default function SignupForm(){
   const nameInput = useInput({type:"name"})
+  const usernameInput = useInput({type:"username"})
   const titleInput = useInput({type:"title"})
   const locationInput = useInput({type:"location"})
   const emailInput = useInput({type:"email"})
@@ -32,6 +33,7 @@ export default function SignupForm(){
 
     const user = {
       name: capitalizeFirstLetters(nameInput.value),
+      username: usernameInput.value,
       jobTitle: capitalizeFirstLetters(titleInput.value),
       locationName: capitalizeFirstLetters(locationInput.value),
       email: emailInput.value,
@@ -70,6 +72,7 @@ export default function SignupForm(){
 
         const userData = {
           name:user.name,
+          username: user.username,
           locationName:user.locationName,
           jobTitle:user.jobTitle,
           email:user.email,
@@ -151,6 +154,7 @@ export default function SignupForm(){
       <form noValidate className={styles.form} onSubmit={submitHandler}>
         <ImageInput required initialImage="https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.png" caption="Upload your profile picture" setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required disabled={loading} input={nameInput} label="Name" placeholder="Insert your full name"/>
+        <SingleInput required disabled={loading} input={usernameInput} label="Username" placeholder="Insert your username"/>
         <SingleInput required disabled={loading} input={titleInput} label="Title" placeholder="Insert your job title"/>
         <SingleInput required disabled={loading} input={locationInput} label="Location" placeholder="Insert your location"/>
         <SingleInput required disabled={loading} input={emailInput} label="Email" placeholder="Insert your email"/>

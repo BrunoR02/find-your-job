@@ -5,7 +5,7 @@ export type DisplayInfoType = {
   name: string
   profilePicture: string
   savedJobs: string[]
-  id: string
+  username: string
 }
 
 export default async function getDisplayInfo(token:string):Promise<DisplayInfoType>{
@@ -23,7 +23,7 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
   
   const data = await resUser.json()
   let returnData:DisplayInfoType = {
-    id: "",
+    username: "",
     profilePicture: "",
     savedJobs: [],
     name: ""
@@ -33,8 +33,8 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
       returnData = {
         name:data[key].name,
         profilePicture:data[key].profileUrl,
-        savedJobs:data[key].savedJobs,
-        id:key
+        savedJobs:JSON.parse(data[key].savedJobs),
+        username: data[key].username
       }
     }
   }
