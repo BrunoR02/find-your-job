@@ -6,6 +6,7 @@ export type DisplayInfoType = {
   profilePicture: string
   savedJobs: string[]
   username: string
+  id:string
 }
 
 export default async function getDisplayInfo(token:string):Promise<DisplayInfoType>{
@@ -26,7 +27,8 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
     username: "",
     profilePicture: "",
     savedJobs: [],
-    name: ""
+    name: "",
+    id:""
   }
   if(data && Object.keys(data).length !== 0){
     for(const key in data){
@@ -34,7 +36,8 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
         name:data[key].name,
         profilePicture:data[key].profileUrl,
         savedJobs:JSON.parse(data[key].savedJobs),
-        username: data[key].username
+        username: data[key].username,
+        id: key
       }
     }
   }

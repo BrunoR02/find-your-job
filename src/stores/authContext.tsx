@@ -8,6 +8,7 @@ type DisplayInfoType = {
     displayName:string
     profilePicture:string
     username: string | null
+    id: string | null
 }
 
 export type AuthContextType = {
@@ -35,7 +36,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     const [token,setToken] = useState<string | null>(null)
     const [autoLogout, setAutoLogout] = useState(false)
     const [cacheImage,setCacheImage] = useState<string | null>(null)
-    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({username: null, displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
+    const [displayInfo, setDisplayInfo] = useState<DisplayInfoType>({id:null,username: null, displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
     
     const isLogged = !!token 
     
@@ -43,7 +44,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         localStorage.removeItem("token")
         localStorage.removeItem("expirationTime")
         setToken(null)
-        setDisplayInfo({username: null,displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
+        setDisplayInfo({id:null,username: null,displayName: "Guest",profilePicture: "https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.jpg"})
     
         clearTimeout(expireTimeout)
     },[])
@@ -77,7 +78,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
     }
 
     const updateDisplayInfo = useCallback(async (idToken:string)=>{
-        const {name,profilePicture,username} = await getDisplayInfo(idToken)
+        const {name,profilePicture,username,id} = await getDisplayInfo(idToken)
 
         //Get first name to display on frontend
         const displayName = name.split(" ")[0]
@@ -88,7 +89,7 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         //If already logged in just set the profile picture url because is already downloaded on cache, 
         //so it will load faster.
         } else {
-            setDisplayInfo({displayName,profilePicture,username})
+            setDisplayInfo({displayName,profilePicture,username,id})
         }
     },[displayInfo.profilePicture])
 
