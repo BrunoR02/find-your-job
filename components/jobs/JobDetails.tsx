@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { JobType, NewJobType } from "../../helpers/typeDefs"
+import { NewJobType } from "../../helpers/typeDefs"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
 import SaveButton from "./SaveButton"
@@ -52,11 +52,8 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
 
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company}</span>
-          <span className={styles.location}>{
-            //Transform location data from API to readable to user.
-            jobInfo.location + (jobInfo.workplace === "on-site") ? " (On-site)" : " (Remote)"
-          }
-          </span>
+          <span className={styles.date}>{jobInfo.postedDate}</span>
+          <span className={styles.location}>{jobInfo.location}</span>
         </section>
         
         <section className={styles.description}>

@@ -9,7 +9,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
 import NotFoundMessage from '../components/messages/NotFoundMessage'
 import userClient from '../config/ApolloClients/UsersClient'
-import { FiltersType, JobType, NewJobType } from '../helpers/typeDefs'
+import { FiltersType, NewJobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST, GET_JOB_LIST_ONSITE, GET_JOB_LIST_REMOTE } from '../src/queries/jobs'
 import { LOAD_CLIENT } from '../src/queries/users'
 import styles from '../styles/Home.module.css'
@@ -20,19 +20,19 @@ const Home: NextPage = () => {
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
   const [loading,setLoading] = useState(false)
 
-  let query = GET_JOB_LIST
+  // let query = GET_JOB_LIST
 
-  const {workplaces} = filters
-  //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
-  if(workplaces.length!==0){
-    if(workplaces.length === 1 && workplaces[0] === "remote"){
-      query = GET_JOB_LIST_REMOTE
-    } else if(workplaces.length === 1 && workplaces[0] === "on-site"){
-      query = GET_JOB_LIST_ONSITE
-    } else if(workplaces.length === 2){
-      query = GET_JOB_LIST
-    }
-  }
+  const {search} = filters
+  // //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
+  // if(workplaces.length!==0){
+  //   if(workplaces.length === 1 && workplaces[0] === "remote"){
+  //     query = GET_JOB_LIST_REMOTE
+  //   } else if(workplaces.length === 1 && workplaces[0] === "on-site"){
+  //     query = GET_JOB_LIST_ONSITE
+  //   } else if(workplaces.length === 2){
+  //     query = GET_JOB_LIST
+  //   }
+  // }
 
   // const {data,loading,error} = useQuery(query,{variables:{limit:10*pagination,searchTitle:filters.search},fetchPolicy:"network-only",notifyOnNetworkStatusChange:true})
   //Retrieved Job Data that came from GraphQL Jobs API
@@ -48,15 +48,15 @@ const Home: NextPage = () => {
   const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
-  async function getJobs(){
+  async function getJobs(pag:number,search:string){
     setLoading(true)
     const requestPayload = {
       companySkills: true,
       dismissedListingHashes: [],
       fetchJobDesc: true,
-      jobTitle: "Developer",
+      jobTitle: search,
       locations: [],
-      numJobs: 10,
+      numJobs: 10*pag,
       previousListingHashes: []
     }
 
@@ -71,18 +71,22 @@ const Home: NextPage = () => {
     const data = await response.json()
     
     if(response.status === 200){
-      const jobList:NewJobType[] = data.jobs.map((job:any)=>({
+      const list:NewJobType[] = data.jobs.map((job:any)=>({
         id:job.jobId,
         title:job.jobTitle,
         description:job.jobDescription,
         tags: job.skillsets.map((skill:string)=>({name:skill})),
         company:job.companyName,
         location:job.location,
-        workplace:job.jobTags.some((tag:string)=>tag==="remote")?"remote":"on-site",
-        applyUrl:job.OBJurl
+        applyUrl:job.OBJurl,
+        postedDate:job.postedDate
       }))
-  
-      setJobList(jobList)
+      if(data.jobs.length!==0) {
+        setJobList(list)
+        if(jobList.length === 0) setActiveId(list[0].id)
+      } else {
+        setJobList([])
+      }
     }
 
     setLoading(false)
@@ -91,7 +95,7 @@ const Home: NextPage = () => {
 
   useEffect(()=>{
 
-    getJobs()
+    getJobs(pagination,search)
     // if(data){
     //   //Save Job list from API
     //   setJobList(jobData)
@@ -100,7 +104,7 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[])  
+  },[pagination,search])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.

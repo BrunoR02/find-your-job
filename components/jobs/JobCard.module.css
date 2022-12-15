@@ -33,11 +33,22 @@
   color: #555;
 }
 
+.info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.date{
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--main-blue);
+}
+
 .location{
   display: flex;
   justify-content: flex-end;
-  width: 100%;
-  margin-top: 15px;
   font-size: 0.9em;
   font-weight: 600;
   color: var(--black);

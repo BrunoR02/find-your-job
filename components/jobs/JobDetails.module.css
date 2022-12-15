@@ -88,6 +88,12 @@
   color: var(--light-gray);  
 }
 
+.date{
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--main-blue);
+}
+
 .location{
   color: var(--black);
   display: flex;

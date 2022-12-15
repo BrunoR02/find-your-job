@@ -1,7 +1,7 @@
 import JobCard from "./JobCard";
 import styles from "./JobList.module.css"
 import jobCardStyles from "./JobCard.module.css"
-import { JobType, NewJobType } from "../../helpers/typeDefs";
+import { NewJobType } from "../../helpers/typeDefs";
 import JobCardPlaceholder from "../layout/LoaderPlaceholder/JobCardPlaceholder";
 import { useEffect, useState } from "react";
 

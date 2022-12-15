@@ -1,4 +1,4 @@
-import { JobType, NewJobType } from "../../helpers/typeDefs"
+import { NewJobType } from "../../helpers/typeDefs"
 import styles from "./JobCard.module.css"
 
 type PropsType = {
@@ -17,9 +17,12 @@ export default function JobCard({data,addClass,activeHandler}:PropsType){
       <h4 className={styles.title}>{data.title}</h4>
       <span className={styles.companyName}>{data.company}</span>
       <p className={styles.description}>{data.description}</p>
-      <span className={styles.location}>
-        {data.location}
-      </span>
+      <div className={styles.info}>
+        <span className={styles.date}>{data.postedDate}</span>
+        <span className={styles.location}>
+          {data.location}
+        </span>
+      </div>
     </li>
   )
 }

@@ -14,11 +14,11 @@ export type NewJobType = {
   id:string
   title:string
   description: string
-  tags: {name:string}[],
-  company: string,
-  location: string,
-  workplace: string,
+  tags: {name:string}[]
+  company: string
+  location: string
   applyUrl:string
+  postedDate: string
 }
 
 export type FiltersType = {
