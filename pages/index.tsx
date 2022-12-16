@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
   // let query = GET_JOB_LIST
 
-  const {search} = filters
+  const {search,datePosted} = filters
   // //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
   // if(workplaces.length!==0){
   //   if(workplaces.length === 1 && workplaces[0] === "remote"){
@@ -48,15 +48,15 @@ const Home: NextPage = () => {
   const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
-  async function getJobs(pag:number,search:string){
+  async function getJobs(pag:number,search:string,datePosted:number){
     setLoading(true)
     const requestPayload = {
       companySkills: true,
       dismissedListingHashes: [],
-      fetchJobDesc: true,
+      fetchJobDescription: true,
       jobTitle: search,
       locations: [],
-      postingDateRange: "1d",
+      postingDateRange: datePosted + "d",
       numJobs: 10*pag,
       previousListingHashes: []
     }
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
       const list:NewJobType[] = data.jobs.map((job:any)=>({
         id:job.jobId,
         title:job.jobTitle,
-        description:job.jobDescription,
+        description:job.jobDescription!==''?job.jobDescription:job.snippets.join("\n"),
         tags: job.skillsets.map((skill:string)=>({name:skill})),
         company:job.companyName,
         location:job.location,
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
 
   useEffect(()=>{
 
-    getJobs(pagination,search)
+    getJobs(pagination,search,datePosted)
     // if(data){
     //   //Save Job list from API
     //   setJobList(jobData)
@@ -105,7 +105,7 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[pagination,search])  
+  },[pagination,search,datePosted])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.

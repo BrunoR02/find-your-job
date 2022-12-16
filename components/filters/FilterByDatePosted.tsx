@@ -44,7 +44,10 @@ export function FilterByDataPosted({setDatePosted}:PropsType){
             </label>
           </li>)
         })}
-        <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setDatePosted(activeDate)}}>Show Results</button>
+        <div className={styles.actions}>
+          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setActiveDate(0);setDatePosted(0)}}>Clear</button>
+          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setDatePosted(activeDate)}}>Show Results</button>
+        </div>
       </ul>}
 
     </div>

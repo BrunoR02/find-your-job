@@ -23,7 +23,7 @@ export default function FilterMenu({setFilters}:PropsType){
   return (
     <div className={styles.menu}>
       <SearchFilter Search={(value:string)=>{setFilterParams(state=>({...state,search:value}));setHasChanged(true)}}/>
-      <FilterByDataPosted setDatePosted={(day:number)=>{console.log(day);setFilterParams(state=>({...state,datePosted:day}))}}/>
+      <FilterByDataPosted setDatePosted={(day:number)=>{setFilterParams(state=>({...state,datePosted:day}));setHasChanged(true)}}/>
       {/* <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>{
         //Compare if the workplace list has really changed to refetch again, if not, it 
         //doesnt refetch at all, avoiding doing it unnecessarily.

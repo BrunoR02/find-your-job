@@ -40,7 +40,8 @@
   flex-direction: column;
   position: absolute;
   top: 75%;
-  width: 200px;
+  left: -55%;
+  width: 250px;
   padding-top: 10px;
   background-color: #fff;
   border-radius: 5px;
@@ -124,18 +125,25 @@
 	background: white;
 }
 
+.actions{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-right: 10px;
+}
+
 .resultsButton{
-  align-self: flex-end;
-  margin: 10px;
+  margin: 10px 0;
   padding: 10px;
   font-weight: 600;
   color: var(--white);
   background-color: var(--main-blue);
   border: none;
-  border-radius: 5px;;
+  border-radius: 5px;
 }
 
-.resultsButton::before{
+.actions::before{
   position: absolute;
   bottom: 55px;
   left: 0;
