@@ -77,7 +77,6 @@ export default function SignupForm(){
           jobTitle:user.jobTitle,
           email:user.email,
           profileUrl:imageUrl,
-          savedJobs: JSON.stringify([]),
           bio: ""
         }
 

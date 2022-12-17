@@ -38,11 +38,11 @@ export function FavoriteContextProvider({children}:{children:React.ReactNode}){
   },[])
 
   async function retrieveFavorites(token:string){
-    setCurrentToken(token)
+    // setCurrentToken(token)
 
-    const data = await getDisplayInfo(token)
+    // const data = await getDisplayInfo(token)
 
-    setFavorites(data.savedJobs)
+    // setFavorites(data.savedJobs)
   }
 
   //Get token from localStorage

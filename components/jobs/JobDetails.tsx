@@ -42,10 +42,10 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
 
           <div className={styles.actions}>
             <Link href={jobInfo.applyUrl}><a target="_blank"><button className={styles.button}>Apply Now</button></a></Link> 
-            <SaveButton jobId={jobInfo.id} closeDetails={
+            {/* <SaveButton jobId={jobInfo.id} closeDetails={
               //Close Details if it is mobile and is on saved-jobs page, so it can load smoother.
               isMobile && router.asPath.includes("saved-jobs") ? ()=>closeMobileHandler() : ()=>{}
-              }/>
+              }/> */}
           </div>
         </section>
 

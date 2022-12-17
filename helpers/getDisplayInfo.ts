@@ -4,7 +4,6 @@ import { GET_DISPLAY_INFO } from "../src/queries/users"
 export type DisplayInfoType = {
   name: string
   profilePicture: string
-  savedJobs: string[]
   username: string
   id:string
 }
@@ -26,7 +25,6 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
   let returnData:DisplayInfoType = {
     username: "",
     profilePicture: "",
-    savedJobs: [],
     name: "",
     id:""
   }
@@ -35,7 +33,6 @@ export default async function getDisplayInfo(token:string):Promise<DisplayInfoTy
       returnData = {
         name:data[key].name,
         profilePicture:data[key].profileUrl,
-        savedJobs:JSON.parse(data[key].savedJobs),
         username: data[key].username,
         id: key
       }

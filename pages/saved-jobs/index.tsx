@@ -46,16 +46,17 @@ const SavedJobsPage:NextPage = ()=>{
 
   //Check if user has permission to see the page.
   useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      router.replace("/")
-    }
+    router.replace("/")
+    // if(!localStorage.getItem("token")){
+    //   router.replace("/")
+    // }
   },[isLogged,router])
 
-  if(error) return <ApolloErrorMessage error={error}/>
+  // if(error) return <ApolloErrorMessage error={error}/>
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Saved Jobs</title>
         <meta name="description" content="List of Saved Jobs by the user"/>
       </Head>
@@ -76,7 +77,7 @@ const SavedJobsPage:NextPage = ()=>{
           data={data && jobList.find((job:NewJobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}
           loading={loading || isLoading}
         />}
-      </div>}
+      </div>} */}
     </>
     
   )
