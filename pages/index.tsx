@@ -23,7 +23,6 @@ const Home: NextPage = () => {
 
   // let query = GET_JOB_LIST
 
-  const {datePosted,jobLevels} = filters
   // //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
   // if(workplaces.length!==0){
   //   if(workplaces.length === 1 && workplaces[0] === "remote"){
@@ -46,10 +45,14 @@ const Home: NextPage = () => {
   //Save active job id to turn it active, displaying the Job Details component and additional styles
   const [activeId,setActiveId] = useState<string | null>(null)
   //State to save the retrieved Jobs list that came from Graphql Jobs API.
-  const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
+  // const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
+  let fetching = false
+
   async function getJobs(pag:number,datePosted:number,levels:string[]){
+    if(fetching) return
+    fetching = true
     setLoading(true)
     const requestPayload = {
       companySkills: true,
@@ -62,7 +65,7 @@ const Home: NextPage = () => {
       numJobs: 10*pag,
       previousListingHashes: []
     }
-
+    
     const response = await fetch("https://www.zippia.com/api/jobs",{
       method:"POST",
       body:JSON.stringify(requestPayload),
@@ -91,14 +94,16 @@ const Home: NextPage = () => {
         setJobList([])
       }
     }
-
+    
     setLoading(false)
-    console.log(data)
   }
 
   useEffect(()=>{
+    
+    if(hasFiltersUpdated) getJobs(1,filters.datePosted,filters.jobLevels)
+    else if(jobList.length===0) getJobs(1,filters.datePosted,filters.jobLevels)
+    else if(pagination>1) getJobs(pagination,filters.datePosted,filters.jobLevels)
 
-    getJobs(pagination,datePosted,jobLevels)
     // if(data){
     //   //Save Job list from API
     //   setJobList(jobData)
@@ -107,13 +112,13 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[pagination,datePosted,jobLevels])  
+  },[filters,hasFiltersUpdated,pagination])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.
     if(hasFiltersUpdated){
-      setPagination(1)
       if(!loading){
+        setPagination(1)
         setHasFiltersUpdated(false)
       }
     }

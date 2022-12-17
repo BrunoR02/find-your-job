@@ -48,7 +48,7 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
           </div>
         </section>
 
-        <TagList list={jobInfo.tags}/>
+        <TagList list={jobInfo.tags.length>6?jobInfo.tags.splice(0,6):jobInfo.tags}/>
 
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company}</span>
