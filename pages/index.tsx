@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import FilterMenu from '../components/filters/FilterMenu'
 import JobDetails from '../components/jobs/JobDetails'
 import JobList from '../components/jobs/JobList'
@@ -20,6 +20,8 @@ const Home: NextPage = () => {
   const [filters,setFilters] = useState<FiltersType>({datePosted:0,jobLevels:[]})
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
   const [loading,setLoading] = useState(false)
+
+  const fetching = useRef<boolean>(false)
 
   // let query = GET_JOB_LIST
 
@@ -48,11 +50,9 @@ const Home: NextPage = () => {
   // const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
-  let fetching = false
-
-  async function getJobs(pag:number,datePosted:number,levels:string[]){
-    if(fetching) return
-    fetching = true
+  const getJobs = useCallback(async (pag:number,datePosted:number,levels:string[])=>{
+    if(fetching.current) return
+    fetching.current = true
     setLoading(true)
     const requestPayload = {
       companySkills: true,
@@ -95,15 +95,15 @@ const Home: NextPage = () => {
         setJobList([])
       }
     }
-    
+    fetching.current = false
     setLoading(false)
-  }
+  },[fetching,jobList.length])
 
   useEffect(()=>{
     
     if(hasFiltersUpdated) getJobs(1,filters.datePosted,filters.jobLevels)
     else if(jobList.length===0) getJobs(1,filters.datePosted,filters.jobLevels)
-    else if(pagination>1) getJobs(pagination,filters.datePosted,filters.jobLevels)
+    else if(pagination>1 && jobList.length !== pagination*10) getJobs(pagination,filters.datePosted,filters.jobLevels)
 
     // if(data){
     //   //Save Job list from API
@@ -113,7 +113,7 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[filters,hasFiltersUpdated,pagination])  
+  },[filters,hasFiltersUpdated,pagination,jobList.length,getJobs])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.
@@ -162,7 +162,7 @@ export async function getStaticProps(){
 
   //Create initial connection with MySQL and Apollo Client avoiding delay on first real request.
   const {data,error} = await userClient.query({query:LOAD_CLIENT,fetchPolicy:"network-only"})
-  console.log(data.loadClient)
+  // console.log(data.loadClient)
 
   return {
     props: {}

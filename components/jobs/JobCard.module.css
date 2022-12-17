@@ -31,13 +31,12 @@
 .jobLevel{
   padding: 5px 10px;
   font-size: 0.8em;
-  color: var(--white);
+  color: #fff;
   background-color: var(--main-blue);
   border-radius: 20px;
 }
 
 .jobLevel:hover{
-  color: #fff;
   background: var(--dark-blue);
 }
 
