@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { NewJobType } from "../../helpers/typeDefs"
 import JobDetailsPlaceholder from "../layout/LoaderPlaceholder/JobDetailsPlaceholder"
 import styles from "./JobDetails.module.css"
+import JobLevelsList from "./JobLevelsList"
 import SaveButton from "./SaveButton"
 import TagList from "./TagList"
 
@@ -49,6 +50,8 @@ export default function JobDetails({data,closeMobileHandler,loading}: PropsType)
         </section>
 
         <TagList list={jobInfo.tags.length>6?jobInfo.tags.splice(0,6):jobInfo.tags}/>
+
+        <JobLevelsList list={jobInfo.jobLevels}/>
 
         <section className={styles.info}>
           <span className={styles.companyName}>{jobInfo.company}</span>

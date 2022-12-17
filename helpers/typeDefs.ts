@@ -19,6 +19,7 @@ export type NewJobType = {
   location: string
   applyUrl:string
   postedDate: string
+  jobLevels: string[]
 }
 
 export type FiltersType = {

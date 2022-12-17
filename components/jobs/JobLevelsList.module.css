@@ -1,0 +1,22 @@
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content:flex-end;
+  gap: 10px;
+  margin: 00px 10px 10px 0px;
+}
+
+.item{
+  padding: 5px 10px;
+  font-size: 0.9em;
+  color: #fff;
+  background-color: var(--main-blue);
+  border-radius: 20px;
+  cursor:default;
+}
+
+.item:hover{
+  color: #fff;
+  background: var(--dark-blue);
+}

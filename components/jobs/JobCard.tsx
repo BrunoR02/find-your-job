@@ -14,7 +14,10 @@ export default function JobCard({data,addClass,activeHandler}:PropsType){
 
   return (
     <li onClick={activeHandler} className={styles.card + " " + addClass}>
-      <h4 className={styles.title}>{data.title}</h4>
+      <div className={styles.topBar}>
+        <h4 className={styles.title}>{data.title}</h4>
+        <span className={styles.jobLevel}>{data.jobLevels[0]}</span>
+      </div>
       <span className={styles.companyName}>{data.company}</span>
       <p className={styles.description}>{data.description}</p>
       <div className={styles.info}>

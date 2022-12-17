@@ -85,7 +85,8 @@ const Home: NextPage = () => {
         company:job.companyName,
         location:job.location,
         applyUrl:job.OBJurl,
-        postedDate:job.postedDate
+        postedDate:job.postedDate,
+        jobLevels:job.jobLevels
       }))
       if(data.jobs.length!==0) {
         setJobList(list)

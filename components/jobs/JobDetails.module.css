@@ -81,16 +81,21 @@
   box-shadow: 0 10px 5px var(--white);
 }
 
+.companyName,.date,.location{
+  flex: 1;
+}
+
 .companyName{
   display: block;
   margin: 0;
-  font-size: 1.1em;
+  font-size: 1em;
   color: var(--light-gray);  
 }
 
 .date{
   font-size: 0.9em;
   font-weight: 500;
+  text-align: center;
   color: var(--main-blue);
 }
 
@@ -98,6 +103,7 @@
   color: var(--black);
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .location::before{
