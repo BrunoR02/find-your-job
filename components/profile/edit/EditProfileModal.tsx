@@ -40,7 +40,7 @@ export default function EditProfileModal({profile,closeModal}:PropsType){
 
     const userData = {
       name: capitalizeFirstLetters(nameInput.value),
-      title: capitalizeFirstLetters(titleInput.value),
+      jobTitle: capitalizeFirstLetters(titleInput.value),
       location: capitalizeFirstLetters(locationInput.value),
       bio: bioInput,
       profileUrl: displayInfo.profilePicture

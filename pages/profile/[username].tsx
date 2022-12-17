@@ -43,7 +43,6 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
   if(context.params?.username){
     const response = await fetch(`https://find-your-job-47498-default-rtdb.firebaseio.com/users.json?orderBy="username"&equalTo="${context.params.username}"`)
     const data = await response.json()
-    console.log(data)
     for(const key in data){
       profile = {
         name:data[key].name,
