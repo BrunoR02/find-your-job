@@ -4,12 +4,12 @@
 
 ## Capturas de Tela
 <div style="display: flex, margin: 20px">
-<img src="https://user-images.githubusercontent.com/52260932/193148565-bcac03a4-9cba-49a7-baa4-3fd244387db2.png" width="49%">
-<img src="https://user-images.githubusercontent.com/52260932/193148414-ef4e9b17-108d-41e2-8b9c-4f65e8ced5ef.png" width="49%">
-<img src="https://user-images.githubusercontent.com/52260932/193150461-cc023822-40b0-442b-b2ce-6ba7a0910b85.png" width="49%">
-<img src="https://user-images.githubusercontent.com/52260932/193148683-27d56b61-6e47-4639-be00-c9d456119784.png" width="49%">
-<img src="https://user-images.githubusercontent.com/52260932/193154238-5b893770-8d21-4940-bc18-43bff488cc38.png" width="49%">
-<img src="https://user-images.githubusercontent.com/52260932/193150275-3af78e52-6c8a-4078-9dfc-67e6d268bd51.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268316-716f4c01-fd41-4c35-b31e-322aa47ace04.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268579-97115a96-ef7e-416f-9580-3382ea5ea1b7.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268599-a63c6fc0-83be-4b69-a5d9-c6c56888f7e0.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268619-667934bf-24b5-41fb-8d56-7bb51dacc427.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268678-63666652-3a8d-466a-8f41-fa631c974c14.png" width="49%">
+<img src="https://user-images.githubusercontent.com/52260932/208268695-3352a69c-2a39-4463-bc9f-cde0a2931f6b.png" width="49%">
 
 </div>
 
