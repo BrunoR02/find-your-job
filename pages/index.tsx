@@ -17,13 +17,13 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [pagination,setPagination] = useState(1)
-  const [filters,setFilters] = useState<FiltersType>({datePosted:0})
+  const [filters,setFilters] = useState<FiltersType>({datePosted:0,jobLevels:[]})
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
   const [loading,setLoading] = useState(false)
 
   // let query = GET_JOB_LIST
 
-  const {datePosted} = filters
+  const {datePosted,jobLevels} = filters
   // //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
   // if(workplaces.length!==0){
   //   if(workplaces.length === 1 && workplaces[0] === "remote"){
@@ -49,12 +49,13 @@ const Home: NextPage = () => {
   const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
-  async function getJobs(pag:number,datePosted:number){
+  async function getJobs(pag:number,datePosted:number,levels:string[]){
     setLoading(true)
     const requestPayload = {
       companySkills: true,
       dismissedListingHashes: [],
       fetchJobDesc: true,
+      jobLevels:levels,
       jobTitle: "Developer",
       locations: [],
       postingDateRange: datePosted + "d",
@@ -97,7 +98,7 @@ const Home: NextPage = () => {
 
   useEffect(()=>{
 
-    getJobs(pagination,datePosted)
+    getJobs(pagination,datePosted,jobLevels)
     // if(data){
     //   //Save Job list from API
     //   setJobList(jobData)
@@ -106,7 +107,7 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[pagination,datePosted])  
+  },[pagination,datePosted,jobLevels])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.

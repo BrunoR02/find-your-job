@@ -8,6 +8,7 @@ type PropsType = {
 
 export function FilterByDataPosted({setDatePosted}:PropsType){
   const [activeDate,setActiveDate] = useState(0)
+  const [filterLabel,setFilterLabel] = useState("Date Posted")
   const [showOptions,setShowOptions] = useState(false)
 
   const dateOptions = [
@@ -17,9 +18,11 @@ export function FilterByDataPosted({setDatePosted}:PropsType){
     {label:"Past Month",value:30}
   ]
 
+  
+
   return (
     <div className={styles.container}>
-      <button className={styles.showButton} onClick={()=>setShowOptions(state=>!state)}>Data Posted</button>
+      <button className={styles.showButton + " " + (showOptions && styles.showButtonActive)} onClick={()=>setShowOptions(state=>!state)}>{filterLabel}</button>
 
       {showOptions && <Backdrop onClickHandler={()=>setShowOptions(false)}/>}
 
@@ -45,8 +48,8 @@ export function FilterByDataPosted({setDatePosted}:PropsType){
           </li>)
         })}
         <div className={styles.actions}>
-          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setActiveDate(0);setDatePosted(0)}}>Clear</button>
-          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setDatePosted(activeDate)}}>Show Results</button>
+          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setActiveDate(0);setDatePosted(0);setFilterLabel("Date Posted")}}>Clear</button>
+          <button className={styles.resultsButton} onClick={()=>{setShowOptions(false);setDatePosted(activeDate);setFilterLabel(activeDate===0?"Date Posted":dateOptions.find(date=>date.value===activeDate)?.label as string)}}>Show Results</button>
         </div>
       </ul>}
 

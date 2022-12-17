@@ -23,6 +23,7 @@ export type NewJobType = {
 
 export type FiltersType = {
   datePosted: number,
+  jobLevels:string[]
 }
 
 export type ProfileType ={
