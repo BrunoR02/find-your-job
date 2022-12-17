@@ -20,7 +20,7 @@
   background-color: #1f7979;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
   .list {
     width: 80%;
     margin-right: 0;

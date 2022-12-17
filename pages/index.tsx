@@ -131,9 +131,14 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Home - Search Jobs</title>
+        <title>Home - Developer Jobs</title>
         <meta name="description" content="Search your dream Job on Find Your Job"/>
       </Head>
+
+      <div className={styles.titleContainer}>
+        <h2 className={styles.pageTitle}>Developer Jobs</h2>
+      </div>
+
       <FilterMenu setFilters={(filtersParams:FiltersType)=>{setFilters(filtersParams);setHasFiltersUpdated(true)}}/>
       
       {loading && <LoadingSpinner/>}
