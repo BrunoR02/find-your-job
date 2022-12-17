@@ -3,13 +3,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  margin: 0 auto;
+  gap: 10px;
+  width: 90%;
+  margin: 10px auto;
   padding: 0 15px;
 }
 
 .item{
-  margin: 0 0 10px 10px;
   padding: 5px 10px;
   border: 1px solid var(--main-blue);
   border-radius: 15px;

@@ -43,7 +43,7 @@ export default function EditProfileModal({profile,closeModal}:PropsType){
       title: capitalizeFirstLetters(titleInput.value),
       location: capitalizeFirstLetters(locationInput.value),
       bio: bioInput,
-      profilePicture: displayInfo.profilePicture
+      profileUrl: displayInfo.profilePicture
     }
 
     let error = false
@@ -68,7 +68,7 @@ export default function EditProfileModal({profile,closeModal}:PropsType){
         }).catch(err=>console.log(err)) as Response
 
         const {imageUrl} = await res.json()
-        userData.profilePicture = imageUrl
+        userData.profileUrl = imageUrl
 
         await fetch("/api/image/delete",{
           method: "POST",
@@ -81,18 +81,36 @@ export default function EditProfileModal({profile,closeModal}:PropsType){
     }
 
     if(!error){
-      const {data} = await userClient.mutate({mutation:UPDATE_USER_PROFILE,variables:{input:{...userData,token}}})
+      const response = await fetch(`https://find-your-job-47498-default-rtdb.firebaseio.com/users/${displayInfo.id}.json`,{
+        method:"PATCH",
+        body:JSON.stringify(userData),
+        headers:{
+          "Content-Type":"application/json"
+        }
+      })
 
-      const response = data.updateUserProfile
-  
-      if(!response.error){
-        const alert = {type: "success",message:response.message}
+      if(response.status === 200){
+        const alert = {type: "success",message:"Changes has been saved!"}
         sessionStorage.setItem("alert",JSON.stringify(alert))
         router.reload()
       } else {
+        console.log(await response.json())
         setLoading(false)
-        dispatch(actions.createAlert({type:"error",message:response.message}))
+        dispatch(actions.createAlert({type:"error",message:"Error Sending Data"}))
       }
+      return 
+      // const {data} = await userClient.mutate({mutation:UPDATE_USER_PROFILE,variables:{input:{...userData,token}}})
+
+      // const response = data.updateUserProfile
+  
+      // if(!response.error){
+      //   const alert = {type: "success",message:response.message}
+      //   sessionStorage.setItem("alert",JSON.stringify(alert))
+      //   router.reload()
+      // } else {
+      //   setLoading(false)
+      //   dispatch(actions.createAlert({type:"error",message:response.message}))
+      // }
     }
   }
 

@@ -30,21 +30,42 @@ export default function RegisterForm(){
       password: passwordInput.value
     }
 
-    const {data,errors} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
+    const res = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCqlmVQQnarUyNiz7EYMKRRCleq_ZP2tXY",{
+      method:"POST",
+      body:JSON.stringify({...user,returnSecureToken:true})
+    })
 
-    const {response,token} = data.login
+    const resData = await res.json()
 
-    //Send the right
-    const alertType = response.error ? "error" : "success"
-    const alertMessage:string = response.message
-
-    if(!response.error){
-      login(token)
-      retrieveFavorites(token)
+    if(res.status === 200){
+      const expirationTime = new Date(new Date().getTime() + (+resData.expiresIn * 1000)).getTime().toString()
+      login(resData.idToken,expirationTime)
+      retrieveFavorites(resData.idToken)
+      dispatch(actions.createAlert({type:"success",message:"Logged in!"}))
+    } else if(resData.error.message.includes("EMAIL")){
+      dispatch(actions.createAlert({type:"error",message:"Email is not registered yet. Register it first."}))
+    } else if(resData.error.message.includes("PASSWORD")){
+      dispatch(actions.createAlert({type:"error",message:"Incorrect password. Try again."}))
     }
     setLoading(false)
+
+    return
+
+    // const {data,errors} = await userClient.mutate({mutation:LOGIN_USER,variables:{input:{...user}}})
+
+    // const {response,token} = data.login
+
+    // //Send the right
+    // const alertType = response.error ? "error" : "success"
+    // const alertMessage:string = response.message
+
+    // if(!response.error){
+    //   login(token)
+    //   retrieveFavorites(token)
+    // }
+    // setLoading(false)
     
-    dispatch(actions.createAlert({type:alertType,message:alertMessage}))
+    // dispatch(actions.createAlert({type:alertType,message:alertMessage}))
   }
 
   let formIsValid = emailInput.isValid && passwordInput.isValid

@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-type OptionsType = 
-{
-    type: "name" | "title" | "location" | "email" | "login" | "password" | "novalidate"
+type OptionsType = {
+    type: "name" | "username" | "title" | "location" | "email" | "login" | "password" | "novalidate"
     form?: "register" | "login"
     initialValue?: string
 }
@@ -23,6 +22,12 @@ export default function useInput({type,form="register",initialValue=""}:OptionsT
             let testValidation = !(!(/^[A-Z a-z]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 2)
             
             if(!testValidation){errorMessage = "Please enter a valid name. \n For example: Robert Johnson"}
+            
+            setIsValid(errorMessage === null)
+        } else if(inputType==="username"){
+            let testValidation = !(!(/^[a-zA-Z0-9]+$/.test(enteredValue)) || (enteredValue.indexOf(" ") === 0) || enteredValue.length < 4)
+
+            if(!testValidation){errorMessage = "Please enter a valid username. \n For example: brunolucas02"}
             
             setIsValid(errorMessage === null)
         } else if(inputType==="title"){

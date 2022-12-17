@@ -7,6 +7,28 @@
   margin: 0 auto;
 }
 
+.titleContainer{
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageTitle{
+  margin: 20px 0 0 0;
+  font-size: 1.8em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--main-blue);
+  cursor: default;
+}
+
+@media screen and (min-width:1024px){
+  .pageTitle:hover{
+    color: var(--dark-blue);
+  }
+}
+  
+
 .savedTitle::before{
   align-self: center;
   content: "";

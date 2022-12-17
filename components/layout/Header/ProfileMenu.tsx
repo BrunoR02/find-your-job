@@ -56,7 +56,7 @@ export default function ProfileMenu(){
       <div className={styles.picture}><Image priority src={picture.url} alt="profile-picture" width="40%" height="40%" /></div>
       <p className={styles.displayName}>{displayInfo.displayName}</p>
       <ul className={styles.menu + " " + styles.menuActive}>
-        {isLogged && <Link href={"/profile/"+displayInfo.id}><li className={styles.option}>Profile</li></Link>}
+        {isLogged && <Link href={"/profile/"+displayInfo.username}><li className={styles.option}>Profile</li></Link>}
         {!isLogged && <Link href="/login"><li className={styles.option}>Login</li></Link>}
         {!isLogged && <Link href="/signup"><li className={styles.option}>Sign up</li></Link>}
         {isLogged && <li className={styles.option} onClick={logoutHandler}>Logout</li>}

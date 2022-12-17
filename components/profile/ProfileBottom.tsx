@@ -13,7 +13,7 @@ export default function ProfileBottom({profile}:{profile:ProfileType}){
   return (
     <div className={styles.container}>
       <BioText text={profile.bio}/>
-      {router.query.userId===displayInfo.id && <EditProfileButton profile={profile}/>}
+      {router.query.username===displayInfo.username && <EditProfileButton profile={profile}/>}
     </div>
   )
 }

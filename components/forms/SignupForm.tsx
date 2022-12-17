@@ -10,9 +10,11 @@ import LoadingSpinner from "../LoadingSpinner"
 import styles from "./Form.module.css"
 import ImageInput from "./inputs/ImageInput"
 import SingleInput from "./inputs/SingleInput"
+import * as bcrypt from "bcryptjs"
 
 export default function SignupForm(){
   const nameInput = useInput({type:"name"})
+  const usernameInput = useInput({type:"username"})
   const titleInput = useInput({type:"title"})
   const locationInput = useInput({type:"location"})
   const emailInput = useInput({type:"email"})
@@ -31,8 +33,9 @@ export default function SignupForm(){
 
     const user = {
       name: capitalizeFirstLetters(nameInput.value),
-      title: capitalizeFirstLetters(titleInput.value),
-      location: capitalizeFirstLetters(locationInput.value),
+      username: usernameInput.value,
+      jobTitle: capitalizeFirstLetters(titleInput.value),
+      locationName: capitalizeFirstLetters(locationInput.value),
       email: emailInput.value,
       password: passwordInput.value,
     }
@@ -45,43 +48,94 @@ export default function SignupForm(){
       setLoading(false)
     } else {
       //Send user data to MySQL database getting back a readable response to the client.
-      const {data} = await userClient.mutate({mutation:SIGNUP_USER,variables:{input:{...user}},fetchPolicy:"network-only"})
-      const response = data.signup
-  
-      const alertType = response.error ? "error" : "success"  
-      const alertMessage:string = response.message
+      // const {data} = await userClient.mutate({mutation:SIGNUP_USER,variables:{input:{...user}},fetchPolicy:"network-only"})
+      // const response = data.signup
+      const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCqlmVQQnarUyNiz7EYMKRRCleq_ZP2tXY",{
+        method:"POST",
+        body: JSON.stringify({email:user.email,password:user.password,returnSecureToken:true})
+      })
+      const data = await response.json()
 
-      if(response.error){
-        dispatch(actions.createAlert({type:alertType,message:alertMessage}))
-      } else {  
+      if(response.status === 200){
         const request_payload = {type: "register"}
-        const blob = new Blob([JSON.stringify(request_payload)],{
-          type: "application/json"
-        }) 
         const formData = new FormData()
         formData.append("image",imageFile as File)
         formData.append("object",JSON.stringify(request_payload))
 
         //Upload image file to AWS S3 storage.
-        const res = await fetch("/api/image/upload",{
+        const resUploadImage = await fetch("/api/image/upload",{
           method: "POST",
           body: formData,
         }).catch(err=>console.log(err.message)) as Response
 
-        const {imageUrl} = await res.json()
+        const {imageUrl} = await resUploadImage.json()
 
-        //Use mutation to add created imageUrl from S3 to MySQL Database.
-        const {data:profile_data} = await userClient.mutate({mutation:CHANGE_PROFILE_PICTURE,variables:{input:{url:imageUrl,email: user.email}},fetchPolicy:"network-only"})
-        const {error,message} = profile_data.changeProfilePicture
-
-        if(error){
-          console.log(message)
-        } else {
-          router.push("/")
-          dispatch(actions.createAlert({type:"success",message:alertMessage}))
+        const userData = {
+          name:user.name,
+          username: user.username,
+          locationName:user.locationName,
+          jobTitle:user.jobTitle,
+          email:user.email,
+          profileUrl:imageUrl,
+          bio: ""
         }
+
+        const resUserData = await fetch("https://find-your-job-47498-default-rtdb.firebaseio.com/users.json",{
+          method:"POST",
+          body: JSON.stringify(userData),
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+
+        if(resUserData.status === 200){
+          router.push("/")
+          dispatch(actions.createAlert({type:"success",message:"User was registered successfully!"}))
+          return
+        } else {
+          await resUserData.json().then(res=>console.log("Error posting user data to Firebase:",res.error))
+        }
+      } else if(data.error.message.includes("EMAIL")){
+        dispatch(actions.createAlert({type:"error",message:"This email already exists! Try another."}))
       }
+
       setLoading(false)
+      return
+
+      // const alertType = response.error ? "error" : "success"  
+      // const alertMessage:string = response.message
+
+      // if(response.error){
+      //   dispatch(actions.createAlert({type:alertType,message:alertMessage}))
+      // } else {  
+      //   const request_payload = {type: "register"}
+      //   const blob = new Blob([JSON.stringify(request_payload)],{
+      //     type: "application/json"
+      //   }) 
+      //   const formData = new FormData()
+      //   formData.append("image",imageFile as File)
+      //   formData.append("object",JSON.stringify(request_payload))
+
+      //   //Upload image file to AWS S3 storage.
+      //   const res = await fetch("/api/image/upload",{
+      //     method: "POST",
+      //     body: formData,
+      //   }).catch(err=>console.log(err.message)) as Response
+
+      //   const {imageUrl} = await res.json()
+
+      //   //Use mutation to add created imageUrl from S3 to MySQL Database.
+      //   const {data:profile_data} = await userClient.mutate({mutation:CHANGE_PROFILE_PICTURE,variables:{input:{url:imageUrl,email: user.email}},fetchPolicy:"network-only"})
+      //   const {error,message} = profile_data.changeProfilePicture
+
+      //   if(error){
+      //     console.log(message)
+      //   } else {
+      //     router.push("/")
+      //     dispatch(actions.createAlert({type:"success",message:alertMessage}))
+      //   }
+      // }
+      // setLoading(false)
     }
     
   }
@@ -99,6 +153,7 @@ export default function SignupForm(){
       <form noValidate className={styles.form} onSubmit={submitHandler}>
         <ImageInput required initialImage="https://find-your-job.s3.sa-east-1.amazonaws.com/icons/guest-profile.png" caption="Upload your profile picture" setImageInput={(image:File)=>setImageFile(image)}/>
         <SingleInput required disabled={loading} input={nameInput} label="Name" placeholder="Insert your full name"/>
+        <SingleInput required disabled={loading} input={usernameInput} label="Username" placeholder="Insert your username"/>
         <SingleInput required disabled={loading} input={titleInput} label="Title" placeholder="Insert your job title"/>
         <SingleInput required disabled={loading} input={locationInput} label="Location" placeholder="Insert your location"/>
         <SingleInput required disabled={loading} input={emailInput} label="Email" placeholder="Insert your email"/>

@@ -39,9 +39,23 @@ const ProfilePage:NextPage<{profile:ProfileType}> = ({profile})=>{
 export const getServerSideProps:GetServerSideProps = async (context)=>{
 
   let profile: ProfileType | null = null;
-  if(context.params?.userId){
-    profile = await getUserProfile(context.params.userId)
+
+  if(context.params?.username){
+    const response = await fetch(`https://find-your-job-47498-default-rtdb.firebaseio.com/users.json?orderBy="username"&equalTo="${context.params.username}"`)
+    const data = await response.json()
+    console.log(data)
+    for(const key in data){
+      profile = {
+        name:data[key].name,
+        profilePicture:data[key].profileUrl,
+        jobTitle:data[key].jobTitle,
+        locationName:data[key].locationName,
+        bio:data[key].bio
+      }
+    }
+    // profile = await getUserProfile(context.params.userId)
   }
+
   return {
     props:{
       profile: profile || null

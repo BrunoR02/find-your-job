@@ -10,7 +10,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import ApolloErrorMessage from "../../components/messages/ApolloErrorMessage";
 import NotFoundMessage from "../../components/messages/NotFoundMessage";
 
-import { JobType } from "../../helpers/typeDefs";
+import { NewJobType } from "../../helpers/typeDefs";
 import { GET_FAVORITE_JOBS } from "../../src/queries/jobs";
 import AuthContext, { AuthContextType } from "../../src/stores/authContext";
 import FavoriteContext, { FavoriteContextType } from "../../src/stores/FavoriteContext";
@@ -19,7 +19,7 @@ import styles from "../../styles/Home.module.css"
 
 const SavedJobsPage:NextPage = ()=>{
   const [activeId,setActiveId] = useState<string | null>(null)
-  const [jobList,setJobList] = useState<JobType[]>([])
+  const [jobList,setJobList] = useState<NewJobType[]>([])
 
   const router = useRouter()
 
@@ -46,16 +46,17 @@ const SavedJobsPage:NextPage = ()=>{
 
   //Check if user has permission to see the page.
   useEffect(()=>{
-    if(!localStorage.getItem("token")){
-      router.replace("/")
-    }
+    router.replace("/")
+    // if(!localStorage.getItem("token")){
+    //   router.replace("/")
+    // }
   },[isLogged,router])
 
-  if(error) return <ApolloErrorMessage error={error}/>
+  // if(error) return <ApolloErrorMessage error={error}/>
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Saved Jobs</title>
         <meta name="description" content="List of Saved Jobs by the user"/>
       </Head>
@@ -73,10 +74,10 @@ const SavedJobsPage:NextPage = ()=>{
         />
 
         {activeId && <JobDetails 
-          data={data && jobList.find((job:JobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}
+          data={data && jobList.find((job:NewJobType)=>job.id===activeId)} closeMobileHandler={()=>setActiveId(null)}
           loading={loading || isLoading}
         />}
-      </div>}
+      </div>} */}
     </>
     
   )
