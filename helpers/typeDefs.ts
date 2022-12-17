@@ -22,7 +22,6 @@ export type NewJobType = {
 }
 
 export type FiltersType = {
-  search: string,
   datePosted: number,
 }
 

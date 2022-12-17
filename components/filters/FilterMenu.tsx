@@ -11,7 +11,7 @@ type PropsType = {
 
 export default function FilterMenu({setFilters}:PropsType){
   const [hasChanged,setHasChanged] = useState(false)
-  const [filterParams,setFilterParams] = useState<FiltersType>({search: "",datePosted:0})
+  const [filterParams,setFilterParams] = useState<FiltersType>({datePosted:0})
 
   useEffect(()=>{
     if(hasChanged){
@@ -22,7 +22,8 @@ export default function FilterMenu({setFilters}:PropsType){
 
   return (
     <div className={styles.menu}>
-      <SearchFilter Search={(value:string)=>{setFilterParams(state=>({...state,search:value}));setHasChanged(true)}}/>
+      {/* <SearchFilter Search={(value:string)=>{setFilterParams(state=>({...state,search:value}));setHasChanged(true)}}/> */}
+      
       <FilterByDataPosted setDatePosted={(day:number)=>{setFilterParams(state=>({...state,datePosted:day}));setHasChanged(true)}}/>
       {/* <FilterByWorkplace setWorkplaces={(list:string[])=>{setFilterParams(state=>{
         //Compare if the workplace list has really changed to refetch again, if not, it 

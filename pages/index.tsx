@@ -9,6 +9,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import ApolloErrorMessage from '../components/messages/ApolloErrorMessage'
 import NotFoundMessage from '../components/messages/NotFoundMessage'
 import userClient from '../config/ApolloClients/UsersClient'
+import convertHtmlToString from '../helpers/convertHtmlToString'
 import { FiltersType, NewJobType } from '../helpers/typeDefs'
 import { GET_JOB_LIST, GET_JOB_LIST_ONSITE, GET_JOB_LIST_REMOTE } from '../src/queries/jobs'
 import { LOAD_CLIENT } from '../src/queries/users'
@@ -16,13 +17,13 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [pagination,setPagination] = useState(1)
-  const [filters,setFilters] = useState<FiltersType>({search:"",datePosted:0})
+  const [filters,setFilters] = useState<FiltersType>({datePosted:0})
   const [hasFiltersUpdated,setHasFiltersUpdated] = useState(false)
   const [loading,setLoading] = useState(false)
 
   // let query = GET_JOB_LIST
 
-  const {search,datePosted} = filters
+  const {datePosted} = filters
   // //Filter query by workplaces. Remote, On-site or Both that is the initial query GET_JOB_LIST.
   // if(workplaces.length!==0){
   //   if(workplaces.length === 1 && workplaces[0] === "remote"){
@@ -48,13 +49,13 @@ const Home: NextPage = () => {
   const [oldJobList,setOldJobList] = useState<NewJobType[]>([])
   const [jobList, setJobList] = useState<NewJobType[]>([])
 
-  async function getJobs(pag:number,search:string,datePosted:number){
+  async function getJobs(pag:number,datePosted:number){
     setLoading(true)
     const requestPayload = {
       companySkills: true,
       dismissedListingHashes: [],
-      fetchJobDescription: true,
-      jobTitle: search,
+      fetchJobDesc: true,
+      jobTitle: "Developer",
       locations: [],
       postingDateRange: datePosted + "d",
       numJobs: 10*pag,
@@ -75,7 +76,7 @@ const Home: NextPage = () => {
       const list:NewJobType[] = data.jobs.map((job:any)=>({
         id:job.jobId,
         title:job.jobTitle,
-        description:job.jobDescription!==''?job.jobDescription:job.snippets.join("\n"),
+        description:convertHtmlToString(job.jobDescription!==''?job.jobDescription:job.snippets.join("\n")),
         tags: job.skillsets.map((skill:string)=>({name:skill})),
         company:job.companyName,
         location:job.location,
@@ -96,7 +97,7 @@ const Home: NextPage = () => {
 
   useEffect(()=>{
 
-    getJobs(pagination,search,datePosted)
+    getJobs(pagination,datePosted)
     // if(data){
     //   //Save Job list from API
     //   setJobList(jobData)
@@ -105,7 +106,7 @@ const Home: NextPage = () => {
     //     setActiveId(jobData[0].id)
     //   }
     // }
-  },[pagination,search,datePosted])  
+  },[pagination,datePosted])  
 
   useEffect(()=>{
     //Reset Pagination when any filter is applied to the list.
